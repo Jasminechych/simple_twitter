@@ -1,7 +1,7 @@
 {
   "name": "simple_twitter",
   "version": "0.1.0",
-  "homepage": "https://github.com/jasminechych/simple_twitter",
+  "homepage": "https://jasminechych.github.io/simple_twitter/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
