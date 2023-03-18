@@ -1,0 +1,12 @@
+import "src/style/reset.scss";
+import "src/style/base.scss";
+
+function App() {
+  return (
+    <div className="App">
+      <h1>Simple Twitter</h1>
+    </div>
+  );
+}
+
+export default App;
