@@ -1,0 +1,31 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "jest/globals": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:prettier/recommended",
+        "prettier"
+    ],
+    "overrides": [
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react", "prettier", "jest"
+    ],
+    "rules": {
+        // ESLint 預設警告是紅色 (danger) 顯示。
+        // Prettier 預設警告也是紅色 (danger) 顯示，不跟 ESLint 混淆，因此改成黃色 (warning) 顯示。
+        // "prettier/prettier": "warn",
+        // suppress errors for missing 'import React' in files
+        "react/react-in-jsx-scope": "off",
+        // 這個設置可以讓ESLint使用Prettier的換行符號設置來處理換行符號的問題，並且自動識別換行符號的類型。
+        "prettier/prettier": ["error", {"endOfLine": "auto"}]
+    }
+}
