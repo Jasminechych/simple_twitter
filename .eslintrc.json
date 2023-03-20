@@ -8,6 +8,7 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:prettier/recommended",
+        "plugin:jest/recommended",
         "prettier"
     ],
     "overrides": [
