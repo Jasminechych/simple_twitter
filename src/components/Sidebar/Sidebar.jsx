@@ -11,18 +11,18 @@ export const Sidebar = () => {
 				<Logo />
 			</a>
 			<div className={style.sidebarItemWrapper}>
-				<div className={style.sidebarItem}>
+				<a href='' className={style.sidebarItem}>
 					<Home className={style.sidebarIcon} />
 					<div className={style.sidebarTitle}>首頁</div>
-				</div>
-				<div className={style.sidebarItem}>
+				</a>
+				<a href='' className={style.sidebarItem}>
 					<User className={style.sidebarUserIcon} />
 					<div className={style.sidebarTitle}>個人資料</div>
-				</div>
-				<div className={style.sidebarItem}>
+				</a>
+				<a href='' className={style.sidebarItem}>
 					<Cog className={style.sidebarIcon} />
 					<div className={style.sidebarTitle}>設定</div>
-				</div>
+				</a>
 			</div>
 			<button className={style.sidebarButton}>推文</button>
 		</div>
