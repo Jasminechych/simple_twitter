@@ -1,5 +1,5 @@
 import style from 'src/components/popularListSection/PopularListSection.module.scss';
-import { PopularListItem } from 'src/components/popularListSection/PopularListItem';
+import { PopularList } from 'src/components/popularListSection/PopularList';
 
 export const PopularListSection = () => {
 	return (
@@ -7,7 +7,7 @@ export const PopularListSection = () => {
 			<div className={style.popularListSectionWrapper}>
 				<h4 className={style.popularListSectionTitle}>推薦跟隨</h4>
 				<div className={style.popularListContainer}>
-					<PopularListItem />
+					<PopularList />
 				</div>
 			</div>
 		</div>
