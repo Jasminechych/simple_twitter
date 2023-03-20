@@ -2,7 +2,7 @@ import 'src/style/reset.scss';
 import 'src/style/base.scss';
 // import { compileString } from "sass";
 import { Sidebar } from 'src/components/Sidebar/Sidebar';
-import { PopularListSection } from 'src/components/popularListSection/PopularListSection';
+import { PopularListSection } from 'src/components/PopularListSection/PopularListSection';
 
 function App() {
 	return (

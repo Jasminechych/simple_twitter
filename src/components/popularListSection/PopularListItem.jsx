@@ -1,4 +1,4 @@
-import style from 'src/components/popularListSection/PopularListItem.module.scss';
+import style from 'src/components/PopularListSection/PopularListItem.module.scss';
 
 export const PopularListItem = ({ name }) => {
 	return (

@@ -1,5 +1,5 @@
-import style from 'src/components/popularListSection/PopularListSection.module.scss';
-import { PopularList } from 'src/components/popularListSection/PopularList';
+import style from 'src/components/PopularListSection/PopularListSection.module.scss';
+import { PopularList } from 'src/components/PopularListSection/PopularList';
 
 export const PopularListSection = () => {
 	return (
