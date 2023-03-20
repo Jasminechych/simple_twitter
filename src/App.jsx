@@ -5,7 +5,7 @@ import 'src/style/base.scss';
 function App() {
 	return (
 		<div className='App'>
-			<h1>Simple Twitter</h1>
+			<h1>Twitter</h1>
 		</div>
 	);
 }
