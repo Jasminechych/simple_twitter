@@ -7,7 +7,7 @@ import { ButtonXL, ButtonL, ButtonM, ButtonS, ButtonSW, ButtonXS } from 'src/com
 function App() {
 	return (
 		<div className='App'>
-			<PopularListSection />
+			<MainPage />
 			<ButtonXL text='ButtonXL' />
 			<ButtonL text='ButtonL' />
 			<ButtonM text='ButtonM' />
