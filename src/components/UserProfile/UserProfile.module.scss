@@ -27,7 +27,7 @@
 
 	.userProfileButton {
 		align-self: flex-end;
-		margin: 16px;
+		margin: 15px;
 	}
 
 	.userProfileInfoWrapper {
@@ -78,5 +78,12 @@
         }
 			}
 		}
+	}
+
+	.tabContainer{
+		margin-top: 31px;
+		display: flex;
+		align-items: center;
+
 	}
 }
