@@ -6,9 +6,7 @@ export const PopularListSection = () => {
 		<div className={style.popularListSectionContainer}>
 			<div className={style.popularListSectionWrapper}>
 				<h4 className={style.popularListSectionTitle}>推薦跟隨</h4>
-				<div className={style.popularListContainer}>
-					<PopularList />
-				</div>
+				<PopularList />
 			</div>
 		</div>
 	);
