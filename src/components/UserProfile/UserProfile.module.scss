@@ -1,0 +1,73 @@
+@import 'src/style/base';
+
+.userProfileContainer {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+
+	.userProfileBackgroundPhoto {
+		width: 100%;
+	}
+
+	.userProfileAvatar {
+		border: 4px solid var(--dark-0);
+		width: 140px;
+		height: 140px;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+		position: absolute;
+		top: 124px;
+		left: 16px;
+	}
+
+	.userProfileButton {
+		align-self: flex-end;
+		margin: 16px;
+	}
+
+	.userProfileInfoWrapper {
+		margin-left: 16px;
+
+		.userProfileNameWrapper {
+			margin-top: 8px;
+			display: flex;
+			flex-direction: column;
+
+			.userProfileName {
+				padding: 3px 0;
+			}
+
+			.userProfileSubName {
+				@extend %font-14-regular;
+				color: var(--secondary-color);
+				padding: 2px 0;
+			}
+		}
+
+		.userProfileIntro {
+			margin: 6px 0 8px 0;
+      padding: 3px 0;
+		}
+
+		.userProfileFollowInfoWrapper {
+			display: flex;
+			flex-direction: row;
+
+			.userProfileFollowing {
+				color: var(--secondary-color);
+        @extend %font-14-regular;
+        padding: 3px 0;
+			}
+
+			.userProfileFollower {
+        color: var(--secondary-color);
+				margin-left: 20px;
+        @extend %font-14-regular;
+        padding: 3px 0;
+			}
+		}
+	}
+}
