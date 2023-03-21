@@ -1,10 +1,8 @@
 @import 'src/style/base.scss';
 
 .inputContainer {
-  // 要刪掉
-  margin-top: 30px;
 	position: relative;
-	width: 540px;
+	width: 100%;
 }
 
 %input {
