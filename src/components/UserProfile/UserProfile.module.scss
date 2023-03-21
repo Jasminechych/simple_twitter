@@ -81,9 +81,11 @@
 	}
 
 	.tabContainer{
+		border-bottom: 1px solid #E6ECF0;
 		margin-top: 31px;
 		display: flex;
 		align-items: center;
+		justify-content: flex-start;
 
 	}
 }
