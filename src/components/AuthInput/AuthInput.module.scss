@@ -1,0 +1,66 @@
+@import 'src/style/base.scss';
+
+.inputContainer {
+  // 要刪掉
+  margin-top: 30px;
+	position: relative;
+	width: 540px;
+}
+
+%input {
+  box-sizing: border-box;
+	border: none;
+	outline: none;
+	width: 100%;
+	height: 54px;
+	padding: 24px 17.84px 4px 17.84px;
+	border-radius: 2px;
+	background-color: #f5f8fa;
+}
+
+.input {
+	@extend %input;
+	border-bottom: 2px solid #657786;
+
+	&:focus,
+	&:hover {
+		border-bottom: 2px solid var(--secondary-blue);
+	}
+
+	&::placeholder {
+		@extend %font-16-regular;
+		color: var(--dark-60);
+	}
+}
+
+.inputError {
+	@extend %input;
+	border-bottom: 2px solid var(--danger-color);
+}
+
+.inputLabel {
+	position: absolute;
+	top: 2px;
+	left: 17.84px;
+	@extend %font-14-regular;
+  line-height: 22px;
+	color: var(--dark-80);
+}
+
+.inputHint {
+	position: absolute;
+	width: 100%;
+	height: 20px;
+	margin-top: 4px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.inputHintMessage,
+.inputHintCounter {
+	font-size: 12px;
+}
+
+.inputHintMessage {
+	color: var(--danger-color);
+}
