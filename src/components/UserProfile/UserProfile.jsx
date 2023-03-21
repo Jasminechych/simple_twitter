@@ -3,6 +3,7 @@ import { ButtonSW } from 'src/components/buttons';
 import { ReactComponent as BackgroundPhoto } from 'src/assets/icons/background-photo.svg';
 import { ReactComponent as AddPhoto } from 'src/assets/icons/addphoto.svg';
 import { LikeList } from 'src/components/LikeList/LikeList';
+import { ReplyListTab } from 'src/components/ReplyListTab/ReplyListTab';
 
 export const UserProfile = ({ username, intro, followingCount, followerCount }) => {
 	return (
@@ -34,6 +35,7 @@ export const UserProfile = ({ username, intro, followingCount, followerCount }) 
 				</div>
 			</div>
 			<div className={style.tabContainer}>
+				<ReplyListTab />
 				<LikeList />
 			</div>
 		</div>
