@@ -1,0 +1,14 @@
+%button {
+	width: auto;
+	border-radius: 50px;
+	color: var(--dark-0);
+	background-color: var(--brand-color);
+}
+
+%buttonWhite {
+	width: auto;
+	border-radius: 50px;
+	border: 1px solid var(--brand-color);
+	color: var(--brand-color);
+	background-color: var(--dark-0);
+}
