@@ -1,0 +1,44 @@
+.sidebarContainer {
+	width: 178px;
+	height: 1200px;
+	display: flex;
+	flex-direction: column;
+
+	.sidebarLogo {
+		margin: 13px 0 0 13px;
+    cursor: pointer;
+	}
+	.sidebarItemWrapper {
+		margin-top: 30px;
+
+		.sidebarItem {
+			margin-left: 13px;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+      margin-bottom: 40px;
+      cursor: pointer;
+      &:hover{
+        color: var(--brand-color);
+      }
+      
+
+      .sidebarIcon{
+        padding-right: 17px;
+      }
+      // UserIcon與其他icon有一點點差距，因此另外抓出來設定後才有對齊
+      .sidebarUserIcon{
+        padding-right: 20px;
+      }
+		}
+	}
+
+  // 暫時的button（等待Button元件）
+  .sidebarButton{
+    width: 178px;
+    height: 46px;
+    background-color: var(--brand-color);
+    border-radius: 30px;
+    color: white;
+  }
+}
