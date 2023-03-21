@@ -6,7 +6,12 @@ export const MainSection = () => {
 	return (
 		<div className={style.mainSectionContainer}>
 			<Header header='首頁' />
-			<UserProfile username='John Doe' followingCount={`${34}個`} followerCount={`${59}位`} />
+			<UserProfile
+				username='John Doe'
+				followingCount={`${34}個`}
+				followerCount={`${59}位`}
+				intro='I am Sarah, a software engineer with 7 years of experience. Nice to meet you!'
+			/>
 		</div>
 	);
 };
