@@ -1,0 +1,9 @@
+@import 'src/components/buttons/button.scss';
+
+.buttonS {
+	padding: 8px 16px;
+	height: 40px;
+	font-size: 16px;
+	font-weight: 400;
+	@extend %button;
+}
