@@ -1,10 +1,9 @@
-.ButtonS {
-	width: 64px;
+@import 'src/components/buttons/button.scss';
+
+.buttonS {
+	padding: 8px 16px;
 	height: 40px;
-  // padding: 8px 16px;
-	border-radius: 50px;
 	font-size: 16px;
 	font-weight: 400;
-	color: var(--dark-0);
-	background-color: var(--brand-color);
+	@extend %button;
 }

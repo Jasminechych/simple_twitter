@@ -1,19 +1,8 @@
-import { ButtonAuth } from 'src/components/buttons/ButtonAuth/ButtonAuth';
+import { ButtonXL } from 'src/components/buttons/ButtonXL/ButtonXL';
 import { ButtonL } from 'src/components/buttons/ButtonL/ButtonL';
 import { ButtonM } from 'src/components/buttons/ButtonM/ButtonM';
 import { ButtonS } from 'src/components/buttons/ButtonS/ButtonS';
 import { ButtonSW } from 'src/components/buttons/ButtonSW/ButtonSW';
-import { ButtonModal } from 'src/components/buttons/ButtonModal/ButtonModal';
-import { ButtonProfile } from 'src/components/buttons/ButtonProfile/ButtonProfile';
-import { ButtonSetting } from 'src/components/buttons/ButtonSetting/ButtonSetting';
+import { ButtonXS } from 'src/components/buttons/ButtonXS/ButtonXS';
 
-export {
-	ButtonAuth,
-	ButtonL,
-	ButtonM,
-	ButtonS,
-	ButtonSW,
-	ButtonModal,
-	ButtonProfile,
-	ButtonSetting,
-};
+export { ButtonXL, ButtonL, ButtonM, ButtonS, ButtonSW, ButtonXS };

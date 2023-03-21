@@ -1,11 +1,9 @@
-.ButtonSW {
-	width: 64px;
+@import 'src/components/buttons/button.scss';
+
+.buttonSW {
+	padding: 8px 16px;
 	height: 40px;
-  // padding: 8px 16px;
-	border-radius: 50px;
 	font-size: 16px;
 	font-weight: 400;
-  border: 1px solid var(--brand-color);
-	color: var(--brand-color);
-	background-color: var(--dark-0);
+	@extend %buttonWhite;
 }
