@@ -1,21 +1,30 @@
+import { useState } from 'react';
 import style from 'src/components/PopularListSection/PopularListItem.module.scss';
+import { ButtonS, ButtonSW } from 'src/components/buttons';
 
-export const PopularListItem = ({ name }) => {
+export const PopularListItem = ({ id, name, avatar, account, initIsFollowing }) => {
+	const [isFollowing, setIsFollowing] = useState(initIsFollowing);
+
+	const handleFollowClick = () => {
+		setIsFollowing(!isFollowing);
+	};
 	return (
-		<div className={style.popularListItemContainer}>
+		<div className={style.popularListItemContainer} id={id}>
 			<div className={style.popularListItemUserPhoto}>
-				<img
-					src='https://stickershop.line-scdn.net/stickershop/v1/product/5077/LINEStorePC/main.png'
-					alt=''
-					className={style.userPhoto}
-				/>
+				<img src={avatar} alt='avatar' className={style.userPhoto} />
 			</div>
 			<div className={style.popularListItemNameAndButton}>
 				<div className={style.popularListItemUserNameWrapper}>
 					<div className={style.popularListItemUserName}>{name}</div>
-					<div className={style.popularListItemUserSubName}>@{name}</div>
+					<div className={style.popularListItemUserSubName}>@{account}</div>
 				</div>
-				<button className={style.popularListItemButton}>正在追隨</button>
+				<div>
+					{isFollowing ? (
+						<ButtonS text='正在跟隨' onClick={handleFollowClick} />
+					) : (
+						<ButtonSW text='跟隨' onClick={handleFollowClick} />
+					)}
+				</div>
 			</div>
 		</div>
 	);

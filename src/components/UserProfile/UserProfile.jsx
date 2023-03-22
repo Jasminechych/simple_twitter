@@ -6,10 +6,12 @@ import { LikeList } from 'src/components/LikeList/LikeList';
 import { ReplyListTab } from 'src/components/ReplyListTab/ReplyListTab';
 import { TweetListTab } from 'src/components/TweetListTab/TweetListTab';
 import { MainSection } from 'src/components/MainSection/MainSection';
+import { Header } from 'src/components/Header/Header';
 
-export const UserProfile = ({ username, account, intro, followingCount, followerCount }) => {
+export const UserProfile = ({ name, account, intro, followingCount, followerCount }) => {
 	return (
-		<MainSection header='首頁'>
+		<MainSection>
+			<Header header='首頁' />
 			<div className={style.userProfileContainer}>
 				<div className={style.userProfileBackgroundPhoto}>
 					<BackgroundPhoto />
@@ -22,7 +24,7 @@ export const UserProfile = ({ username, account, intro, followingCount, follower
 				</div>
 				<div className={style.userProfileInfoWrapper}>
 					<div className={style.userProfileNameWrapper}>
-						<h5 className={style.userProfileName}>{username}</h5>
+						<h5 className={style.userProfileName}>{name}</h5>
 						<div className={style.userProfileSubName}>@{account}</div>
 					</div>
 					<p className={style.userProfileIntro}>{intro}</p>
