@@ -1,6 +1,6 @@
 import 'src/style/reset.scss';
 import 'src/style/base.scss';
-import { MainPage, RegisterPage } from 'src/pages';
+import { MainPage, RegisterPage, SignInPage } from 'src/pages';
 
 // import { compileString } from "sass";
 
@@ -9,6 +9,7 @@ function App() {
 		<div className='App'>
 			<MainPage />
 			<RegisterPage />
+			<SignInPage />
 		</div>
 	);
 }
