@@ -2,6 +2,9 @@ import style from 'src/components/UserProfile/UserProfile.module.scss';
 import { ButtonSW } from 'src/components/buttons';
 import { ReactComponent as BackgroundPhoto } from 'src/assets/icons/background-photo.svg';
 import { ReactComponent as AddPhoto } from 'src/assets/icons/addphoto.svg';
+import { LikeList } from 'src/components/LikeList/LikeList';
+import { ReplyListTab } from 'src/components/ReplyListTab/ReplyListTab';
+import { TweetListTab } from 'src/components/TweetListTab/TweetListTab';
 
 export const UserProfile = ({ username, intro, followingCount, followerCount }) => {
 	return (
@@ -31,6 +34,11 @@ export const UserProfile = ({ username, intro, followingCount, followerCount }) 
 						<a href=''>跟隨者</a>
 					</div>
 				</div>
+			</div>
+			<div className={style.tabContainer}>
+				<TweetListTab />
+				<ReplyListTab />
+				<LikeList />
 			</div>
 		</div>
 	);
