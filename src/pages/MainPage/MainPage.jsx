@@ -15,12 +15,7 @@ export const MainPage = () => {
 				followingCount={`${34}個`}
 				followerCount={`${59}位`}
 			/> */}
-			<FollowSection
-				name='John Doe'
-				tweets='25'
-				description='Just finished a great workout and feeling energized! 💪 #fitnessmotivation #healthylifestyle
-				I love spending time with my pets! Just booked my next vacation! 🌴✈️ #travelholic'
-			/>
+			<FollowSection name='John Doe' tweets='25' />
 			<PopularListSection />
 		</div>
 	);

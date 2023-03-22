@@ -40,7 +40,7 @@ const dummyFollowData = [
 	},
 ];
 
-export const FollowSection = ({ tweets }) => {
+export const FollowSection = ({ name, tweets }) => {
 	return (
 		<MainSection>
 			<div className={style.followHeaderWrapper}>
