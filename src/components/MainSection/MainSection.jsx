@@ -1,7 +1,7 @@
 import style from 'src/components/MainSection/MainSection.module.scss';
 import { Header } from 'src/components/Header/Header';
 import { UserProfile } from 'src/components/UserProfile/UserProfile';
-import { FollowerList } from 'src/components/FollowSection/FollowerList/FollowerList';
+import { FollowingList } from 'src/components/FollowSection/FollowingList/FollowingList';
 
 export const MainSection = () => {
 	return (
@@ -13,7 +13,7 @@ export const MainSection = () => {
 				followerCount={`${59}位`}
 				intro='I am Sarah, a software engineer with 7 years of experience. Nice to meet you!'
 			/>
-			<FollowerList />
+			<FollowingList />
 		</div>
 	);
 };
