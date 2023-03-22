@@ -2,6 +2,7 @@ import style from 'src/components/MainSection/MainSection.module.scss';
 import { Header } from 'src/components/Header/Header';
 import { UserProfile } from 'src/components/UserProfile/UserProfile';
 import { FollowSection } from 'src/components/FollowSection/FollowSection';
+import { TweetList } from 'src/components/TweetList/TweetList';
 
 export const MainSection = () => {
 	return (
@@ -14,6 +15,7 @@ export const MainSection = () => {
 				intro='I am Sarah, a software engineer with 7 years of experience. Nice to meet you!'
 			/>
 			<FollowSection />
+			<TweetList />
 		</div>
 	);
 };

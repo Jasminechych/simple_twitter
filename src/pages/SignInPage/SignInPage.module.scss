@@ -1,0 +1,25 @@
+.pageContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.logo {
+	margin: 69px auto 29px;
+}
+
+.pageAuthInputContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	gap: 32px;
+	margin: 40px 0;
+	width: 540px;
+}
+
+.pageButtonContainer {
+	display: flex;
+	flex-direction: column;
+  align-items: center;
+	gap: 22px;
+}
