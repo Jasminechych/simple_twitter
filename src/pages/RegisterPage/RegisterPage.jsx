@@ -2,6 +2,7 @@ import { AuthInput } from 'src/components/AuthInput/AuthInput';
 import { ButtonXL } from 'src/components/buttons';
 import { ReactComponent as Logo } from 'src/assets/icons/logo.svg';
 import style from 'src/pages/RegisterPage/RegisterPage.module.scss';
+import { Link } from 'react-router-dom';
 
 export const RegisterPage = () => {
 	return (
@@ -25,8 +26,8 @@ export const RegisterPage = () => {
 			</div>
 			<div className={style.pageButtonContainer}>
 				<ButtonXL text='註冊' />
-				<div>取消 待 pages 都完成改 router</div>
-				{/* <Link to='/signup'>登入</Link> */}
+				{/* <div>取消 待 pages 都完成改 router</div> */}
+				<Link to='/signin'>登入</Link>
 			</div>
 		</main>
 	);

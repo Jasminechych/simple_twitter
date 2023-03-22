@@ -2,6 +2,7 @@ import { AuthInput } from 'src/components/AuthInput/AuthInput';
 import { ButtonXL } from 'src/components/buttons';
 import { ReactComponent as Logo } from 'src/assets/icons/logo.svg';
 import style from 'src/pages/AdminPage/AdminPage.module.scss';
+import { Link } from 'react-router-dom';
 
 export const AdminPage = () => {
 	return (
@@ -16,10 +17,7 @@ export const AdminPage = () => {
 			</div>
 			<div className={style.pageButtonContainer}>
 				<ButtonXL text='登入' />
-				<div>前台登入 待 pages 都完成改 router</div>
-				{/* <Link to='/signup'>註冊</Link>
-				<p>*</p>
-				<Link to='/signup'>後台登入</Link> */}
+				<Link to='/signin'>前台登入</Link>
 			</div>
 		</main>
 	);
