@@ -1,7 +1,7 @@
 import style from 'src/components/PopularListSection/PopularList.module.scss';
 import { PopularListItem } from 'src/components/PopularListSection/PopularListItem';
 
-const dummyFollowData = [
+const dummyPopularData = [
 	{
 		// 第一個id 是tweet 的id
 		id: '2',
@@ -14,7 +14,7 @@ const dummyFollowData = [
 			name: 'Miki',
 			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
 		},
-		isFollowing: 'true',
+		isFollowing: true,
 	},
 	{
 		// 第一個id 是tweet 的id
@@ -28,14 +28,14 @@ const dummyFollowData = [
 			name: 'Jasmine',
 			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
 		},
-		isFollowing: 'false',
+		isFollowing: false,
 	},
 ];
 
 export const PopularList = () => {
 	return (
 		<div className={style.popularListContainer}>
-			{dummyFollowData.map(({ id, User, isFollowing }) => {
+			{dummyPopularData.map(({ id, User, isFollowing }) => {
 				return (
 					<PopularListItem
 						key={id}

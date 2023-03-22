@@ -3,15 +3,15 @@ import { ReactComponent as Avatar } from 'src/assets/icons/addphoto.svg';
 import { ButtonS, ButtonSW } from 'src/components/buttons';
 import { useState } from 'react';
 
-export const UserItem = ({ name, description }) => {
-	const [isFollowing, setIsFollowing] = useState(true);
+export const UserItem = ({ id, name, description, initIsFollowing }) => {
+	const [isFollowing, setIsFollowing] = useState(initIsFollowing);
 
 	const handleFollowClick = () => {
 		setIsFollowing(!isFollowing);
 	};
 
 	return (
-		<div className={style.userItemContainer}>
+		<div className={style.userItemContainer} id={id}>
 			<div className={style.userItemWrapper}>
 				<div className={style.userItemAvatar}>
 					<Avatar />
