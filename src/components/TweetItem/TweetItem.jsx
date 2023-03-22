@@ -34,7 +34,7 @@ export const TweetItem = ({
 				<div className={style.tweetItemFooter}>
 					<div className={style.tweetItemButtonGroup}>
 						<Reply style={{ width: '13.7px', height: '13.7px' }} />
-						<p>{replyCounts}</p>
+						<p className={style.tweetItemCounter}>{replyCounts}</p>
 					</div>
 					<div className={style.tweetItemButtonGroup}>
 						{isLiked === 'true' ? (
@@ -42,7 +42,7 @@ export const TweetItem = ({
 						) : (
 							<LikeOutline style={{ width: '13.7px', height: '13.7px' }} />
 						)}
-						<p>{likeCounts}</p>
+						<p className={style.tweetItemCounter}>{likeCounts}</p>
 					</div>
 				</div>
 			</section>
