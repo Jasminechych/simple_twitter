@@ -41,6 +41,86 @@ const dummyData = [
 		},
 		isLiked: 'false',
 	},
+	{
+		// 第一個id 是tweet 的id
+		id: '4',
+		description:
+			'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ',
+		// 二個是這個推文的作者id
+		UserId: '4',
+		updatedAt: '2023-03-19T00:00:59.000Z',
+		createdAt: '2023-03-19T00:00:59.000Z',
+		replyCounts: '3',
+		likeCounts: '4',
+		User: {
+			// 第三個跟第二個一樣 主要是要把name, avatar帶出來用的
+			id: '6',
+			account: 'user6',
+			name: 'user6',
+			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
+		},
+		isLiked: 'false',
+	},
+	{
+		// 第一個id 是tweet 的id
+		id: '5',
+		description:
+			'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ',
+		// 二個是這個推文的作者id
+		UserId: '4',
+		updatedAt: '2023-03-19T00:00:59.000Z',
+		createdAt: '2023-03-19T00:00:59.000Z',
+		replyCounts: '3',
+		likeCounts: '4',
+		User: {
+			// 第三個跟第二個一樣 主要是要把name, avatar帶出來用的
+			id: '6',
+			account: 'user6',
+			name: 'user6',
+			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
+		},
+		isLiked: 'false',
+	},
+	{
+		// 第一個id 是tweet 的id
+		id: '6',
+		description:
+			'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ',
+		// 二個是這個推文的作者id
+		UserId: '4',
+		updatedAt: '2023-03-19T00:00:59.000Z',
+		createdAt: '2023-03-19T00:00:59.000Z',
+		replyCounts: '3',
+		likeCounts: '4',
+		User: {
+			// 第三個跟第二個一樣 主要是要把name, avatar帶出來用的
+			id: '6',
+			account: 'user6',
+			name: 'user6',
+			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
+		},
+		isLiked: 'false',
+	},
+	{
+		// 第一個id 是tweet 的id
+		id: '7',
+		description:
+			'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ',
+		// 二個是這個推文的作者id
+		UserId: '4',
+		updatedAt: '2023-03-19T00:00:59.000Z',
+		createdAt: '2023-03-19T00:00:59.000Z',
+		replyCounts: '3',
+		likeCounts: '4',
+		User: {
+			// 第三個跟第二個一樣 主要是要把name, avatar帶出來用的
+			id: '6',
+			account: 'user6',
+			name: 'user6',
+			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
+		},
+		isLiked: 'false',
+	},
 ];
 
 export const TweetList = () => {

@@ -22,7 +22,7 @@ export const SignInPage = () => {
 						註冊
 					</Link>
 					・
-					<Link className={style.pageLink} to='/admin'>
+					<Link className={style.pageLink} to='/admin/signin'>
 						後台登入
 					</Link>
 				</div>

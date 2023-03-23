@@ -1,0 +1,17 @@
+.mainSection {
+  position: absolute;
+  left: 332px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  border-left: 1px solid var(--border-color);
+  overflow-y: scroll;
+}
+
+.mainTitle {
+  height: 74px;
+  padding-left: 20.92px;
+  line-height: 74px;
+  border-bottom: 1px solid var(--border-color);
+}
