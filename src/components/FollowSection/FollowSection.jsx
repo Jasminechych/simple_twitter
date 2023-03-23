@@ -38,6 +38,53 @@ const dummyFollowData = [
 		},
 		isFollowing: false,
 	},
+	{
+		// 第一個id 是tweet 的id
+		id: '4',
+		// 二個是這個推文的作者id
+		UserId: '5',
+		description: 'Good job!',
+		User: {
+			// 第三個跟第二個一樣 主要是要把name, avatar帶出來用的
+			id: '6',
+			account: 'Jasmine',
+			name: 'Jasmine',
+			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
+		},
+		isFollowing: false,
+	},
+	{
+		// 第一個id 是tweet 的id
+		id: '5',
+		// 二個是這個推文的作者id
+		UserId: '6',
+		description:
+			'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.',
+		User: {
+			// 第三個跟第二個一樣 主要是要把name, avatar帶出來用的
+			id: '6',
+			account: 'Jasmine',
+			name: 'Jasmine',
+			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
+		},
+		isFollowing: false,
+	},
+	{
+		// 第一個id 是tweet 的id
+		id: '6',
+		// 二個是這個推文的作者id
+		UserId: '7',
+		description:
+			'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.',
+		User: {
+			// 第三個跟第二個一樣 主要是要把name, avatar帶出來用的
+			id: '6',
+			account: 'Jasmine',
+			name: 'Jasmine',
+			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
+		},
+		isFollowing: false,
+	},
 ];
 
 export const FollowSection = ({ name, tweets }) => {
