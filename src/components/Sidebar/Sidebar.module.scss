@@ -25,6 +25,10 @@
 				&:hover {
 					color: var(--brand-color);
 				}
+				&:hover path {
+					// background-image: url('../../assets/icons/home-filled.svg');
+					fill: orange;
+				}
 
 				.iconContainer {
 					.sidebarIcon {
@@ -48,7 +52,7 @@
 		margin-bottom: 16px;
 		color: var(--dark-90);
 
-		.logoutTitle{
+		.logoutTitle {
 			margin-left: 20px;
 		}
 	}
