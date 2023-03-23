@@ -1,0 +1,81 @@
+@import 'src/style/base.scss';
+
+.replyPostContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 16px 16px 8px;
+	border-bottom: 1px solid var(--border-colo);
+}
+
+.replyPostHeaderInfo {
+	display: flex;
+	gap: 8px;
+
+	.replyPostAvatar {
+		display: block;
+		width: 50px;
+		height: 50px;
+		object-fit: cover;
+		border-radius: 50%;
+	}
+
+	.replyPostInfoGroup {
+		display: flex;
+		flex-direction: column;
+
+		.replyPostUserName {
+			@extend %font-16-medium;
+		}
+
+		.replyPostUserAccount {
+			@extend %font-14-regular;
+		}
+	}
+}
+
+.replyPostDescription {
+	font-weight: 400;
+	font-size: 24px;
+	line-height: 36px;
+}
+
+.replyPostCreateAt {
+	@extend %font-14-medium;
+	color: var(--secondary-color);
+}
+
+.replyPostCounterContainer {
+	display: flex;
+	align-items: flex-end;
+	gap: 24px;
+	border-top: 1px solid var(--border-color);
+
+	.replyPostCounterGroup {
+		display: flex;
+		align-items: center;
+		gap: 2px;
+		height: 60px;
+		font-size: 19px;
+
+		.replyPostCounterNum {
+			font-family: var(--font-number-family);
+			font-weight: 700;
+		}
+
+		.replyPostCounterText {
+			font-weight: 500;
+			color: var(--secondary-color);
+		}
+	}
+}
+
+.replyPostButtonContainer {
+	// outline: 1px solid blue;
+
+	display: flex;
+	align-items: center;
+	gap: 133px;
+	height: 60px;
+	border-top: 1px solid var(--border-color);
+}

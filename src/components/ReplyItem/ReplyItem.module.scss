@@ -1,0 +1,61 @@
+// ReplyItem.module.scss
+@import 'src/style/base.scss';
+
+.replyItemContainer {
+	display: flex;
+	gap: 8px;
+	padding: 16px 23px;
+  border-top: 1px solid var(--border-color);
+
+	.replyItemAvatarSection {
+		display: flex;
+		justify-content: flex-end;
+		align-items: flex-start;
+
+		.replyItemAvatar {
+			display: block;
+			width: 50px;
+			height: 50px;
+			object-fit: cover;
+			border-radius: 50%;
+		}
+	}
+
+	.replyItemContentSection {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+
+		.replyItemHeaderInfo {
+			display: flex;
+			gap: 8px;
+
+			.replyItemUserName {
+				@extend %font-16-medium;
+			}
+
+			.replyItemUserAccount {
+				@extend %font-14-regular;
+				color: var(--secondary-color);
+			}
+		}
+		.replyItemReplyGroup {
+			display: flex;
+			gap: 8px;
+			@extend %font-14-regular;
+
+			.replyItemReply {
+				color: var(--secondary-color);
+			}
+
+			.replyItemReplyAccount {
+				color: var(--brand-color);
+			}
+		}
+
+		.replyItemDescription {
+			@extend %font-16-regular;
+			line-height: 26px;
+		}
+	}
+}
