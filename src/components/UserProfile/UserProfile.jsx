@@ -8,11 +8,20 @@ import { TweetListTab } from 'src/components/TweetListTab/TweetListTab';
 import { MainSection } from 'src/components/MainSection/MainSection';
 import { Header } from 'src/components/Header/Header';
 import { Link } from 'react-router-dom';
+import { ReactComponent as BackArrow } from 'src/assets/icons/back.svg';
 
-export const UserProfile = ({ name, account, intro, followingCounts, followerCounts }) => {
+export const UserProfile = ({ name, account, intro, followingCounts, followerCounts, tweets }) => {
 	return (
 		<MainSection>
-			<Header header='首頁' />
+			<div className={style.userProfileHeaderWrapper}>
+				<Link to='/main'>
+					<BackArrow className={style.backArrow} />
+				</Link>
+				<div className={style.userHeader}>
+					<Header header={name} className={style.header} />
+					<a href='' className={style.tweets}>{`${tweets}推文`}</a>
+				</div>
+			</div>
 			<div className={style.userProfileContainer}>
 				<div className={style.userProfileBackgroundPhoto}>
 					<BackgroundPhoto />

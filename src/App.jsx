@@ -28,6 +28,7 @@ function App() {
 									intro={`Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor`}
 									followerCounts={`${59}位`}
 									followingCounts={`${34}個`}
+									tweets={`25`}
 								/>
 							</MainPage>
 						}
