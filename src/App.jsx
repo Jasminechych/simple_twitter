@@ -8,7 +8,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 function App() {
 	return (
 		<div className='App'>
-			<BrowserRouter>
+			<BrowserRouter basename={'/simple_twitter'}>
 				<Routes>
 					<Route path='register' element={<RegisterPage />} />
 					<Route path='signin' element={<SignInPage />} />
