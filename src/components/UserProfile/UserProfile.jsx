@@ -7,8 +7,9 @@ import { ReplyListTab } from 'src/components/ReplyListTab/ReplyListTab';
 import { TweetListTab } from 'src/components/TweetListTab/TweetListTab';
 import { MainSection } from 'src/components/MainSection/MainSection';
 import { Header } from 'src/components/Header/Header';
+import { Link } from 'react-router-dom';
 
-export const UserProfile = ({ name, account, intro, followingCount, followerCount }) => {
+export const UserProfile = ({ name, account, intro, followingCounts, followerCounts }) => {
 	return (
 		<MainSection>
 			<Header header='首頁' />
@@ -30,12 +31,12 @@ export const UserProfile = ({ name, account, intro, followingCount, followerCoun
 					<p className={style.userProfileIntro}>{intro}</p>
 					<div className={style.userProfileFollowInfoWrapper}>
 						<div className={style.userProfileFollowing}>
-							{followingCount}
-							<a href=''>跟隨中</a>
+							{followingCounts}
+							<Link to='/following'>跟隨中</Link>
 						</div>
 						<div className={style.userProfileFollower}>
-							{followerCount}
-							<a href=''>跟隨者</a>
+							{followerCounts}
+							<Link to='/follower'>跟隨者</Link>
 						</div>
 					</div>
 				</div>

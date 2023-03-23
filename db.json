@@ -1,0 +1,40 @@
+{
+	"dummyData": [
+		{
+			"id": "2",
+			"UserId": "3",
+			"description": "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.",
+			"User": {
+				"id": "5",
+				"account": "Miki",
+				"name": "Miki",
+				"avatar": "https://cdn-icons-png.flaticon.com/512/1144/1144760.png"
+			},
+			"isFollowing": true
+		},
+		{
+			"id": "3",
+			"UserId": "4",
+			"description": "Good job!",
+			"User": {
+				"id": "6",
+				"account": "Jasmine",
+				"name": "Jasmine",
+				"avatar": "https://cdn-icons-png.flaticon.com/512/1144/1144760.png"
+			},
+			"isFollowing": true
+		},
+		{
+			"id": "4",
+			"UserId": "5",
+			"description": "Good job!",
+			"User": {
+				"id": "6",
+				"account": "Jasmine",
+				"name": "Jasmine",
+				"avatar": "https://cdn-icons-png.flaticon.com/512/1144/114"
+			},
+			"isFollowing": true
+		}
+	]
+}
