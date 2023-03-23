@@ -2,10 +2,9 @@ import 'src/style/reset.scss';
 import 'src/style/base.scss';
 import { MainPage, RegisterPage, SignInPage, AdminPage } from 'src/pages';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { UserProfile } from './components/UserProfile/UserProfile';
-import { FollowingList } from './components/FollowSection/FollowingList/FollowingList';
-import { FollowerList } from './components/FollowSection/FollowerList/FollowerList';
-
+import { UserProfile } from 'src/components/UserProfile/UserProfile';
+import { FollowingList } from 'src/components/FollowSection/FollowingList/FollowingList';
+import { FollowerList } from 'src/components/FollowSection/FollowerList/FollowerList';
 // import { compileString } from "sass";
 
 function App() {
