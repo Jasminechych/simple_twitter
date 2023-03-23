@@ -3,6 +3,7 @@ import { Header } from 'src/components/Header/Header';
 import { UserProfile } from 'src/components/UserProfile/UserProfile';
 import { TweetList } from 'src/components/TweetList/TweetList';
 import { ReplyPost } from 'src/components/ReplyPost/ReplyPost';
+import { ReplyItem } from 'src/components/ReplyItem/ReplyItem';
 
 export const MainSection = () => {
 	return (
@@ -16,6 +17,7 @@ export const MainSection = () => {
 			/>
 			<TweetList />
 			<ReplyPost />
+			<ReplyItem />
 		</div>
 	);
 };
