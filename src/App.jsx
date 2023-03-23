@@ -4,6 +4,7 @@ import { MainPage, RegisterPage, SignInPage, AdminPage } from 'src/pages';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { UserProfile } from './components/UserProfile/UserProfile';
 import { FollowingList } from './components/FollowSection/FollowingList/FollowingList';
+import { FollowerList } from './components/FollowSection/FollowerList/FollowerList';
 
 // import { compileString } from "sass";
 
@@ -35,7 +36,15 @@ function App() {
 						path='following'
 						element={
 							<MainPage>
-								<FollowingList name={`John Doe`} />
+								<FollowingList name={`John Doe`} tweets={`25`} />
+							</MainPage>
+						}
+					/>
+					<Route
+						path='follower'
+						element={
+							<MainPage>
+								<FollowerList name={`John Doe`} tweets={`25`} />
 							</MainPage>
 						}
 					/>

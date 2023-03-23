@@ -100,7 +100,9 @@ export const FollowingList = ({ name, tweets }) => {
 			</div>
 			<div className={style.followingListContainer}>
 				<div className={style.followTabWrapper}>
-					<div className={style.followerListTitle}>追隨者</div>
+					<Link to='/follower' className={style.followerListTitle}>
+						追隨者
+					</Link>
 					<div className={style.followingListTitle}>正在追隨</div>
 				</div>
 				<div className={style.userItemWrapper}>
@@ -110,6 +112,7 @@ export const FollowingList = ({ name, tweets }) => {
 								key={id}
 								id={id}
 								name={User.name}
+								avatar={User.avatar}
 								description={description}
 								initIsFollowing={isFollowing}
 							/>
