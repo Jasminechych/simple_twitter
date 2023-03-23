@@ -1,44 +1,55 @@
 .sidebarContainer {
 	width: 178px;
-	height: 1200px;
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 
-	.sidebarLogo {
-		margin: 13px 0 0 13px;
-    cursor: pointer;
-	}
-	.sidebarItemWrapper {
-		margin-top: 30px;
+	.sidebarWrapper {
+		margin-top: 13px;
+		.sidebarLogo {
+			margin: 13px 0 0 13px;
+			cursor: pointer;
+		}
+		.sidebarItemWrapper {
+			margin-top: 30px;
 
-		.sidebarItem {
-			margin-left: 13px;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-      margin-bottom: 40px;
-      cursor: pointer;
-      &:hover{
-        color: var(--brand-color);
-      }
-      
+			.sidebarItem {
+				color: var(--dark-90);
+				margin-left: 13px;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				margin-bottom: 40px;
+				position: relative;
+				cursor: pointer;
+				&:hover {
+					color: var(--brand-color);
+				}
 
-      .sidebarIcon{
-        padding-right: 17px;
-      }
-      // UserIcon與其他icon有一點點差距，因此另外抓出來設定後才有對齊
-      .sidebarUserIcon{
-        padding-right: 20px;
-      }
+				.iconContainer {
+					.sidebarIcon {
+						width: 100%;
+						padding-right: 17px;
+					}
+
+					// UserIcon與其他icon有一點點差距，因此另外抓出來設定後才有對齊
+					.sidebarUserIcon {
+						width: 100%;
+						padding-right: 20px;
+					}
+				}
+			}
 		}
 	}
 
-  // 暫時的button（等待Button元件）
-  .sidebarButton{
-    width: 178px;
-    height: 46px;
-    background-color: var(--brand-color);
-    border-radius: 30px;
-    color: var(--dark-0);
-  }
+	.logout {
+		display: flex;
+		margin-left: 20px;
+		margin-bottom: 16px;
+		color: var(--dark-90);
+
+		.logoutTitle{
+			margin-left: 20px;
+		}
+	}
 }
