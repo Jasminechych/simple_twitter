@@ -6,12 +6,12 @@
 		@extend %font-16-medium;
 		width: 130px;
 		padding: 15px 0;
-		display: flex;
-		justify-content: center;
-		&:hover{
-			color: var(--brand-color);
-			border-bottom: 2px solid var(--brand-color);
-		}
-
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid transparent;
+    &:hover{
+      color: var(--brand-color);
+      border-bottom: 2px solid var(--brand-color);
+    }
 	}
 }
