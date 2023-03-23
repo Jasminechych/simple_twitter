@@ -17,7 +17,7 @@ export const AdminPage = () => {
 			</div>
 			<div className={style.pageLinkContainer}>
 				<ButtonXL text='登入' />
-				<Link to='/signin'>前台登入</Link>
+				<Link to='signin'>前台登入</Link>
 			</div>
 		</main>
 	);
