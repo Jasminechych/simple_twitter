@@ -47,12 +47,10 @@ function App() {
 							</MainPage>
 						}
 					/>
-
 					<Route path='admin'>
 						<Route path={'signin'} element={<AdminPage />} />
 						<Route path={'tweets'} element={<AdminMainPage />} />
 					</Route>
-
 				</Routes>
 			</BrowserRouter>
 		</div>
