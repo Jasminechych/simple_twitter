@@ -1,19 +1,64 @@
 @import 'src/style/base';
 
+.followHeaderWrapper {
+	display: flex;
+	padding: 16px 0 16px 28px;
+	border-bottom: 1px solid var(--border-color);
+  align-items: center;
+
+	.backArrow {
+		cursor: pointer;
+	}
+
+	.followHeader {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		margin-left: 20px;
+
+		.header {
+			height: 100%;
+			font-weight: 700;
+			font-size: 18px;
+			padding: 0;
+			padding-top: 5px;
+		}
+		.tweets {
+			@extend %font-14-medium;
+			color: var(--secondary-color);
+			line-height: 19px;
+		}
+	}
+}
+
 .followingListContainer {
+	.followTabWrapper {
+		border-bottom: 1px solid #e6ecf0;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
 
-	.followingListTitle {
-		@extend %font-16-medium;
-    width: 130px;
-		padding: 15px 0;
-    display: flex;
-    justify-content: center;
-    border-bottom: 2px solid transparent;
-    color: #657786;
-    &:hover{
-      color: var(--brand-color);
+    
+    .followerListTitle {
+			@extend %font-16-medium;
+			width: 130px;
+			padding: 15px 0;
+			display: flex;
+			justify-content: center;
+			border-bottom: 2px solid transparent;
+			color: #657786;
+		}
+
+
+		.followingListTitle {
+			@extend %font-16-medium;
+			width: 130px;
+			padding: 15px 0;
+			display: flex;
+			justify-content: center;
+			border-bottom: 2px solid transparent;
+			color: var(--brand-color);
       border-bottom: 2px solid var(--brand-color);
-    }
-
+		}
 	}
 }

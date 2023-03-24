@@ -7,11 +7,21 @@ import { ReplyListTab } from 'src/components/ReplyListTab/ReplyListTab';
 import { TweetListTab } from 'src/components/TweetListTab/TweetListTab';
 import { MainSection } from 'src/components/MainSection/MainSection';
 import { Header } from 'src/components/Header/Header';
+import { Link } from 'react-router-dom';
+import { ReactComponent as BackArrow } from 'src/assets/icons/back.svg';
 
-export const UserProfile = ({ name, account, intro, followingCount, followerCount }) => {
+export const UserProfile = ({ name, account, intro, followingCounts, followerCounts, tweets }) => {
 	return (
 		<MainSection>
-			<Header header='首頁' />
+			<div className={style.userProfileHeaderWrapper}>
+				<Link to='/main'>
+					<BackArrow className={style.backArrow} />
+				</Link>
+				<div className={style.userHeader}>
+					<Header header={name} className={style.header} />
+					<a href='' className={style.tweets}>{`${tweets}推文`}</a>
+				</div>
+			</div>
 			<div className={style.userProfileContainer}>
 				<div className={style.userProfileBackgroundPhoto}>
 					<BackgroundPhoto />
@@ -30,12 +40,12 @@ export const UserProfile = ({ name, account, intro, followingCount, followerCoun
 					<p className={style.userProfileIntro}>{intro}</p>
 					<div className={style.userProfileFollowInfoWrapper}>
 						<div className={style.userProfileFollowing}>
-							{followingCount}
-							<a href=''>跟隨中</a>
+							{followingCounts}
+							<Link to='/following'>跟隨中</Link>
 						</div>
 						<div className={style.userProfileFollower}>
-							{followerCount}
-							<a href=''>跟隨者</a>
+							{followerCounts}
+							<Link to='/follower'>跟隨者</Link>
 						</div>
 					</div>
 				</div>

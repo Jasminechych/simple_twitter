@@ -1,9 +1,8 @@
 import style from 'src/components/UserItem/UserItem.module.scss';
-import { ReactComponent as Avatar } from 'src/assets/icons/addphoto.svg';
 import { ButtonS, ButtonSW } from 'src/components/buttons';
 import { useState } from 'react';
 
-export const UserItem = ({ id, name, description, initIsFollowing }) => {
+export const UserItem = ({ id, name, description, avatar, initIsFollowing }) => {
 	const [isFollowing, setIsFollowing] = useState(initIsFollowing);
 
 	const handleFollowClick = () => {
@@ -14,7 +13,7 @@ export const UserItem = ({ id, name, description, initIsFollowing }) => {
 		<div className={style.userItemContainer} id={id}>
 			<div className={style.userItemWrapper}>
 				<div className={style.userItemAvatar}>
-					<Avatar />
+					<img src={avatar} alt={avatar} />
 				</div>
 				<div className={style.userItemInfoWrapper}>
 					<div className={style.userItemName}>{name}</div>
