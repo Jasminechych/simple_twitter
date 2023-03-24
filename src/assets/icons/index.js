@@ -5,5 +5,6 @@ import { ReactComponent as UserOutline } from 'src/assets/icons/user-outline.svg
 import { ReactComponent as UserFilled } from 'src/assets/icons/user-filled.svg';
 import { ReactComponent as Logout } from 'src/assets/icons/logout.svg';
 import { ReactComponent as Close } from 'src/assets/icons/close.svg';
+import { ReactComponent as Avatar } from 'src/assets/icons/man-avatar.svg';
 
-export { Logo, HomeOutline, HomeFilled, UserOutline, UserFilled, Logout, Close };
+export { Logo, HomeOutline, HomeFilled, UserOutline, UserFilled, Logout, Close, Avatar };

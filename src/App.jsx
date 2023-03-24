@@ -11,6 +11,7 @@ import { UserList } from 'src/components/UserList/UserList';
 import { AdminMainSection } from 'src/components/AdminMainSection/AdminMainSection';
 import { Setting } from './components/Setting/Setting';
 import { EditModal } from './components/Modal/EditModal/EditModal';
+import { TweetInput } from './components/TweetInput/TweetInput';
 
 // import { compileString } from "sass";
 
@@ -21,7 +22,14 @@ function App() {
 				<Routes>
 					<Route path='register' element={<RegisterPage />} />
 					<Route path='signin' element={<SignInPage />} />
-					<Route path='main' element={<MainPage />} />
+					<Route
+						path='main'
+						element={
+							<MainPage>
+								<TweetInput />
+							</MainPage>
+						}
+					/>
 					<Route path='*' element={<RegisterPage />} />
 					<Route
 						path='user/self'
