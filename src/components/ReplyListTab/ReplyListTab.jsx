@@ -1,9 +1,14 @@
+import { Link } from 'react-router-dom';
 import style from 'src/components/ReplyListTab/ReplyListTab.module.scss';
 
-export const ReplyListTab = () => {
+export const ReplyListTab = ({ handleTabChange, isSelected }) => {
 	return (
-		<div className={style.replyListTabContainer}>
-			<div className={style.replyListTabTitle}>回覆</div>
-		</div>
+		<Link
+			to='/user/self/tab=reply'
+			className={style.replyListTabContainer}
+			onClick={() => handleTabChange('replyPost')}
+		>
+			<div className={`${style.replyListTabTitle} ${isSelected ? style.active : ''}`}>回覆</div>
+		</Link>
 	);
 };
