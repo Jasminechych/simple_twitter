@@ -10,6 +10,7 @@ import { TweetList } from 'src/components/TweetList/TweetList';
 import { UserList } from 'src/components/UserList/UserList';
 import { AdminMainSection } from 'src/components/AdminMainSection/AdminMainSection';
 import { Setting } from './components/Setting/Setting';
+import { EditModal } from './components/Modal/EditModal/EditModal';
 
 // import { compileString } from "sass";
 
@@ -58,6 +59,22 @@ function App() {
 						element={
 							<MainPage>
 								<Setting />
+							</MainPage>
+						}
+					/>
+					<Route
+						path='/user/self/edit'
+						element={
+							<MainPage>
+								<UserProfile
+									name={`John Doe`}
+									account={`John Doe`}
+									intro={`Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor`}
+									followerCounts={`${59}位`}
+									followingCounts={`${34}個`}
+									tweets={`25`}
+								/>
+								<EditModal />
 							</MainPage>
 						}
 					/>
