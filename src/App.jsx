@@ -9,6 +9,7 @@ import { FollowerList } from 'src/components/FollowSection/FollowerList/Follower
 import { TweetList } from 'src/components/TweetList/TweetList';
 import { UserList } from 'src/components/UserList/UserList';
 import { AdminMainSection } from 'src/components/AdminMainSection/AdminMainSection';
+import { Setting } from './components/Setting/Setting';
 
 // import { compileString } from "sass";
 
@@ -49,6 +50,14 @@ function App() {
 						element={
 							<MainPage>
 								<FollowerList name={`John Doe`} tweets={`25`} />
+							</MainPage>
+						}
+					/>
+					<Route
+						path='setting'
+						element={
+							<MainPage>
+								<Setting />
 							</MainPage>
 						}
 					/>

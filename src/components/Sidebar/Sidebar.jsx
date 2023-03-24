@@ -7,7 +7,7 @@ import { ReactComponent as Logout } from 'src/assets/icons/logout.svg';
 import { ButtonL } from 'src/components/buttons';
 import { Link } from 'react-router-dom';
 
-export const Sidebar = ({ onSectionClick }) => {
+export const Sidebar = () => {
 	return (
 		<div className={style.sidebarContainer}>
 			<div className={style.sidebarWrapper}>
@@ -27,12 +27,12 @@ export const Sidebar = ({ onSectionClick }) => {
 						</div>
 						<h5 className={style.sidebarTitle}>個人資料</h5>
 					</Link>
-					<a href='' className={style.sidebarItem} onClick={onSectionClick}>
+					<Link to='/setting' className={style.sidebarItem}>
 						<div className={style.iconContainer}>
 							<Cog className={style.sidebarIcon} />
 						</div>
 						<h5 className={style.sidebarTitle}>設定</h5>
-					</a>
+					</Link>
 				</div>
 				<ButtonL text='推文' className={style.button} />
 			</div>
