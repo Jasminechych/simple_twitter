@@ -1,6 +1,6 @@
 import 'src/style/reset.scss';
 import 'src/style/base.scss';
-import { MainPage, RegisterPage, SignInPage, AdminPage } from 'src/pages';
+import { MainPage, RegisterPage, SignInPage, AdminPage, AdminMainPage } from 'src/pages';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { UserProfile } from 'src/components/UserProfile/UserProfile';
 import { FollowingList } from 'src/components/FollowSection/FollowingList/FollowingList';
@@ -10,12 +10,11 @@ import { FollowerList } from 'src/components/FollowSection/FollowerList/Follower
 function App() {
 	return (
 		<div className='App'>
-			<BrowserRouter>
+			<BrowserRouter basename={'/simple_twitter'}>
 				<Routes>
 					<Route path='register' element={<RegisterPage />} />
 					<Route path='signin' element={<SignInPage />} />
 					<Route path='main' element={<MainPage />} />
-					<Route path='admin' element={<AdminPage />} />
 					<Route path='*' element={<RegisterPage />} />
 					<Route
 						path='user/self'
@@ -48,6 +47,12 @@ function App() {
 							</MainPage>
 						}
 					/>
+
+					<Route path='admin'>
+						<Route path={'signin'} element={<AdminPage />} />
+						<Route path={'tweets'} element={<AdminMainPage />} />
+					</Route>
+
 				</Routes>
 			</BrowserRouter>
 		</div>

@@ -1,6 +1,7 @@
 import { ReactComponent as Reply } from 'src/assets/icons/reply.svg';
 import { ReactComponent as LikeFilled } from 'src/assets/icons/like-filled.svg';
 import { ReactComponent as LikeOutline } from 'src/assets/icons/like-outline.svg';
+import { ReactComponent as Close } from 'src/assets/icons/close.svg';
 
 import style from 'src/components/TweetItem/TweetItem.module.scss';
 
@@ -46,6 +47,7 @@ export const TweetItem = ({
 					</div>
 				</div>
 			</section>
+			<Close />
 		</div>
 	);
 };
