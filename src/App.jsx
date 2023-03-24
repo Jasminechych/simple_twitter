@@ -70,7 +70,7 @@ function App() {
 								</AdminMainSection>
 							}
 						/>
-          </Route>
+					</Route>
 					<Route
 						path='user/self/tab=tweet'
 						element={
