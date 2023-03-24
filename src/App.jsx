@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { UserProfile } from 'src/components/UserProfile/UserProfile';
 import { FollowingList } from 'src/components/FollowSection/FollowingList/FollowingList';
 import { FollowerList } from 'src/components/FollowSection/FollowerList/FollowerList';
+// import { TweetList } from './components/TweetList/TweetList';
 // import { compileString } from "sass";
 
 function App() {
@@ -44,6 +45,51 @@ function App() {
 						element={
 							<MainPage>
 								<FollowerList name={`John Doe`} tweets={`25`} />
+							</MainPage>
+						}
+					/>
+					<Route
+						path='user/self/tab=tweet'
+						element={
+							<MainPage>
+								<UserProfile
+									name={`John Doe`}
+									account={`John Doe`}
+									intro={`Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor`}
+									followerCounts={`${59}位`}
+									followingCounts={`${34}個`}
+									tweets={`25`}
+								/>
+							</MainPage>
+						}
+					/>
+					<Route
+						path='user/self/tab=reply'
+						element={
+							<MainPage>
+								<UserProfile
+									name={`John Doe`}
+									account={`John Doe`}
+									intro={`Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor`}
+									followerCounts={`${59}位`}
+									followingCounts={`${34}個`}
+									tweets={`25`}
+								/>
+							</MainPage>
+						}
+					/>
+					<Route
+						path='user/self/tab=like'
+						element={
+							<MainPage>
+								<UserProfile
+									name={`John Doe`}
+									account={`John Doe`}
+									intro={`Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor`}
+									followerCounts={`${59}位`}
+									followingCounts={`${34}個`}
+									tweets={`25`}
+								/>
 							</MainPage>
 						}
 					/>
