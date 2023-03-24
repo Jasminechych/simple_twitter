@@ -1,0 +1,13 @@
+.settingAuthInputContainer{
+  display: flex;
+	flex-direction: column;
+  gap: 32px;
+  margin: 24px 32px;
+  
+}
+
+.settingButton{
+  padding: 16px 24px 0 0;
+  display: flex;
+  justify-content: flex-end;
+}
