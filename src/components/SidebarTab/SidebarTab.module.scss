@@ -1,0 +1,19 @@
+.tabGroup {
+	display: flex;
+	flex-direction: row;
+	gap: 16.9px;
+	cursor: pointer;
+}
+
+a {
+	color: var(--main-text);
+}
+
+.activeText {
+	color: var(--brand-color);
+}
+
+.logout {
+	margin-top: auto;
+}
+

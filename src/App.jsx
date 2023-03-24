@@ -5,6 +5,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { UserProfile } from 'src/components/UserProfile/UserProfile';
 import { FollowingList } from 'src/components/FollowSection/FollowingList/FollowingList';
 import { FollowerList } from 'src/components/FollowSection/FollowerList/FollowerList';
+import { TweetList } from 'src/components/TweetList/TweetList';
+import { UserList } from 'src/components/UserList/UserList';
+import { AdminMainSection } from 'src/components/AdminMainSection/AdminMainSection';
 // import { compileString } from "sass";
 
 function App() {
@@ -47,9 +50,24 @@ function App() {
 							</MainPage>
 						}
 					/>
-					<Route path='admin'>
-						<Route path={'signin'} element={<AdminPage />} />
-						<Route path={'tweets'} element={<AdminMainPage />} />
+					<Route path='adminsignin' element={<AdminPage />} />
+					<Route path='admin' element={<AdminMainPage />}>
+						<Route
+							path='tweets'
+							element={
+								<AdminMainSection title='推文清單'>
+									<TweetList />
+								</AdminMainSection>
+							}
+						/>
+						<Route
+							path='users'
+							element={
+								<AdminMainSection title='使用者列表'>
+									<UserList />
+								</AdminMainSection>
+							}
+						/>
 					</Route>
 				</Routes>
 			</BrowserRouter>
