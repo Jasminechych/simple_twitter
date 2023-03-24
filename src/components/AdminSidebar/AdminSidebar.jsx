@@ -1,33 +1,34 @@
-import { ReactComponent as Logo } from 'src/assets/icons/logo.svg';
-import { ReactComponent as Home } from 'src/assets/icons/home-outline.svg';
-import { ReactComponent as User } from 'src/assets/icons/user-outline.svg';
-import { ReactComponent as Logout } from 'src/assets/icons/logout.svg';
+import { Logo, HomeOutline, HomeFilled, UserOutline, UserFilled, Logout } from 'src/assets/icons';
 import style from 'src/components/AdminSidebar/AdminSidebar.module.scss';
+import { Link, useLocation } from 'react-router-dom';
+import { SidebarTab } from 'src/components/SidebarTab/SidebarTab';
 
-export const AdminSidebar = ({ handlePageChange }) => {
+export const AdminSidebar = () => {
+	const location = useLocation();
+	const currentPath = location.pathname;
+	console.log(typeof currentPath);
+	console.log('currentPath: ', currentPath);
+
 	return (
 		<nav className={style.sidebar}>
-			<div className={style.logo}>
+			<Link to='/admin/tweets' className={style.logo}>
 				<Logo />
-			</div>
-
+			</Link>
 			<ul className={style.tabGroupContainer}>
-				<a className={style.tabGroup} onClick={() => handlePageChange('tweetList')}>
-					<Home />
-					<h5>推文清單</h5>
-				</a>
-				<a className={style.tabGroup} onClick={() => handlePageChange('userList')}>
-					<User />
-					<h5>使用者列表</h5>
-				</a>
-				<a
-					className={`${style.tabGroup} ${style.logout}`}
-					onClick={() => handlePageChange('logout')}
-				>
-					<Logout />
-					<h5>登出</h5>
-				</a>
+				<SidebarTab
+					path='/admin/tweets'
+					text='推文清單'
+					icon={currentPath === '/admin/tweets' ? <HomeFilled /> : <HomeOutline />}
+					isActiveText={currentPath === '/admin/tweets'}
+				/>
+				<SidebarTab
+					path='/admin/users'
+					text='使用者列表'
+					icon={currentPath === '/admin/users' ? <UserFilled /> : <UserOutline />}
+					isActiveText={currentPath === '/admin/users'}
+				/>
 			</ul>
+			<SidebarTab path='/signin' text='登出' icon={<Logout />} className={style.logout} />
 		</nav>
 	);
 };
