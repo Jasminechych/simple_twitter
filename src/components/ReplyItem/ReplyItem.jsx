@@ -1,39 +1,26 @@
-// ReplyItem
-
 import style from 'src/components/ReplyItem/ReplyItem.module.scss';
 
-export const ReplyItem = () => {
-	// 備用
-	//   {
-	// 	description,
-	// 	avatar,
-	// 	userName,
-	// 	userAccount,
-	// 	tweetItemHeaderButton,
-	// 	replyCounts,
-	// 	likeCounts,
-	// 	isLiked,
-	// }
+export const ReplyItem = ({ description, createdAt, account, name, avatar }) => {
 	return (
 		<div className={style.replyItemContainer}>
 			<section className={style.replyItemAvatarSection}>
-				<img className={style.replyItemAvatar} src='' />
+				<img className={style.replyItemAvatar} src={avatar} />
 			</section>
 
 			<section className={style.replyItemContentSection}>
 				<div className={style.replyItemHeaderInfo}>
-					<p className={style.replyItemUserName}>Apple</p>
-					<p className={style.replyItemUserAccount}>@apple・3 小時</p>
+					<p className={style.replyItemUserName}>{name}</p>
+					<p className={style.replyItemUserAccount}>
+						@{account}・{createdAt} 小時
+					</p>
 				</div>
 
 				<div className={style.replyItemReplyGroup}>
 					<p className={style.replyItemReply}>回覆</p>
-					<p className={style.replyItemReplyAccount}>@apple</p>
+					<p className={style.replyItemReplyAccount}>@這個account還不確定拿什麼資料</p>
 				</div>
 
-				<p className={style.replyItemDescription}>
-					former apple engineer shares a simple DIY fix to seal your surgical mask
-				</p>
+				<p className={style.replyItemDescription}>{description}</p>
 			</section>
 		</div>
 	);
