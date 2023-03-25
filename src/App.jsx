@@ -12,6 +12,7 @@ import { AdminMainSection } from 'src/components/AdminMainSection/AdminMainSecti
 import { Setting } from './components/Setting/Setting';
 import { EditModal } from './components/Modal/EditModal/EditModal';
 import { TweetInput } from './components/TweetInput/TweetInput';
+import { TweetModal } from './components/Modal/TweetModal/TweetModal';
 
 // import { compileString } from "sass";
 
@@ -27,6 +28,15 @@ function App() {
 						element={
 							<MainPage>
 								<TweetInput />
+							</MainPage>
+						}
+					/>
+					<Route
+						path='/main/tweet'
+						element={
+							<MainPage>
+								<TweetInput />
+								<TweetModal />
 							</MainPage>
 						}
 					/>
