@@ -1,0 +1,119 @@
+@import 'src/style/base.scss';
+
+.modalBackground {
+	// 顏色待確認
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	background-color: var(--dark-100);
+	opacity: 50%;
+	z-index: 2;
+}
+
+.modalContainer {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 634px;
+	height: 500px;
+	left: 336px;
+	top: 56px;
+	background-color: var(--dark-0);
+	border-radius: 14px;
+	z-index: 5;
+}
+
+.modalHeader {
+	height: 56px;
+	border-bottom: 1px solid var(--border-color);
+	padding: 20.5px 19.5px;
+}
+
+.modalBody {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	overflow-y: scroll;
+}
+
+.bodySection {
+	display: flex;
+	gap: 8px;
+	padding: 16px 24px;
+}
+
+.tweetContentSection {
+	display: flex;
+}
+
+.avatarSection {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+}
+
+.modalAvatar {
+	display: block;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+
+.connector {
+	display: block;
+	width: 2px;
+	height: 86px;
+	background-color: var(--dark-60);
+}
+
+.nameAndAccountWrapper {
+	display: flex;
+	gap: 8px;
+}
+
+.name {
+	@extend %font-16-medium;
+}
+
+.account {
+	@extend %font-14-regular;
+	color: var(--secondary-color);
+	margin-left: 8px;
+}
+
+.description {
+	margin-top: 8px;
+	@extend %font-16-regular;
+	line-height: 26px;
+}
+
+.replyToGroup {
+	display: flex;
+	margin-top: 11px;
+	gap: 3px;
+}
+
+.replyToText {
+	@extend %font-14-regular;
+	color: var(--secondary-color);
+}
+
+.replyToAccount {
+	@extend %font-14-regular;
+	color: var(--brand-color);
+}
+
+.replyHint {
+	@extend %font-16-regular;
+	line-height: 26px;
+	color: var(--secondary-color);
+}
+
+.modalFooter {
+	padding-left: 554px;
+	padding-bottom: 16px;
+}
