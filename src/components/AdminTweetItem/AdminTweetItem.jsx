@@ -27,7 +27,11 @@ export const AdminTweetItem = ({
 
 				<p className={style.tweetItemDescription}>{description}</p>
 			</section>
-			<Close onClick={() => handleDelete(id)} className={style.close} />
+			<Close
+				onClick={() => handleDelete(id)}
+				className={style.close}
+				style={{ cursor: 'pointer' }}
+			/>
 		</div>
 	);
 };

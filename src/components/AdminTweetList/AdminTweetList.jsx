@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 export const AdminTweetList = () => {
 	const [tweets, setTweets] = useState([]);
 
+	// 從資料庫撈所有推文資料
 	useEffect(() => {
 		const getAdminTweetsAsync = async () => {
 			try {
@@ -20,6 +21,7 @@ export const AdminTweetList = () => {
 		getAdminTweetsAsync();
 	}, []);
 
+	// 刪除推文
 	const handleDelete = async (id) => {
 		try {
 			await deleteAdminTweet(id);

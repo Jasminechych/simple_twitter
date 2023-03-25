@@ -8,11 +8,12 @@ import { FollowerList } from 'src/components/FollowSection/FollowerList/Follower
 
 import { AdminTweetList } from 'src/components/AdminTweetList/AdminTweetList';
 import { UserList } from 'src/components/UserList/UserList';
-import { AdminMainSection } from 'src/components/AdminMainSection/AdminMainSection';
+import { AdminUsersSection } from 'src/components/AdminUsersSection/AdminUsersSection';
 import { Setting } from './components/Setting/Setting';
 import { EditModal } from './components/Modal/EditModal/EditModal';
 import { TweetInput } from './components/TweetInput/TweetInput';
 import { TweetModal } from './components/Modal/TweetModal/TweetModal';
+import { AdminTweetsSection } from 'src/components/AdminTweetsSection/AdminTweetsSection';
 
 // import { compileString } from "sass";
 
@@ -102,17 +103,17 @@ function App() {
 						<Route
 							path='tweets'
 							element={
-								<AdminMainSection title='推文清單'>
+								<AdminTweetsSection title='推文清單'>
 									<AdminTweetList />
-								</AdminMainSection>
+								</AdminTweetsSection>
 							}
 						/>
 						<Route
 							path='users'
 							element={
-								<AdminMainSection title='使用者列表'>
+								<AdminUsersSection title='使用者列表'>
 									<UserList />
-								</AdminMainSection>
+								</AdminUsersSection>
 							}
 						/>
 					</Route>
