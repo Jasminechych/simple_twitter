@@ -25,11 +25,11 @@ export const UserCard = ({
 				<div className={style.userTweetAndLikeCounterContainer}>
 					<div className={style.counterWrapper}>
 						<Post />
-						<p className={style.counterText}>{tweetsCounts}K</p>
+						<p className={style.counterText}>{tweetsCounts}</p>
 					</div>
 					<div className={style.counterWrapper}>
 						<LikeOutLine />
-						<p className={style.counterText}>{likedCounts}K</p>
+						<p className={style.counterText}>{likedCounts}</p>
 					</div>
 				</div>
 				<div className={style.userFollowContainer}>

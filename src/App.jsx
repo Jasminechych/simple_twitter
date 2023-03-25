@@ -6,7 +6,7 @@ import { UserProfile } from 'src/components/UserProfile/UserProfile';
 import { FollowingList } from 'src/components/FollowSection/FollowingList/FollowingList';
 import { FollowerList } from 'src/components/FollowSection/FollowerList/FollowerList';
 
-import { TweetList } from 'src/components/TweetList/TweetList';
+import { AdminTweetList } from 'src/components/AdminTweetList/AdminTweetList';
 import { UserList } from 'src/components/UserList/UserList';
 import { AdminMainSection } from 'src/components/AdminMainSection/AdminMainSection';
 import { Setting } from './components/Setting/Setting';
@@ -102,7 +102,7 @@ function App() {
 							path='tweets'
 							element={
 								<AdminMainSection title='推文清單'>
-									<TweetList />
+									<AdminTweetList />
 								</AdminMainSection>
 							}
 						/>

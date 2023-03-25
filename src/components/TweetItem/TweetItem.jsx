@@ -9,8 +9,8 @@ export const TweetItem = ({
 	id,
 	description,
 	avatar,
-	userName,
-	userAccount,
+	name,
+	account,
 	createdAt,
 	replyCounts,
 	likeCounts,
@@ -24,9 +24,9 @@ export const TweetItem = ({
 
 			<section className={style.tweetItemContentSection}>
 				<div className={style.tweetItemHeaderInfo}>
-					<p className={style.tweetItemUserName}>{userName}</p>
+					<p className={style.tweetItemUserName}>{name}</p>
 					<p className={style.tweetItemUserAccount}>
-						@{userAccount}・{createdAt} 小時
+						@{account}・{createdAt} 小時
 					</p>
 				</div>
 
