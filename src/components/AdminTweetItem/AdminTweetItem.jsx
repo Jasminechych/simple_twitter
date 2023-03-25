@@ -2,7 +2,15 @@ import { ReactComponent as Close } from 'src/assets/icons/close.svg';
 
 import style from 'src/components/TweetItem/TweetItem.module.scss';
 
-export const AdminTweetItem = ({ id, description, avatar, name, account, createdAt }) => {
+export const AdminTweetItem = ({
+	id,
+	description,
+	avatar,
+	name,
+	account,
+	createdAt,
+	handleDelete,
+}) => {
 	return (
 		<div className={style.tweetItemContainer} id={id}>
 			<section className={style.tweetItemAvatarSection}>
@@ -19,7 +27,11 @@ export const AdminTweetItem = ({ id, description, avatar, name, account, created
 
 				<p className={style.tweetItemDescription}>{description}</p>
 			</section>
-			<Close />
+			<Close
+				onClick={() => handleDelete(id)}
+				className={style.close}
+				style={{ cursor: 'pointer' }}
+			/>
 		</div>
 	);
 };

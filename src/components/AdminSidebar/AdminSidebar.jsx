@@ -11,7 +11,7 @@ export const AdminSidebar = () => {
 	const handleClick = () => {
 		localStorage.removeItem('token');
 		console.log('logout');
-		navigate('/signin');
+		navigate('/adminsignin');
 	};
 
 	return (
@@ -33,10 +33,10 @@ export const AdminSidebar = () => {
 					isActiveText={currentPath === '/admin/users'}
 				/>
 			</ul>
-			<h5 className={style.logout} onClick={handleClick}>
+			<div className={style.logout} onClick={handleClick}>
 				<Logout />
-				登出
-			</h5>
+				<h5>登出</h5>
+			</div>
 		</nav>
 	);
 };

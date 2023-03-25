@@ -19,3 +19,20 @@ export const adminSignIn = async ({ account, password }) => {
 		return { success: false };
 	}
 };
+
+// 使用者登入
+export const userSignIn = async ({ account, password }) => {
+	try {
+		const { data } = await axios.post(`${baseUrl}/users/signin`, { account, password });
+		const token = data.data.token;
+
+		if (token) {
+			return { success: true, ...data };
+		}
+
+		return data;
+	} catch (error) {
+		console.error('[Login Failed]:', error);
+		return { success: false };
+	}
+};

@@ -10,8 +10,9 @@ export const UserList = () => {
 		const getAdminUsersAsync = async () => {
 			try {
 				const data = await getAdminUsers();
-				console.log('data: ', data);
-				setUsers(data);
+				if (data.length > 0) {
+					setUsers(data);
+				}
 			} catch (error) {
 				console.error(error);
 			}
