@@ -9,9 +9,8 @@ export const AdminTweetList = () => {
 	useEffect(() => {
 		const getAdminTweetsAsync = async () => {
 			try {
-				const { success, data } = await getAdminTweets();
-				console.log('data: ', data);
-				if (success) {
+				const data = await getAdminTweets();
+				if (data.length > 0) {
 					setTweets(data);
 				}
 			} catch (error) {

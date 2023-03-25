@@ -11,7 +11,7 @@ export const AdminSidebar = () => {
 	const handleClick = () => {
 		localStorage.removeItem('token');
 		console.log('logout');
-		navigate('/signin');
+		navigate('/adminsignin');
 	};
 
 	return (
