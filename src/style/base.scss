@@ -1,98 +1,128 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 :root {
-  --brand-color: #ff6600;
-  --primary-color: #0062ff;
-  --secondary-color: #6c757d;
-  --success-color: #3dd598;
-  --warning-color: #ffc542;
-  --danger-color: #fc5a5a;
+	--brand-color: #ff6600;
+	--primary-color: #0062ff;
+	--secondary-color: #6c757d;
+	--success-color: #3dd598;
+	--warning-color: #ffc542;
+	--danger-color: #fc5a5a;
 
-  --secondary-orange: #ff974a;
-  --secondary-blue: #50b5ff;
-  --secondary-green: #82c43c;
-  --secondary-purple: #a461d8;
-  --secondary-pink: #ff9ad5;
+	--secondary-orange: #ff974a;
+	--secondary-blue: #50b5ff;
+	--secondary-green: #82c43c;
+	--secondary-purple: #a461d8;
+	--secondary-pink: #ff9ad5;
 
-  --border-color: #E6ECF0;
+	--border-color: #e6ecf0;
 
-  --dark-100: #171725;
-  --dark-90: #44444f;
-  --dark-80: #696974;
-  --dark-70: #92929d;
-  --dark-60: #b5b5be;
-  --dark-50: #d5d5dc;
-  --dark-40: #e2e2ea;
-  --dark-30: #f1f1f5;
-  --dark-20: #fafafb;
-  --dark-0: #ffffff;
+	--dark-100: #171725;
+	--dark-90: #44444f;
+	--dark-80: #696974;
+	--dark-70: #92929d;
+	--dark-60: #b5b5be;
+	--dark-50: #d5d5dc;
+	--dark-40: #e2e2ea;
+	--dark-30: #f1f1f5;
+	--dark-20: #fafafb;
+	--dark-0: #ffffff;
 
-  --main-font-family: "Noto Sans TC", sans-serif;
-  --main-number-font-family: "Montserrat", sans-serif;
+	--main-font-family: 'Noto Sans TC', sans-serif;
+	--main-number-font-family: 'Montserrat', sans-serif;
 }
 
 body {
-  --background-color: #ffffff;
-  --main-text: #171725;
+	--background-color: #ffffff;
+	--main-text: #171725;
 
-  background-color: var(--background-color);
-  color: var(--main-text);
-  font-family: var(--main-font-family);
-  font-size: 16px;
+	background-color: var(--background-color);
+	color: var(--main-text);
+	font-family: var(--main-font-family);
+	font-size: 16px;
 }
 
 h1 {
-  font-weight: 700;
-  font-size: 68px;
+	font-weight: 700;
+	font-size: 68px;
 }
 
 h2 {
-  font-weight: 700;
-  font-size: 42px;
+	font-weight: 700;
+	font-size: 42px;
 }
 
 h3 {
-  font-weight: 700;
-  font-size: 28px;
+	font-weight: 700;
+	font-size: 28px;
 }
 
 h4 {
-  font-weight: 700;
-  font-size: 24px;
+	font-weight: 700;
+	font-size: 24px;
 }
 
 h5 {
-  font-weight: 700;
-  font-size: 18px;
+	font-weight: 700;
+	font-size: 18px;
 }
 
 %font-16-regular {
-  font-weight: 400;
-  font-size: 16px;
+	font-weight: 400;
+	font-size: 16px;
 }
 
 %font-16-medium {
-  font-weight: 700;
-  font-size: 16px;
+	font-weight: 700;
+	font-size: 16px;
 }
 
 %font-14-regular {
-  font-weight: 400;
-  font-size: 14px;
+	font-weight: 400;
+	font-size: 14px;
 }
 
 %font-14-medium {
-  font-weight: 500;
-  font-size: 14px;
+	font-weight: 500;
+	font-size: 14px;
 }
 
 %font-12-regular {
-  font-weight: 400;
-  font-size: 12px;
+	font-weight: 400;
+	font-size: 12px;
 }
 
 %font-12-medium {
-  font-weight: 500;
-  font-size: 12px;
+	font-weight: 500;
+	font-size: 12px;
 }
+
+
+// 設定 sweetalert
+.swal-custom-popup {
+	height: 96px;
+}
+
+//  沒有用
+.swal-custom-icon {
+	width: 56px !important;
+	height: 56px !important;
+}
+.swal-custom-title {
+	font-size: 28px;
+}
+
+// Swal.fire({
+//   position: 'top',
+//   title: '登入失敗！',
+//   timer: 1000,
+//   icon: 'error',
+//   showConfirmButton: false,
+//   width: '349px',
+//   customClass: {
+//     heightAuto: false,
+//     popup: 'swal-custom-popup',
+//     icon: 'swal-custom-icon',
+//     title: 'swal-custom-title'
+//   },
+// });
