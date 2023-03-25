@@ -18,11 +18,11 @@ export const SignInPage = () => {
 			<div className={style.pageLinkContainer}>
 				<ButtonXL text='登入' />
 				<div>
-					<Link className={style.pageLink} to='/register'>
+					<Link className={style.link} to='/register'>
 						註冊
 					</Link>
 					・
-					<Link className={style.pageLink} to='/admin/signin'>
+					<Link className={style.link} to='/admin/signin'>
 						後台登入
 					</Link>
 				</div>

@@ -1,11 +1,17 @@
-import { useState } from 'react';
 import style from 'src/components/AuthInput/AuthInput.module.scss';
 
 // 接受 props 為 label: label名稱、 title: input名稱、type: input類型、placeholder: input提示字、maxLength: input長度限制
-export const AuthInput = ({ label, title, type, placeholder = '', maxLength = 0 }) => {
-	const [inputValue, setInputValue] = useState('');
-
-	const inputLength = inputValue.length;
+export const AuthInput = ({
+	label,
+	title,
+	type,
+	placeholder = '',
+	maxLength = 0,
+	value = '',
+	onChange,
+}) => {
+	// 取的使用者輸入的內容長度
+	const inputLength = value.length;
 
 	// 判斷 input 輸入內容長度，若大於設定之 input 長度，設定 hintMessage，input 樣式改為 error 之 css
 	let hintMessage = '';
@@ -22,10 +28,6 @@ export const AuthInput = ({ label, title, type, placeholder = '', maxLength = 0 
 		hintCounter = `${inputLength === 0 ? 0 : inputLength}/${maxLength}`;
 	}
 
-	const handleChange = (e) => {
-		setInputValue(e.target.value);
-	};
-
 	return (
 		<div className={style.inputContainer}>
 			<input
@@ -34,8 +36,8 @@ export const AuthInput = ({ label, title, type, placeholder = '', maxLength = 0 
 				name={title}
 				type={type}
 				placeholder={placeholder}
-				value={inputValue}
-				onChange={handleChange}
+				value={value}
+				onChange={(e) => onChange?.(e.target.value)}
 			/>
 			<label htmlFor={label} className={style.inputLabel}>
 				{label}

@@ -26,7 +26,9 @@ export const RegisterPage = () => {
 			</div>
 			<div className={style.pageLinkContainer}>
 				<ButtonXL text='註冊' />
-				<Link to='/signin'>取消</Link>
+				<Link to='/signin' className={style.link}>
+					取消
+				</Link>
 			</div>
 		</main>
 	);
