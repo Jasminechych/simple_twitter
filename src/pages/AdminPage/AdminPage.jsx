@@ -2,7 +2,7 @@ import { AuthInput } from 'src/components/AuthInput/AuthInput';
 import { ButtonXL } from 'src/components/buttons';
 import { ReactComponent as Logo } from 'src/assets/icons/logo.svg';
 import style from 'src/pages/AdminPage/AdminPage.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { adminSignIn } from 'src/apis/auth';
 
@@ -12,11 +12,17 @@ export const AdminPage = () => {
 	console.log('account', account);
 	console.log('password', password);
 
+	const navigate = useNavigate();
+
 	const handleClick = async () => {
 		if (!account.trim().length || !password.trim().length) return;
-		const { token, success } = await adminSignIn({ account, password });
+		const { data, success } = await adminSignIn({ account, password });
+		console.log('現在在page, data:', data, 'success:', success);
+
 		if (success) {
-			localStorage.setItem('token', token);
+			console.log('success');
+			localStorage.setItem('token', data.token);
+			navigate('/admin/tweets');
 		}
 	};
 
