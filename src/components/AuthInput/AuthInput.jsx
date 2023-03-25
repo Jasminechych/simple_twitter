@@ -9,6 +9,7 @@ export const AuthInput = ({
 	maxLength = 0,
 	value = '',
 	onChange,
+	errorMessage = '',
 }) => {
 	// 取的使用者輸入的內容長度
 	const inputLength = value.length;
@@ -19,6 +20,11 @@ export const AuthInput = ({
 
 	if (maxLength && inputLength > maxLength) {
 		hintMessage = '超過字數上限';
+		inputStyle = style.inputError;
+	}
+
+	if (errorMessage) {
+		hintMessage = '帳號不存在';
 		inputStyle = style.inputError;
 	}
 

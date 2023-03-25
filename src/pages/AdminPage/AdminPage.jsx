@@ -9,16 +9,21 @@ import { adminSignIn } from 'src/apis/auth';
 export const AdminPage = () => {
 	const [account, setAccount] = useState('');
 	const [password, setPassword] = useState('');
+	const [errorMessage, setErrorMessage] = useState('');
 
 	const navigate = useNavigate();
 
 	const handleClick = async () => {
 		if (!account.trim().length || !password.trim().length) return;
 		const { data, success } = await adminSignIn({ account, password });
+		console.log('data: ', data);
+		console.log('errorMessage', errorMessage);
 
 		if (success) {
 			localStorage.setItem('token', data.token);
 			navigate('/admin/tweets');
+		} else {
+			setErrorMessage('error');
 		}
 	};
 
@@ -36,6 +41,7 @@ export const AdminPage = () => {
 					placeholder='請輸入帳號'
 					value={account}
 					onChange={(accountInputValue) => setAccount(accountInputValue)}
+					errorMessage={errorMessage}
 				/>
 				<AuthInput
 					label='密碼'
