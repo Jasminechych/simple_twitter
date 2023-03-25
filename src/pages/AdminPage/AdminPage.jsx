@@ -17,10 +17,8 @@ export const AdminPage = () => {
 	const handleClick = async () => {
 		if (!account.trim().length || !password.trim().length) return;
 		const { data, success } = await adminSignIn({ account, password });
-		console.log('現在在page, data:', data, 'success:', success);
 
 		if (success) {
-			console.log('success');
 			localStorage.setItem('token', data.token);
 			navigate('/admin/tweets');
 		}

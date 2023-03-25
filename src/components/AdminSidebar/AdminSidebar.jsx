@@ -6,8 +6,6 @@ import { SidebarTab } from 'src/components/SidebarTab/SidebarTab';
 export const AdminSidebar = () => {
 	const location = useLocation();
 	const currentPath = location.pathname;
-	console.log(typeof currentPath);
-	console.log('currentPath: ', currentPath);
 
 	return (
 		<nav className={style.sidebar}>
