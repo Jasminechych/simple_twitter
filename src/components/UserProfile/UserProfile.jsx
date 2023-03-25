@@ -40,7 +40,9 @@ export const UserProfile = ({ name, account, intro, followingCounts, followerCou
 					<AddPhoto />
 				</div>
 				<div className={style.userProfileButton}>
-					<ButtonSW text='編輯個人資料' />
+					<Link to='/user/self/edit'>
+						<ButtonSW text='編輯個人資料' />
+					</Link>
 				</div>
 				<div className={style.userProfileInfoWrapper}>
 					<div className={style.userProfileNameWrapper}>
