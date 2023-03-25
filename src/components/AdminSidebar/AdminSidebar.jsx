@@ -1,11 +1,18 @@
 import { Logo, HomeOutline, HomeFilled, UserOutline, UserFilled, Logout } from 'src/assets/icons';
 import style from 'src/components/AdminSidebar/AdminSidebar.module.scss';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { SidebarTab } from 'src/components/SidebarTab/SidebarTab';
 
 export const AdminSidebar = () => {
 	const location = useLocation();
 	const currentPath = location.pathname;
+	const navigate = useNavigate();
+
+	const handleClick = () => {
+		localStorage.removeItem('token');
+		console.log('logout');
+		navigate('/signin');
+	};
 
 	return (
 		<nav className={style.sidebar}>
@@ -26,7 +33,10 @@ export const AdminSidebar = () => {
 					isActiveText={currentPath === '/admin/users'}
 				/>
 			</ul>
-			<SidebarTab path='/signin' text='登出' icon={<Logout />} className={style.logout} />
+			<h5 className={style.logout} onClick={handleClick}>
+				<Logout />
+				登出
+			</h5>
 		</nav>
 	);
 };
