@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as BackArrow } from 'src/assets/icons/back.svg';
 import { TweetList } from '../TweetList/TweetList';
 import { useState } from 'react';
-import { ReplyPost } from '../ReplyPost/ReplyPost';
+import { ReplyList } from '../ReplyList/ReplyList';
 
 export const UserProfile = ({ name, account, intro, followingCounts, followerCounts, tweets }) => {
 	const [tab, setTab] = useState('tweetList');
@@ -68,7 +68,7 @@ export const UserProfile = ({ name, account, intro, followingCounts, followerCou
 				</div>
 				<div>
 					{tab === 'tweetList' && <TweetList />}
-					{tab === 'replyPost' && <ReplyPost />}
+					{tab === 'replyPost' && <ReplyList />}
 					{tab === 'likeList' && <TweetList />}
 				</div>
 			</div>
