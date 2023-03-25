@@ -9,6 +9,10 @@ import { FollowerList } from 'src/components/FollowSection/FollowerList/Follower
 import { AdminTweetList } from 'src/components/AdminTweetList/AdminTweetList';
 import { UserList } from 'src/components/UserList/UserList';
 import { AdminMainSection } from 'src/components/AdminMainSection/AdminMainSection';
+import { Setting } from './components/Setting/Setting';
+import { EditModal } from './components/Modal/EditModal/EditModal';
+import { TweetInput } from './components/TweetInput/TweetInput';
+import { TweetModal } from './components/Modal/TweetModal/TweetModal';
 
 // import { compileString } from "sass";
 
@@ -19,7 +23,23 @@ function App() {
 				<Routes>
 					<Route path='register' element={<RegisterPage />} />
 					<Route path='signin' element={<SignInPage />} />
-					<Route path='main' element={<MainPage />} />
+					<Route
+						path='main'
+						element={
+							<MainPage>
+								<TweetInput />
+							</MainPage>
+						}
+					/>
+					<Route
+						path='/main/tweet'
+						element={
+							<MainPage>
+								<TweetInput />
+								<TweetModal />
+							</MainPage>
+						}
+					/>
 					<Route path='*' element={<RegisterPage />} />
 					<Route
 						path='user/self'
@@ -49,6 +69,30 @@ function App() {
 						element={
 							<MainPage>
 								<FollowerList name={`John Doe`} tweets={`25`} />
+							</MainPage>
+						}
+					/>
+					<Route
+						path='setting'
+						element={
+							<MainPage>
+								<Setting />
+							</MainPage>
+						}
+					/>
+					<Route
+						path='/user/self/edit'
+						element={
+							<MainPage>
+								<UserProfile
+									name={`John Doe`}
+									account={`John Doe`}
+									intro={`Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor`}
+									followerCounts={`${59}位`}
+									followingCounts={`${34}個`}
+									tweets={`25`}
+								/>
+								<EditModal />
 							</MainPage>
 						}
 					/>
