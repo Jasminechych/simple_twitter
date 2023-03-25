@@ -9,8 +9,6 @@ import { adminSignIn } from 'src/apis/auth';
 export const AdminPage = () => {
 	const [account, setAccount] = useState('');
 	const [password, setPassword] = useState('');
-	console.log('account', account);
-	console.log('password', password);
 
 	const navigate = useNavigate();
 

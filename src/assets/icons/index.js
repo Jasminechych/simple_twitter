@@ -8,4 +8,3 @@ import { ReactComponent as Close } from 'src/assets/icons/close.svg';
 import { ReactComponent as Avatar } from 'src/assets/icons/man-avatar.svg';
 
 export { Logo, HomeOutline, HomeFilled, UserOutline, UserFilled, Logout, Close, Avatar };
-
