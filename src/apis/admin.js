@@ -14,7 +14,7 @@ export const getAdminTweets = async () => {
 		});
 		return res.data.data.tweetsData;
 	} catch (error) {
-		console.error('[Get User Failed]:', error);
+		console.error('[Get Tweets Failed]:', error);
 		return { success: false };
 	}
 };

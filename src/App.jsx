@@ -96,6 +96,7 @@ function App() {
 							</MainPage>
 						}
 					/>
+					{/* 後台 */}
 					<Route path='adminsignin' element={<AdminPage />} />
 					<Route path='admin' element={<AdminMainPage />}>
 						<Route
