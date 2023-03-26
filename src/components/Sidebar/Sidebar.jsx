@@ -1,47 +1,62 @@
 import style from 'src/components/Sidebar/Sidebar.module.scss';
-import { ReactComponent as Logo } from 'src/assets/icons/logo.svg';
-import { ReactComponent as Home } from 'src/assets/icons/home-outline.svg';
-import { ReactComponent as User } from 'src/assets/icons/user-outline.svg';
-import { ReactComponent as Cog } from 'src/assets/icons/cog-outline.svg';
-import { ReactComponent as Logout } from 'src/assets/icons/logout.svg';
+import {
+	Logo,
+	HomeOutline,
+	HomeFilled,
+	UserOutline,
+	UserFilled,
+	Logout,
+	CogFilled,
+	CogOutline,
+} from 'src/assets/icons';
 import { ButtonL } from 'src/components/buttons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { SidebarTab } from '../SidebarTab/SidebarTab';
 
 export const Sidebar = () => {
+	const location = useLocation();
+	const currentPath = location.pathname;
+	const navigate = useNavigate();
+
+	const handleClick = () => {
+		localStorage.removeItem('token');
+		console.log('logout');
+		navigate('/signin');
+	};
 	return (
-		<div className={style.sidebarContainer}>
+		<nav className={style.sidebarContainer}>
 			<div className={style.sidebarWrapper}>
-				<Link className={style.sidebarLogo} to='/main'>
-					<Logo />
-				</Link>
-				<div className={style.sidebarItemWrapper}>
-					<Link className={style.sidebarItem} to='/main'>
-						<div className={style.iconContainer}>
-							<Home className={style.sidebarIcon} />
-						</div>
-						<h5 className={style.sidebarTitle}>首頁</h5>
+				<ul className={style.sidebarItemWrapper}>
+					<Link className={style.sidebarLogo} to='/main'>
+						<Logo />
 					</Link>
-					<Link className={style.sidebarItem} to='/user/self'>
-						<div className={style.iconContainer}>
-							<User className={style.sidebarUserIcon} />
-						</div>
-						<h5 className={style.sidebarTitle}>個人資料</h5>
-					</Link>
-					<Link to='/setting' className={style.sidebarItem}>
-						<div className={style.iconContainer}>
-							<Cog className={style.sidebarIcon} />
-						</div>
-						<h5 className={style.sidebarTitle}>設定</h5>
-					</Link>
-				</div>
-				<Link to='tweet'>
+					<SidebarTab
+						path='/main'
+						text='首頁'
+						icon={currentPath === '/main' ? <HomeFilled /> : <HomeOutline />}
+						isActiveText={currentPath === '/main'}
+					/>
+					<SidebarTab
+						path='/user/self'
+						text='個人資料'
+						icon={currentPath === '/user/self' ? <UserFilled /> : <UserOutline />}
+						isActiveText={currentPath === '/user/self'}
+					/>
+					<SidebarTab
+						path='/setting'
+						text='設定'
+						icon={currentPath === '/setting' ? <CogFilled /> : <CogOutline />}
+						isActiveText={currentPath === '/setting'}
+					/>
+				</ul>
+				<Link to='/main/tweet'>
 					<ButtonL text='推文' className={style.button} />
 				</Link>
 			</div>
-			<Link href='' className={style.logout} to='/signin'>
+			<div className={style.logout} to='/signin' onClick={handleClick}>
 				<Logout />
 				<h5 className={style.logoutTitle}>登出</h5>
-			</Link>
-		</div>
+			</div>
+		</nav>
 	);
 };
