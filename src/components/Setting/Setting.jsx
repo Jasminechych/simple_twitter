@@ -21,6 +21,7 @@ export const Setting = () => {
 
 	//從資料庫取得已經存在的資料
 	const fetchData = async (id) => {
+		console.log('id: ', id);
 		const response = await getUserData(id);
 		if (response) {
 			const { data } = response;
