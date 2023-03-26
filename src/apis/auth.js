@@ -49,8 +49,6 @@ export const register = async ({ name, account, email, password, checkPassword }
 			checkPassword,
 		});
 		const token = data.data.token;
-		console.log('註冊得到的data: ', data);
-		console.log('註冊得到的data.data.userData.id: ', data.data.userData.id);
 
 		if (token) {
 			return { success: true, ...data };
