@@ -13,6 +13,11 @@
 	height: 54px;
 	padding: 24px 17.84px 4px 17.84px;
 	border-radius: 2px;
+  // 防止 chrome 預設樣式
+  &:focus {
+		background: #f5f8fa;
+    outline: none;
+	}
 	background-color: #f5f8fa;
 }
 
