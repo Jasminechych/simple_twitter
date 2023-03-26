@@ -1,13 +1,8 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import style from 'src/components/PopularListSection/PopularListItem.module.scss';
 import { ButtonS, ButtonSW } from 'src/components/buttons';
 
-export const PopularListItem = ({ id, name, avatar, account, initIsFollowing }) => {
-	const [isFollowing, setIsFollowing] = useState(initIsFollowing);
-
-	const handleFollowClick = () => {
-		setIsFollowing(!isFollowing);
-	};
+export const PopularListItem = ({ id, name, avatar, account, isFollowing, handleFollowClick }) => {
 	return (
 		<div className={style.popularListItemContainer} id={id}>
 			<div className={style.popularListItemUserPhoto}>
@@ -20,9 +15,9 @@ export const PopularListItem = ({ id, name, avatar, account, initIsFollowing }) 
 				</div>
 				<div>
 					{isFollowing ? (
-						<ButtonS text='正在跟隨' onClick={handleFollowClick} />
+						<ButtonS text='正在跟隨' onClick={() => handleFollowClick(id)} />
 					) : (
-						<ButtonSW text='跟隨' onClick={handleFollowClick} />
+						<ButtonSW text='跟隨' onClick={() => handleFollowClick(id)} />
 					)}
 				</div>
 			</div>
