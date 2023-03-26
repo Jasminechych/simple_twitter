@@ -69,15 +69,34 @@ export const getTopTenUsers = async () => {
 // 查看自己追蹤中的使用者
 export const getFollowingsUsers = async (id) => {
 	try {
-		const res = await axios.get(`${baseUrl}/users/:${id}/followings`, {
+		const res = await axios.get(`${baseUrl}/users/${id}/followings`, {
 			headers: {
 				Authorization: 'Bearer ' + token,
 			},
 		});
-		console.log('res.data: ', res.data);
 		return res.data;
 	} catch (error) {
 		console.error('[Get Top Ten Users Failed]:', error);
+		return { success: false };
+	}
+};
+
+// 追蹤、取消追蹤使用者
+export const postFollowShips = async (id) => {
+	try {
+		const res = await axios.post(
+			`${baseUrl}/followships`,
+			{ id },
+			{
+				headers: {
+					Authorization: 'Bearer ' + token,
+				},
+			},
+		);
+		console.log(res);
+		return res;
+	} catch (error) {
+		console.error('[Get Follow Ships Failed]:', error);
 		return { success: false };
 	}
 };
