@@ -1,7 +1,15 @@
+.dark {
+	background-color: #e5e5e5;
+	opacity: 50%;
+	width: 100vw;
+	height: 100vh;
+	left: 0;
+	position: fixed;
+}
+
 .editModalContainer {
-	border: 2px solid var(--dark-70);
 	width: 44vw;
-	height: 67vh;
+	height: 78vh;
 	margin: 56px 0 0 204px;
 	position: fixed;
 	border-radius: 14px;
@@ -79,11 +87,18 @@
 		left: 16px;
 	}
 	.editModalInfo {
+		// outline: 2px solid green;
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
 		gap: 32px;
 		width: 600px;
 		margin: 86px 16px 0 16px;
+
+		.modalHeight {
+			// all:unset;
+			// outline: 2px solid red;
+			height: 147px;
+		}
 	}
 }
