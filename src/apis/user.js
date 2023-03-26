@@ -3,8 +3,8 @@ import axios from 'axios';
 const baseUrl = 'https://quiet-fortress-55098.herokuapp.com/api';
 
 // 測試用待刪
-// const token = localStorage.getItem('token');
-// console.log('token: ', token);
+const token = localStorage.getItem('token');
+console.log('token: ', token);
 
 // 前台取得所有推文
 // export const getTweets = async () => {
@@ -22,12 +22,31 @@ const baseUrl = 'https://quiet-fortress-55098.herokuapp.com/api';
 // };
 
 // 使用者可以編輯自己的資料(setting)
-// export const putUserProfile = async (payload) => {
-// 	const { name, account, email, introduction } = payload;
-// 	try {
-// 		const res = await axios.put(`${baseUrl}/users/${id}`, { name, account, email, introduction });
-// 		return res.data;
-// 	} catch (error) {
-// 		console.log(`[Put Data Failed]:`, error);
-// 	}
-// };
+export const putSetting = async (id) => {
+	// payload會有這些資料
+	try {
+		const res = await axios.put(`${baseUrl}/users/${id}`, {
+			headers: {
+				Authorization: 'Bearer ' + token,
+			},
+		});
+		return res.data.data.user;
+	} catch (error) {
+		console.log(`[Put Setting Failed]:`, error);
+	}
+};
+
+//使用者可以取得自己的資料
+export const getUserData = async (id) => {
+	try {
+		const res = await axios.get(`${baseUrl}/users/${id}`, {
+			headers: {
+				Authorization: 'Bearer ' + token,
+			},
+		});
+		console.log(res);
+		return res.data.data.user;
+	} catch (error) {
+		console.log(`[Get UserData Failed]:`, error);
+	}
+};

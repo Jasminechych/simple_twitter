@@ -10,6 +10,7 @@ export const AuthInput = ({
 	value = '',
 	onChange,
 	errorMessage = '',
+	defaultValue,
 }) => {
 	// 取的使用者輸入的內容長度
 	const inputLength = value.length;
@@ -42,7 +43,7 @@ export const AuthInput = ({
 				name={title}
 				type={type}
 				placeholder={placeholder}
-				value={value}
+				value={value ?? defaultValue}
 				onChange={(e) => onChange?.(e.target.value)}
 			/>
 			<label htmlFor={label} className={style.inputLabel}>
