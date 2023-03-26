@@ -8,6 +8,9 @@ import { MainSection } from '../MainSection/MainSection';
 import Swal from 'sweetalert2';
 
 export const Setting = () => {
+	const current = localStorage.getItem('currentUserId');
+	console.log('setting page current: ', current);
+
 	//輸入時同步取得
 	const [account, setAccount] = useState('');
 	const [name, setName] = useState('');
@@ -22,7 +25,7 @@ export const Setting = () => {
 	//從資料庫取得已經存在的資料
 	const fetchData = async (id) => {
 		console.log('id: ', id);
-		const response = await getUserData(id);
+		const response = await getUserData(current);
 		if (response) {
 			const { data } = response;
 			setInitialValues({
