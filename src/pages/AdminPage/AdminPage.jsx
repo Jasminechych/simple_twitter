@@ -14,16 +14,16 @@ export const AdminPage = () => {
 	const navigate = useNavigate();
 
 	const handleClick = async () => {
+		setErrorMessage('');
+
 		if (!account.trim().length || !password.trim().length) return;
-		const { data, success } = await adminSignIn({ account, password });
-		console.log('data: ', data);
-		console.log('errorMessage', errorMessage);
+		const { data, success, errorMessage } = await adminSignIn({ account, password });
 
 		if (success) {
 			localStorage.setItem('token', data.token);
 			navigate('/admin/tweets');
 		} else {
-			setErrorMessage('error');
+			setErrorMessage(errorMessage);
 		}
 	};
 
