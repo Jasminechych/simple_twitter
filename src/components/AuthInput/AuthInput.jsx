@@ -25,7 +25,7 @@ export const AuthInput = ({
 	}
 
 	if (errorMessage) {
-		hintMessage = '帳號不存在';
+		hintMessage = errorMessage;
 		inputStyle = style.inputError;
 	}
 
