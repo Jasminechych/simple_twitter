@@ -26,6 +26,8 @@ export const userSignIn = async ({ account, password }) => {
 	try {
 		const { data } = await axios.post(`${baseUrl}/users/signin`, { account, password });
 		const token = data.data.token;
+		console.log('登入得到的data: ', data);
+		console.log('登入得到的data.data.userData.id: ', data.data.userData.id);
 
 		if (token) {
 			return { success: true, ...data };
