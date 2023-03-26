@@ -1,6 +1,6 @@
 import style from 'src/components/PopularListSection/PopularList.module.scss';
 import { PopularListItem } from 'src/components/PopularListSection/PopularListItem';
-import { getTopTenUsers, getFollowingsUsers } from 'src/apis/user';
+import { getTopTenUsers, getFollowingsUsers, postFollowShips } from 'src/apis/user';
 
 import { useState, useEffect } from 'react';
 
@@ -12,12 +12,9 @@ export const PopularList = () => {
 		const getTopTenUsersAsync = async () => {
 			try {
 				const data = await getTopTenUsers();
-				// console.log('頁面的data.data.usersData: ', data.data.usersData);
 
 				if (data.data.usersData.length > 0) {
-					// console.log('data.data.usersData:', data.data.usersData);
 					const topTen = data.data.usersData.slice(0, 10);
-					// console.log('topTen:', topTen);
 					setTopTenList(topTen);
 				}
 			} catch (error) {
@@ -35,7 +32,6 @@ export const PopularList = () => {
 			try {
 				const data = await getFollowingsUsers(currentUserId.currentUserId);
 				setCurrentUserFollowing(data);
-				console.log('user following data: ', data);
 			} catch (error) {
 				console.error(error);
 			}
@@ -43,6 +39,7 @@ export const PopularList = () => {
 		getFollowingsUsersAsync();
 	}, []);
 
+	// 取得 TOP 10 支當前使用者有 follow 的名單
 	const matchingList = topTenList.map((user) => {
 		const isMatch = currentUserFollowing.some((data) => data.followingId === user.id);
 		if (isMatch) {
@@ -55,6 +52,14 @@ export const PopularList = () => {
 		}
 	});
 
+	// 等有資料改
+	const handleFollowClick = (id) => {
+		console.log('click', id);
+		postFollowShips(id);
+		// getFollowingsUsersAsync();
+		// getTopTenUsersAsync();
+	};
+
 	return (
 		<div className={style.popularListContainer}>
 			{matchingList.map(({ id, account, name, avatar, matched }) => {
@@ -66,6 +71,7 @@ export const PopularList = () => {
 						avatar={avatar}
 						account={account}
 						isFollowing={matched}
+						handleFollowClick={handleFollowClick}
 					/>
 				);
 			})}

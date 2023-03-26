@@ -74,10 +74,29 @@ export const getFollowingsUsers = async (id) => {
 				Authorization: 'Bearer ' + token,
 			},
 		});
-		console.log('res: ', res.data);
 		return res.data;
 	} catch (error) {
 		console.error('[Get Top Ten Users Failed]:', error);
+		return { success: false };
+	}
+};
+
+// 追蹤、取消追蹤使用者
+export const postFollowShips = async (id) => {
+	try {
+		const res = await axios.post(
+			`${baseUrl}/followships`,
+			{ id },
+			{
+				headers: {
+					Authorization: 'Bearer ' + token,
+				},
+			},
+		);
+		console.log(res);
+		return res;
+	} catch (error) {
+		console.error('[Get Follow Ships Failed]:', error);
 		return { success: false };
 	}
 };
