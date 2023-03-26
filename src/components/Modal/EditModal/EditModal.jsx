@@ -5,8 +5,19 @@ import { AuthInput } from 'src/components/AuthInput/AuthInput';
 import { Close } from 'src/assets/icons';
 import { ButtonS } from 'src/components/buttons';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 export const EditModal = () => {
+	const [nameValue, setNameValue] = useState('');
+	const [introValue, setIntroValue] = useState('');
+
+	const handleNameInput = (value) => {
+		setNameValue(value);
+	};
+	const handleIntroInput = (value) => {
+		setIntroValue(value);
+	};
+
 	return (
 		<div className={style.editModalContainer}>
 			<div className={style.editTitleContainer}>
@@ -35,6 +46,8 @@ export const EditModal = () => {
 					type='text'
 					placeholder='請輸入使用者名稱'
 					maxLength='50'
+					value={nameValue}
+					onChange={handleNameInput}
 				/>
 				<AuthInput
 					label='自我介紹'
@@ -42,6 +55,8 @@ export const EditModal = () => {
 					type='text'
 					placeholder='自我介紹'
 					maxLength='160'
+					value={introValue}
+					onChange={handleIntroInput}
 				/>
 			</div>
 		</div>
