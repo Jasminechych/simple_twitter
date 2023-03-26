@@ -1,12 +1,13 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import style from 'src/components/PopularListSection/PopularListItem.module.scss';
 import { ButtonS, ButtonSW } from 'src/components/buttons';
 
-export const PopularListItem = ({ id, name, avatar, account, initIsFollowing }) => {
-	const [isFollowing, setIsFollowing] = useState(initIsFollowing);
+export const PopularListItem = ({ id, name, avatar, account, isFollowing }) => {
+	// const [initIsFollowing, setIsFollowing] = useState(initIsFollowing);
 
 	const handleFollowClick = () => {
-		setIsFollowing(!isFollowing);
+		console.log('click');
+		// setIsFollowing(!initIsFollowing);
 	};
 	return (
 		<div className={style.popularListItemContainer} id={id}>

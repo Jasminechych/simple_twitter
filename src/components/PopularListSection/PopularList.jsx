@@ -1,10 +1,12 @@
 import style from 'src/components/PopularListSection/PopularList.module.scss';
 import { PopularListItem } from 'src/components/PopularListSection/PopularListItem';
 import { getTopTenUsers, getFollowingsUsers } from 'src/apis/user';
+
 import { useState, useEffect } from 'react';
 
 export const PopularList = () => {
 	const [topTenList, setTopTenList] = useState([]);
+	const [currentUserFollowing, setCurrentUserFollowing] = useState([]);
 
 	useEffect(() => {
 		const getTopTenUsersAsync = async () => {
@@ -25,13 +27,14 @@ export const PopularList = () => {
 		getTopTenUsersAsync();
 	}, []);
 
-	// 缺使用者跟隨資料比對 TOP 10 有無跟隨中
+	// 使用者跟隨資料比對 TOP 10 有無跟隨中
 	useEffect(() => {
 		const getFollowingsUsersAsync = async () => {
 			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
-			console.log('currentUserId: ', currentUserId.currentUserId);
+			// console.log('currentUserId: ', currentUserId.currentUserId);
 			try {
-				const data = await getFollowingsUsers(currentUserId);
+				const data = await getFollowingsUsers(currentUserId.currentUserId);
+				setCurrentUserFollowing(data);
 				console.log('user following data: ', data);
 			} catch (error) {
 				console.error(error);
@@ -40,9 +43,21 @@ export const PopularList = () => {
 		getFollowingsUsersAsync();
 	}, []);
 
+	const matchingList = topTenList.map((user) => {
+		const isMatch = currentUserFollowing.some((data) => data.followingId === user.id);
+		if (isMatch) {
+			return {
+				...user,
+				matched: true,
+			};
+		} else {
+			return user;
+		}
+	});
+
 	return (
 		<div className={style.popularListContainer}>
-			{topTenList.map(({ id, account, name, avatar }) => {
+			{matchingList.map(({ id, account, name, avatar, matched }) => {
 				return (
 					<PopularListItem
 						key={id}
@@ -50,7 +65,7 @@ export const PopularList = () => {
 						name={name}
 						avatar={avatar}
 						account={account}
-						// initIsFollowing={isFollowing}
+						isFollowing={matched}
 					/>
 				);
 			})}
