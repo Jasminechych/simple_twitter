@@ -34,7 +34,9 @@ export const Sidebar = () => {
 						<h5 className={style.sidebarTitle}>設定</h5>
 					</Link>
 				</div>
-				<ButtonL text='推文' className={style.button} />
+				<Link to='tweet'>
+					<ButtonL text='推文' className={style.button} />
+				</Link>
 			</div>
 			<Link href='' className={style.logout} to='/signin'>
 				<Logout />
