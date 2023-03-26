@@ -5,19 +5,20 @@
 	width: 100%;
 }
 
+// 防止 chrome 預設樣式
+input:-webkit-autofill {
+	transition: background-color 5000s ease-in-out 0s;
+}
+
 %input {
-  appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
 	border: none;
 	outline: none;
 	width: 100%;
 	height: 54px;
 	padding: 24px 17.84px 4px 17.84px;
 	border-radius: 2px;
-  // 防止 chrome 預設樣式
-  &:focus {
-		background: #f5f8fa;
-    outline: none;
-	}
 	background-color: #f5f8fa;
 }
 
@@ -46,7 +47,7 @@
 	top: 2px;
 	left: 17.84px;
 	@extend %font-14-regular;
-  line-height: 22px;
+	line-height: 22px;
 	color: var(--dark-80);
 }
 
