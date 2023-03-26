@@ -5,8 +5,15 @@
 	width: 100%;
 }
 
+// 防止 chrome 預設樣式
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #f5f8fa inset;
+	transition: background-color 5000s ease-in-out 0s;
+}
+
 %input {
-  appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
 	border: none;
 	outline: none;
 	width: 100%;
@@ -41,7 +48,7 @@
 	top: 2px;
 	left: 17.84px;
 	@extend %font-14-regular;
-  line-height: 22px;
+	line-height: 22px;
 	color: var(--dark-80);
 }
 
