@@ -50,3 +50,34 @@ export const getUserData = async (id) => {
 		console.log(`[Get UserData Failed]:`, error);
 	}
 };
+
+// 取得前十最多被追蹤的使用者
+export const getTopTenUsers = async () => {
+	try {
+		const res = await axios.get(`${baseUrl}/users/top`, {
+			headers: {
+				Authorization: 'Bearer ' + token,
+			},
+		});
+		return res.data;
+	} catch (error) {
+		console.error('[Get Top Ten Users Failed]:', error);
+		return { success: false };
+	}
+};
+
+// 查看自己追蹤中的使用者
+export const getFollowingsUsers = async (id) => {
+	try {
+		const res = await axios.get(`${baseUrl}/users/:${id}/followings`, {
+			headers: {
+				Authorization: 'Bearer ' + token,
+			},
+		});
+		console.log('res.data: ', res.data);
+		return res.data;
+	} catch (error) {
+		console.error('[Get Top Ten Users Failed]:', error);
+		return { success: false };
+	}
+};

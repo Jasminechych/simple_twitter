@@ -2,13 +2,12 @@
 
 	.popularListSectionWrapper {
 		width: 273px;
-		height: 60%;
+		height: auto;
 		background: var(--dark-20);
 		border-radius: 16px;
 		margin-top: 16px;
 		display: flex;
 		flex-direction: column;
-
 
 		.popularListSectionTitle {
 			padding: 24px;
