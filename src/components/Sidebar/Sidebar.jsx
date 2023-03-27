@@ -20,7 +20,7 @@ export const Sidebar = () => {
 
 	const handleClick = () => {
 		localStorage.removeItem('token');
-		console.log('logout');
+		localStorage.removeItem('currentUser');
 		navigate('/signin');
 	};
 	return (
