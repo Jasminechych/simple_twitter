@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getUserData, putSetting } from 'src/apis/user.js';
+import { getUserData, putUserData } from 'src/apis/user.js';
 import style from 'src/components/Setting/Setting.module.scss';
 import { AuthInput } from '../AuthInput/AuthInput';
 import { ButtonM } from '../buttons';
@@ -27,13 +27,13 @@ export const Setting = () => {
 		name: current.currentUserName,
 		email: current.currentUserEmail,
 	});
-	console.log('initialValues:', initialValues);
+	// console.log('initialValues:', initialValues);
 
 	// 取得
 	useEffect(() => {
 		const getUsersInfo = async () => {
 			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
-			console.log('currentUserId: ', currentUserId.currentUserId);
+			// console.log('currentUserId: ', currentUserId.currentUserId);
 			try {
 				const data = await getUserData(currentUserId.currentUserId);
 				setInitialValues({
@@ -69,13 +69,14 @@ export const Setting = () => {
 		// 每次按下註冊按鈕時先清空所有錯誤訊息
 		setCheckPasswordErrorMessage('');
 
-		const { data, success, errorMessage } = await putSetting({
+		const { data, success, errorMessage } = await putUserData({
 			name,
 			account,
 			email,
 			password,
 			checkPassword,
 		});
+		console.log('data:', data);
 
 		// 如果 email 已被註冊，顯示錯誤訊息
 		if (errorMessage === 'Error: 此信箱已被註冊') {
