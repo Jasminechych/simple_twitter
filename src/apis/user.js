@@ -99,3 +99,60 @@ export const postFollowShips = async (id) => {
 		return { success: false };
 	}
 };
+
+// 查看所有推文
+export const getTweets = async () => {
+	try {
+		const res = await axios.get(`${baseUrl}/tweets`, {
+			headers: {
+				Authorization: 'Bearer ' + token,
+			},
+		});
+		return res.data;
+	} catch (error) {
+		console.error('[Get Tweets Failed]:', error);
+		return { success: false };
+	}
+};
+
+// 查看一篇推文
+export const getOneTweet = async (id) => {
+	try {
+		const res = await axios.get(`${baseUrl}/tweets/${id}`, {
+			headers: {
+				Authorization: 'Bearer ' + token,
+			},
+		});
+		return res.data;
+	} catch (error) {
+		console.error('[Get One Tweets Failed]:', error);
+	}
+};
+
+// api/users/:id/likes 查看喜歡過的貼文
+export const getUserLikes = async (id) => {
+	try {
+		const res = await axios.get(`${baseUrl}/tweets/${id}`, {
+			headers: {
+				Authorization: 'Bearer ' + token,
+			},
+		});
+		return res.data;
+	} catch (error) {
+		console.error('[Get User Likes Failed]:', error);
+	}
+};
+
+// api/tweets/:tweet_id/replies 找出此貼文id的所有回復
+export const getTweetReplies = async (id) => {
+	try {
+		const res = await axios.get(`${baseUrl}/tweets/${id}/replies`, {
+			headers: {
+				Authorization: 'Bearer ' + token,
+			},
+		});
+		return res.data;
+	} catch (error) {
+		console.error('[Get Tweet Replies Failed]:', error);
+	}
+};
