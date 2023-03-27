@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { ReplyItem } from 'src/components/ReplyItem/ReplyItem';
 
 export const ReplyListSection = () => {
-	const [replyPostData, setReplyPostData] = useState(null);
+	const [replyPostData, setReplyPostData] = useState([]);
 	const [tweetRepliesData, setTweetRepliesData] = useState([]);
 
 	// 取得單篇推文資料
@@ -16,8 +16,19 @@ export const ReplyListSection = () => {
 				// id 待替換
 				const data = await getOneTweet(174);
 				// 拿到資料後儲存資料在 setReplyPostData
-				setReplyPostData(data);
-				console.warn('getOneTweet data: ', data);
+				const restructureData = [
+					{
+						id: data.id,
+						description: data.description,
+						LikedCounts: data.LikedCounts,
+						RepliesCounts: data.RepliesCounts,
+						account: data.User.account,
+						avatar: data.User.avatar,
+						name: data.User.name,
+					},
+				];
+
+				setReplyPostData(restructureData);
 			} catch (error) {
 				console.error(error);
 			}
@@ -47,17 +58,21 @@ export const ReplyListSection = () => {
 				<Back style={{ cursor: 'pointer' }} />
 				<h4>推文</h4>
 			</div>
-			{/* 如果拿到資料 replyPostData 就會是一個物件 */}
-			{replyPostData === {} && (
-				<ReplyPost
-					id={replyPostData.id}
-					description={replyPostData.description}
-					likedCounts={replyPostData.LikedCounts}
-					repliesCounts={replyPostData.RepliesCounts}
-					account={replyPostData.User.account}
-					avatar={replyPostData.User.avatar}
-					name={replyPostData.User.name}
-				/>
+			{replyPostData.map(
+				({ id, description, LikedCounts, RepliesCounts, account, avatar, name }) => {
+					return (
+						<ReplyPost
+							key={id}
+							id={id}
+							description={description}
+							likedCounts={LikedCounts}
+							repliesCounts={RepliesCounts}
+							account={account}
+							avatar={avatar}
+							name={name}
+						/>
+					);
+				},
 			)}
 			{tweetRepliesData.map(({ Tweet, User, comment, createdAt }) => {
 				return (
