@@ -100,3 +100,18 @@ export const postFollowShips = async (id) => {
 		return { success: false };
 	}
 };
+
+// 查看所有推文
+export const getTweets = async () => {
+	try {
+		const res = await axios.get(`${baseUrl}/tweets`, {
+			headers: {
+				Authorization: 'Bearer ' + token,
+			},
+		});
+		return res.data;
+	} catch (error) {
+		console.error('[Get Tweets Failed]:', error);
+		return { success: false };
+	}
+};
