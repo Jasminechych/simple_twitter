@@ -16,30 +16,56 @@ export const Setting = () => {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+
+	// 	取使用者自己的資料
 	const [initialValues, setInitialValues] = useState({
-		account: '',
-		name: '',
-		email: '',
+		id: current.currentUserId,
+		account: current.currentUserAccount,
+		name: current.currentUserName,
+		email: current.currentUserEmail,
 	});
+	console.log('initialValues:', initialValues);
+
+	// 取得
+	useEffect(() => {
+		const getUsersInfo = async () => {
+			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
+			console.log('currentUserId: ', currentUserId.currentUserId);
+			try {
+				const data = await getUserData(currentUserId.currentUserId);
+				setInitialValues({
+					id: data.id,
+					account: data.account,
+					name: data.name,
+					email: data.email,
+				});
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		getUsersInfo();
+	}, []);
 
 	//從資料庫取得已經存在的資料
-	const fetchData = async (id) => {
-		console.log('id: ', id);
-		const response = await getUserData(id);
-		if (response) {
-			const { data } = response;
-			setInitialValues({
-				account: data.account,
-				name: data.name,
-				email: data.email,
-			});
-		}
-		console.log(response);
-	};
+	// const fetchData = async (id) => {
+	// 	const response = await getUserData(id);
+	// 	console.log('response:', response);
 
-	useEffect(() => {
-		fetchData();
-	}, []);
+	// 	if (response) {
+	// 		const { data } = response;
+	// 		setInitialValues({
+	// 			id: data.id,
+	// 			account: data.account,
+	// 			name: data.name,
+	// 			email: data.email,
+	// 		});
+	// 	}
+	// 	console.log(response);
+	// };
+
+	// useEffect(() => {
+	// 	fetchData();
+	// }, []);
 
 	const handleSave = async (id) => {
 		// 先判斷輸入的內容長度不為0
@@ -77,7 +103,7 @@ export const Setting = () => {
 					label='帳號'
 					title='account'
 					type='text'
-					value={account}
+					value={initialValues.account}
 					defaultValue={initialValues.account}
 					onChange={(accountInputValue) => setAccount(accountInputValue)}
 				/>
@@ -85,7 +111,7 @@ export const Setting = () => {
 					label='名稱'
 					title='name'
 					type='text'
-					value={name}
+					value={initialValues.name}
 					defaultValue={initialValues.name}
 					onChange={(nameInputValue) => setName(nameInputValue)}
 				/>
@@ -93,7 +119,7 @@ export const Setting = () => {
 					label='Email'
 					title='email'
 					type='email'
-					value={email}
+					value={initialValues.email}
 					defaultValue={initialValues.email}
 					onChange={(emailInputValue) => setEmail(emailInputValue)}
 				/>

@@ -44,8 +44,7 @@ export const getUserData = async (id) => {
 				Authorization: 'Bearer ' + token,
 			},
 		});
-		console.log(res);
-		return res.data.data.user;
+		return res.data;
 	} catch (error) {
 		console.log(`[Get UserData Failed]:`, error);
 	}
