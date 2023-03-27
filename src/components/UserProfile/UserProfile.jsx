@@ -15,11 +15,11 @@ import { getUserData } from 'src/apis/user';
 
 export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 	const current = JSON.parse(localStorage.getItem('currentUser'));
-	const [tab, setTab] = useState('tweetList');
-	console.log('tab: ', tab);
+	const [activeTab, setActiveTab] = useState('tweetList');
+	console.log('tab: ', activeTab);
 
 	const handleTabChange = (tab) => {
-		setTab(tab);
+		setActiveTab(tab);
 	};
 	// 	使用者取得自己的資料
 	const [initialValues, setInitialValues] = useState({
@@ -93,14 +93,23 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 					</div>
 				</div>
 				<div className={style.tabContainer}>
-					<TweetListTab handleTabChange={handleTabChange} />
-					<ReplyListTab handleTabChange={handleTabChange} />
-					<LikeList handleTabChange={handleTabChange} />
+					<TweetListTab
+						className={activeTab === 'tweetList' ? style.active : style.tab}
+						handleTabChange={handleTabChange}
+					/>
+					<ReplyListTab
+						className={activeTab === 'replyPost' ? style.active : style.tab}
+						handleTabChange={handleTabChange}
+					/>
+					<LikeList
+						className={activeTab === 'likeList' ? style.active : style.tab}
+						handleTabChange={handleTabChange}
+					/>
 				</div>
 				<div>
-					{tab === 'tweetList' && <TweetList />}
-					{tab === 'replyPost' && <ReplyList />}
-					{tab === 'likeList' && <TweetList />}
+					{activeTab === 'tweetList' && <TweetList />}
+					{activeTab === 'replyPost' && <ReplyList />}
+					{activeTab === 'likeList' && <TweetList />}
 				</div>
 			</div>
 		</MainSection>
