@@ -24,7 +24,9 @@
 		top: 0;
 		left: 0;
 		margin: 20px;
-		stroke: var(--brand-color); //沒有改變
+		& path {
+			fill: var(--brand-color);
+		}
 	}
 
 	.textContainer {
