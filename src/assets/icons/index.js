@@ -8,6 +8,8 @@ import { ReactComponent as Close } from 'src/assets/icons/close.svg';
 import { ReactComponent as Avatar } from 'src/assets/icons/man-avatar.svg';
 import { ReactComponent as CogOutline } from 'src/assets/icons/cog-outline.svg';
 import { ReactComponent as CogFilled } from 'src/assets/icons/cog-filled.svg';
+import { ReactComponent as AddPhoto } from 'src/assets/icons/addphoto.svg';
+import { ReactComponent as Cover } from 'src/assets/icons/background-photo.svg';
 
 export {
 	Logo,
@@ -20,4 +22,6 @@ export {
 	Avatar,
 	CogOutline,
 	CogFilled,
+	AddPhoto,
+	Cover,
 };
