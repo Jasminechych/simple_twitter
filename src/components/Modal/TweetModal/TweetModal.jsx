@@ -19,28 +19,31 @@ export const TweetModal = () => {
 	};
 
 	return (
-		<div className={style.tweetModalContainer}>
-			<Link to='/main'>
-				<Close className={style.close} />
-			</Link>
-			<div className={style.textContainer}>
-				<div className={style.textWrapper}>
-					<Avatar className={style.tweetModalAvatar} />
-					<div className={style.inputSection}>
-						<textarea
-							name='introduction'
-							placeholder='有什麼新鮮事？'
-							value={inputValue}
-							onChange={handleInputValue}
-							rows={11}
-						></textarea>
+		<>
+			<div className={style.dark}></div>
+			<div className={style.tweetModalContainer}>
+				<Link to='/main'>
+					<Close className={style.close} />
+				</Link>
+				<div className={style.textContainer}>
+					<div className={style.textWrapper}>
+						<Avatar className={style.tweetModalAvatar} />
+						<div className={style.inputSection}>
+							<textarea
+								name='introduction'
+								placeholder='有什麼新鮮事？'
+								value={inputValue}
+								onChange={handleInputValue}
+								rows={11}
+							></textarea>
+						</div>
+					</div>
+					<div className={style.buttonWrapper}>
+						<div className={style.hintMessage}>{hintMessage}</div>
+						<ButtonXS text='推文' />
 					</div>
 				</div>
-				<div className={style.buttonWrapper}>
-					<div className={style.hintMessage}>{hintMessage}</div>
-					<ButtonXS text='推文' />
-				</div>
 			</div>
-		</div>
+		</>
 	);
 };

@@ -1,7 +1,15 @@
 @import 'src/style/base';
 
+.dark {
+	background-color: #e5e5e5;
+	opacity: 50%;
+	width: 100vw;
+	height: 100vh;
+	left: 0;
+	position: fixed;
+}
+
 .tweetModalContainer {
-	border: 2px solid var(--dark-70);
 	width: 44vw;
 	height: 300px;
 	position: fixed;
@@ -16,7 +24,7 @@
 		top: 0;
 		left: 0;
 		margin: 20px;
-		fill: var(--brand-color); //沒有改變
+		stroke: var(--brand-color); //沒有改變
 	}
 
 	.textContainer {
