@@ -25,7 +25,7 @@
 			display: flex;
 			justify-content: space-between;
 
-			.closeButton path{
+			.closeButton path {
 				cursor: pointer;
 				fill: var(--brand-color); //沒有效果
 			}
@@ -60,14 +60,18 @@
 
 			.addPhoto {
 				margin-right: 20px;
-				background-color: var(--dark-0);
 				cursor: pointer;
+				& path {
+					fill: var(--dark-0);
+				}
 			}
 
 			.closePhoto {
 				margin-left: 20px;
-				background-color: var(--dark-0);
 				cursor: pointer;
+				& path {
+					fill: var(--dark-0);
+				}
 			}
 		}
 	}
