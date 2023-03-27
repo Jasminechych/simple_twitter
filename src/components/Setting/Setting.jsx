@@ -5,7 +5,7 @@ import { AuthInput } from '../AuthInput/AuthInput';
 import { ButtonM } from '../buttons';
 import { Header } from '../Header/Header';
 import { MainSection } from '../MainSection/MainSection';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 export const Setting = () => {
 	const current = JSON.parse(localStorage.getItem('currentUser'));
@@ -16,6 +16,9 @@ export const Setting = () => {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [checkPassword, setCheckPassword] = useState('');
+	const [checkPasswordErrorMessage, setCheckPasswordErrorMessage] = useState('');
+	const [emailErrorMessage, setEmailErrorMessage] = useState('');
 
 	// 	取使用者自己的資料
 	const [initialValues, setInitialValues] = useState({
@@ -46,32 +49,63 @@ export const Setting = () => {
 		getUsersInfo();
 	}, []);
 
-	const handleSave = async (id) => {
+	const handleSave = async () => {
 		// 先判斷輸入的內容長度不為0
 		if (
 			!account.trim().length ||
 			!name.trim().length ||
 			!email.trim().length ||
-			!password.trim().length
+			!password.trim().length ||
+			!checkPassword.trim().length
 		) {
 			return;
 		}
-
-		const response = await putSetting({ id, name, account, email, password });
-
-		if (response && response.data) {
-			const { data } = response;
-			// 進行對data的操作
-			localStorage.setItem('token', data.token);
-			Swal.fire({
-				title: '儲存成功',
-				icon: 'success',
-				showConfirmButton: false,
-				position: 'top',
-				timer: 1000,
-			});
+		// 密碼與確認密碼若不相符，防止表單送出
+		if (password !== checkPassword) {
+			setCheckPasswordErrorMessage('密碼不相符');
 			return;
 		}
+
+		// 每次按下註冊按鈕時先清空所有錯誤訊息
+		setCheckPasswordErrorMessage('');
+
+		const { data, success, errorMessage } = await putSetting({
+			name,
+			account,
+			email,
+			password,
+			checkPassword,
+		});
+
+		// 如果 email 已被註冊，顯示錯誤訊息
+		if (errorMessage === 'Error: 此信箱已被註冊') {
+			setEmailErrorMessage('此信箱已被註冊');
+		}
+		if (success) {
+			// 成功儲存使用者資料
+			const currentUser = {
+				currentUserId: data.userData.id,
+				currentUserAccount: data.userData.account,
+				currentUserName: data.userData.name,
+				currentUserEmail: data.userData.email,
+			};
+			localStorage.setItem('token', data.token);
+			localStorage.setItem('currentUser', JSON.stringify(currentUser));
+		}
+
+		// if (response && response.data) {
+		// 	const { data } = response;
+		// 	// 進行對data的操作
+		// 	localStorage.setItem('token', data.token);
+		// 	Swal.fire({
+		// 		title: '儲存成功',
+		// 		icon: 'success',
+		// 		showConfirmButton: false,
+		// 		position: 'top',
+		// 		timer: 1000,
+		// 	});
+		// 	return;
+		// }
 	};
 
 	return (
@@ -96,6 +130,7 @@ export const Setting = () => {
 					label='Email'
 					title='email'
 					type='email'
+					errorMessage={emailErrorMessage}
 					value={initialValues.email}
 					onChange={(emailInputValue) => setEmail(emailInputValue)}
 				/>
@@ -113,7 +148,8 @@ export const Setting = () => {
 					type='password'
 					placeholder='請再次輸入密碼'
 					value={password}
-					onChange={(passwordInputValue) => setPassword(passwordInputValue)}
+					errorMessage={checkPasswordErrorMessage}
+					onChange={(checkPasswordInputValue) => setCheckPassword(checkPasswordInputValue)}
 				/>
 			</div>
 			<div className={style.settingButton}>
