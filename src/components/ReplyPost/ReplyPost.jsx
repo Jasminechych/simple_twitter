@@ -5,15 +5,17 @@ import style from 'src/components/ReplyPost/ReplyPost.module.scss';
 
 export const ReplyPost = ({
 	id,
+	avatar,
+	name,
+	account,
 	description,
 	createdAt,
-	likedCounts,
 	repliesCounts,
-	account,
-	name,
-	avatar,
+	likedCounts,
 	isLikeByCurrentUse,
 }) => {
+	// const name = data.User.name;
+	console.log('data.User.account: ', account);
 	return (
 		<div className={style.replyPostContainer} id={id}>
 			<div className={style.replyPostHeaderInfo}>
