@@ -46,27 +46,6 @@ export const Setting = () => {
 		getUsersInfo();
 	}, []);
 
-	//從資料庫取得已經存在的資料
-	// const fetchData = async (id) => {
-	// 	const response = await getUserData(id);
-	// 	console.log('response:', response);
-
-	// 	if (response) {
-	// 		const { data } = response;
-	// 		setInitialValues({
-	// 			id: data.id,
-	// 			account: data.account,
-	// 			name: data.name,
-	// 			email: data.email,
-	// 		});
-	// 	}
-	// 	console.log(response);
-	// };
-
-	// useEffect(() => {
-	// 	fetchData();
-	// }, []);
-
 	const handleSave = async (id) => {
 		// 先判斷輸入的內容長度不為0
 		if (
@@ -104,7 +83,6 @@ export const Setting = () => {
 					title='account'
 					type='text'
 					value={initialValues.account}
-					defaultValue={initialValues.account}
 					onChange={(accountInputValue) => setAccount(accountInputValue)}
 				/>
 				<AuthInput
@@ -112,7 +90,6 @@ export const Setting = () => {
 					title='name'
 					type='text'
 					value={initialValues.name}
-					defaultValue={initialValues.name}
 					onChange={(nameInputValue) => setName(nameInputValue)}
 				/>
 				<AuthInput
@@ -120,7 +97,6 @@ export const Setting = () => {
 					title='email'
 					type='email'
 					value={initialValues.email}
-					defaultValue={initialValues.email}
 					onChange={(emailInputValue) => setEmail(emailInputValue)}
 				/>
 				<AuthInput
