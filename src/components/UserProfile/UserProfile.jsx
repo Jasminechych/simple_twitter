@@ -1,7 +1,6 @@
 import style from 'src/components/UserProfile/UserProfile.module.scss';
 import { ButtonSW } from 'src/components/buttons';
 import { ReactComponent as BackgroundPhoto } from 'src/assets/icons/background-photo.svg';
-import { ReactComponent as AddPhoto } from 'src/assets/icons/addphoto.svg';
 import { LikeList } from 'src/components/LikeList/LikeList';
 import { ReplyListTab } from 'src/components/ReplyListTab/ReplyListTab';
 import { TweetListTab } from 'src/components/TweetListTab/TweetListTab';
@@ -10,16 +9,48 @@ import { Header } from 'src/components/Header/Header';
 import { Link } from 'react-router-dom';
 import { ReactComponent as BackArrow } from 'src/assets/icons/back.svg';
 import { TweetList } from '../TweetList/TweetList';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReplyList } from '../ReplyList/ReplyList';
+import { getUserData } from 'src/apis/user';
 
-export const UserProfile = ({ name, account, intro, followingCounts, followerCounts, tweets }) => {
+export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
+	const current = JSON.parse(localStorage.getItem('currentUser'));
 	const [tab, setTab] = useState('tweetList');
 	console.log('tab: ', tab);
 
 	const handleTabChange = (tab) => {
 		setTab(tab);
 	};
+	// 	使用者取得自己的資料
+	const [initialValues, setInitialValues] = useState({
+		id: current.currentUserId,
+		name: current.currentUserName,
+		account: current.currentUserAccount,
+		avatar: current.currentUserAvatar,
+		intro: current.currentUserIntroduction,
+	});
+	console.log('initialValues:', initialValues);
+
+	// 取得
+	useEffect(() => {
+		const getUsersInfo = async () => {
+			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
+			console.log('currentUserId: ', currentUserId.currentUserId);
+			try {
+				const data = await getUserData(currentUserId.currentUserId);
+				setInitialValues({
+					id: data.id,
+					name: data.name,
+					account: data.account,
+					avatar: data.avatar,
+					intro: data.intro,
+				});
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		getUsersInfo();
+	}, []);
 
 	return (
 		<MainSection>
@@ -28,7 +59,7 @@ export const UserProfile = ({ name, account, intro, followingCounts, followerCou
 					<BackArrow className={style.backArrow} />
 				</Link>
 				<div className={style.userHeader}>
-					<Header header={name} className={style.header} />
+					<Header header={initialValues.name} className={style.header} />
 					<a href='' className={style.tweets}>{`${tweets}推文`}</a>
 				</div>
 			</div>
@@ -37,7 +68,7 @@ export const UserProfile = ({ name, account, intro, followingCounts, followerCou
 					<BackgroundPhoto />
 				</div>
 				<div className={style.userProfileAvatar}>
-					<AddPhoto />
+					<img src={initialValues.avatar} className={style.avatar} />
 				</div>
 				<div className={style.userProfileButton}>
 					<Link to='/user/self/edit'>
@@ -46,10 +77,10 @@ export const UserProfile = ({ name, account, intro, followingCounts, followerCou
 				</div>
 				<div className={style.userProfileInfoWrapper}>
 					<div className={style.userProfileNameWrapper}>
-						<h5 className={style.userProfileName}>{name}</h5>
-						<div className={style.userProfileSubName}>@{account}</div>
+						<h5 className={style.userProfileName}>{initialValues.name}</h5>
+						<div className={style.userProfileSubName}>@{initialValues.account}</div>
 					</div>
-					<p className={style.userProfileIntro}>{intro}</p>
+					<p className={style.userProfileIntro}>{initialValues.intro}</p>
 					<div className={style.userProfileFollowInfoWrapper}>
 						<div className={style.userProfileFollowing}>
 							{followingCounts}
