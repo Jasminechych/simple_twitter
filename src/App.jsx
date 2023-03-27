@@ -14,6 +14,8 @@ import { EditModal } from './components/Modal/EditModal/EditModal';
 import { TweetInput } from './components/TweetInput/TweetInput';
 import { TweetModal } from './components/Modal/TweetModal/TweetModal';
 import { AdminTweetsSection } from 'src/components/AdminTweetsSection/AdminTweetsSection';
+import { MainSection } from './components/MainSection/MainSection';
+import { ReplyListSection } from 'src/components/ReplyListSection/ReplyListSection';
 
 // import { compileString } from "sass";
 
@@ -159,6 +161,16 @@ function App() {
 									followingCounts={`${34}個`}
 									tweets={`25`}
 								/>
+							</MainPage>
+						}
+					/>
+					<Route
+						path='/replyList'
+						element={
+							<MainPage>
+								<MainSection>
+									<ReplyListSection />
+								</MainSection>
 							</MainPage>
 						}
 					/>

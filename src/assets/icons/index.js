@@ -10,6 +10,7 @@ import { ReactComponent as CogOutline } from 'src/assets/icons/cog-outline.svg';
 import { ReactComponent as CogFilled } from 'src/assets/icons/cog-filled.svg';
 import { ReactComponent as AddPhoto } from 'src/assets/icons/addphoto.svg';
 import { ReactComponent as Cover } from 'src/assets/icons/background-photo.svg';
+import { ReactComponent as Back } from 'src/assets/icons/back.svg';
 
 export {
 	Logo,
@@ -24,4 +25,5 @@ export {
 	CogFilled,
 	AddPhoto,
 	Cover,
+	Back,
 };
