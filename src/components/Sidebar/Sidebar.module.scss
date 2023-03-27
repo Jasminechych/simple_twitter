@@ -1,59 +1,32 @@
 .sidebarContainer {
-	width: 178px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 
 	.sidebarWrapper {
-		margin-top: 13px;
-		.sidebarLogo {
-			margin: 13px 0 0 13px;
-			cursor: pointer;
-		}
+		display: flex;
+		flex-direction: column;
 		.sidebarItemWrapper {
-			margin-top: 30px;
+			margin: 13px 13px 24px 13px;
+			display: flex;
+			flex-direction: column;
+			gap: 40px;
 
-			.sidebarItem {
-				color: var(--dark-90);
-				margin-left: 13px;
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				margin-bottom: 40px;
-				position: relative;
-				cursor: pointer;
-				&:hover {
-					color: var(--brand-color);
-				}
-				&:hover path {
-					// background-image: url('../../assets/icons/home-filled.svg');
-					fill: orange;
-				}
-
-				.iconContainer {
-					.sidebarIcon {
-						width: 100%;
-						padding-right: 17px;
-					}
-
-					// UserIcon與其他icon有一點點差距，因此另外抓出來設定後才有對齊
-					.sidebarUserIcon {
-						width: 100%;
-						padding-right: 20px;
-					}
-				}
-			}
+		}
+		.button{
+			margin-top: 10px;
 		}
 	}
-
 	.logout {
 		display: flex;
 		margin-left: 20px;
 		margin-bottom: 16px;
 		color: var(--dark-90);
+		cursor: pointer;
 
 		.logoutTitle {
 			margin-left: 20px;
+			color: var(--dark-90);
 		}
 	}
 }
