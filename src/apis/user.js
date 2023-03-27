@@ -22,7 +22,7 @@ console.log('token: ', token);
 // };
 
 // 使用者可以編輯自己的資料(setting)
-export const putSetting = async (id) => {
+export const putUserData = async (id) => {
 	// payload會有這些資料
 	try {
 		const res = await axios.put(`${baseUrl}/users/${id}`, {
@@ -30,7 +30,7 @@ export const putSetting = async (id) => {
 				Authorization: 'Bearer ' + token,
 			},
 		});
-		return res.data.data.user;
+		return res.data;
 	} catch (error) {
 		console.log(`[Put Setting Failed]:`, error);
 	}
@@ -44,8 +44,7 @@ export const getUserData = async (id) => {
 				Authorization: 'Bearer ' + token,
 			},
 		});
-		console.log(res);
-		return res.data.data.user;
+		return res.data;
 	} catch (error) {
 		console.log(`[Get UserData Failed]:`, error);
 	}
