@@ -22,7 +22,6 @@ export const TweetList = () => {
 				const data = await getTweets();
 				// 待刪改
 				setTweetListData(data);
-				console.log('執行 getTweets');
 				setIsDataLoaded(true);
 			} catch (error) {
 				console.error(error);
@@ -38,7 +37,6 @@ export const TweetList = () => {
 				const data = await getUserLikes(currentUserId);
 				setUserLikeData(data);
 				setIsUserLikeDataLoaded(true);
-				console.log('執行 getUserLikes');
 			} catch (error) {
 				console.error(error);
 			}
@@ -109,8 +107,6 @@ export const TweetList = () => {
 			return { ...item, isLikeByUser: isLiked };
 		});
 	}, [isDataLoaded, isUserLikeDataLoaded, tweetListData, userLikeData]);
-
-	console.log('matchData: ', matchData);
 
 	return (
 		<div className={style.tweetList}>

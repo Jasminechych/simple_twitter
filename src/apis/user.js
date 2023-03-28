@@ -88,10 +88,9 @@ export const getFollowingsUsers = async (id) => {
 	}
 };
 
-// 追蹤、取消追蹤使用者
+// api/followships 追蹤某位使用者
 export const postFollowShips = async (id) => {
 	const token = localStorage.getItem('token');
-	// console.log('token: ', token);
 	try {
 		const res = await axios.post(
 			`${baseUrl}/followships`,
@@ -102,11 +101,26 @@ export const postFollowShips = async (id) => {
 				},
 			},
 		);
-		console.log(res);
-		return res;
+		console.log(res.data);
+		return res.data;
 	} catch (error) {
-		console.error('[Get Follow Ships Failed]:', error);
-		return { success: false };
+		console.error('[Get Follow Ships Failed]:', error.response);
+	}
+};
+
+// api/followships/:followingId 取消追蹤某位使用者
+export const deleteFollowShips = async (id) => {
+	const token = localStorage.getItem('token');
+	try {
+		const res = await axios.delete(`${baseUrl}/followships/${id}`, {
+			headers: {
+				Authorization: 'Bearer ' + token,
+			},
+		});
+		console.log(res.data);
+		return res.data;
+	} catch (error) {
+		console.error('[Get Follow Ships Failed]:', error.response);
 	}
 };
 

@@ -15,9 +15,9 @@ export const PopularListItem = ({ id, name, avatar, account, isFollowing, handle
 				</div>
 				<div>
 					{isFollowing ? (
-						<ButtonS text='正在跟隨' onClick={() => handleFollowClick(id)} />
+						<ButtonS text='正在跟隨' onClick={() => handleFollowClick(id, 'unFollow')} />
 					) : (
-						<ButtonSW text='跟隨' onClick={() => handleFollowClick(id)} />
+						<ButtonSW text='跟隨' onClick={() => handleFollowClick(id, 'follow')} />
 					)}
 				</div>
 			</div>
