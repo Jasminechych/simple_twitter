@@ -3,6 +3,7 @@ import { ReactComponent as LikeFilled } from 'src/assets/icons/like-filled.svg';
 import { ReactComponent as LikeOutline } from 'src/assets/icons/like-outline.svg';
 import style from 'src/components/ReplyPost/ReplyPost.module.scss';
 import { formatDate } from 'src/utils/formatDate';
+import { Link } from 'react-router-dom';
 
 export const ReplyPost = ({
 	id,
@@ -41,7 +42,9 @@ export const ReplyPost = ({
 				</div>
 
 				<div className={style.replyPostButtonContainer}>
-					<Reply />
+					<Link to='/replyList:id/modal'>
+						<Reply />
+					</Link>
 					{isLikeByCurrentUse ? <LikeFilled /> : <LikeOutline />}
 				</div>
 			</div>
