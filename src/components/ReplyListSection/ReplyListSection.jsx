@@ -8,6 +8,7 @@ import { ReplyItem } from 'src/components/ReplyItem/ReplyItem';
 export const ReplyListSection = () => {
 	const [replyPostData, setReplyPostData] = useState([]);
 	const [tweetRepliesData, setTweetRepliesData] = useState([]);
+	const [isDataLoaded, setIsDataLoaded] = useState(false);
 
 	// 取得單篇推文資料
 	useEffect(() => {
@@ -29,6 +30,7 @@ export const ReplyListSection = () => {
 				];
 
 				setReplyPostData(restructureData);
+				setIsDataLoaded(true);
 			} catch (error) {
 				console.error(error);
 			}
@@ -58,22 +60,23 @@ export const ReplyListSection = () => {
 				<Back style={{ cursor: 'pointer' }} />
 				<h4>推文</h4>
 			</div>
-			{replyPostData.map(
-				({ id, description, LikedCounts, RepliesCounts, account, avatar, name }) => {
-					return (
-						<ReplyPost
-							key={id}
-							id={id}
-							description={description}
-							likedCounts={LikedCounts}
-							repliesCounts={RepliesCounts}
-							account={account}
-							avatar={avatar}
-							name={name}
-						/>
-					);
-				},
-			)}
+			{isDataLoaded &&
+				replyPostData.map(
+					({ id, description, LikedCounts, RepliesCounts, account, avatar, name }) => {
+						return (
+							<ReplyPost
+								key={id}
+								id={id}
+								description={description}
+								likedCounts={LikedCounts}
+								repliesCounts={RepliesCounts}
+								account={account}
+								avatar={avatar}
+								name={name}
+							/>
+						);
+					},
+				)}
 			{tweetRepliesData.map(({ Tweet, User, comment, createdAt }) => {
 				return (
 					<ReplyItem
