@@ -20,9 +20,10 @@ import { ReplyListSection } from 'src/components/ReplyListSection/ReplyListSecti
 // import { compileString } from "sass";
 
 function App() {
+	const basename = window.ENV.REACT_APP_PUBLIC_URL;
 	return (
 		<div className='App'>
-			<BrowserRouter basename={'/simple_twitter'}>
+			<BrowserRouter basename={basename}>
 				<Routes>
 					<Route path='register' element={<RegisterPage />} />
 					<Route path='signin' element={<SignInPage />} />
