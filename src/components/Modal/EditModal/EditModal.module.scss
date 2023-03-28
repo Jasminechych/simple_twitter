@@ -25,7 +25,7 @@
 			display: flex;
 			justify-content: space-between;
 
-			.closeButton {
+			.closeButton path {
 				cursor: pointer;
 				fill: var(--brand-color); //沒有效果
 			}
@@ -38,14 +38,15 @@
 
 	.editModalBackgroundPhoto {
 		width: 100%;
+		height: 200px;
 		position: relative;
 
 		.backgroundPhoto {
 			width: 100%;
+			object-fit: cover;
 		}
 
 		.addAndClose {
-			outline: 2px solid green;
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -60,14 +61,19 @@
 
 			.addPhoto {
 				margin-right: 20px;
-				background-color: var(--dark-0);
 				cursor: pointer;
+				object-fit: cover;
+				& path {
+					fill: var(--dark-0);
+				}
 			}
 
 			.closePhoto {
 				margin-left: 20px;
-				background-color: var(--dark-0);
 				cursor: pointer;
+				& path {
+					fill: var(--dark-0);
+				}
 			}
 		}
 	}
@@ -85,6 +91,11 @@
 		position: absolute;
 		top: 181px;
 		left: 16px;
+		.avatar {
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+		}
 	}
 	.editModalInfo {
 		// outline: 2px solid green;
