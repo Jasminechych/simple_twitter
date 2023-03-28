@@ -24,29 +24,26 @@ export const TweetList = () => {
 
 	return (
 		<div className={style.tweetList}>
-			{isDataLoaded ? (
-				tweetListData.map(({ id, description, createdAt, LikedCounts, RepliesCounts, User }) => {
-					const createdAtDate = new Date(createdAt);
-					const hour = createdAtDate.getHours();
-					return (
-						<TweetItem
-							key={id}
-							id={id}
-							description={description}
-							avatar={User.avatar}
-							name={User.name}
-							account={User.account}
-							createdAt={hour}
-							replyCounts={RepliesCounts}
-							likeCounts={LikedCounts}
-							// isLiked={isLiked} // 待確認
-							// handleTweetClick={handleTweetClick}
-						/>
-					);
-				})
-			) : (
-				<h5>loading...</h5>
-			)}
+			{tweetListData.map(({ id, description, createdAt, LikedCounts, RepliesCounts, User }) => {
+				const createdAtDate = new Date(createdAt);
+				const hour = createdAtDate.getHours();
+				return (
+					<TweetItem
+						key={id}
+						id={id}
+						description={description}
+						avatar={User.avatar}
+						name={User.name}
+						account={User.account}
+						createdAt={hour}
+						replyCounts={RepliesCounts}
+						likeCounts={LikedCounts}
+						// isLiked={isLiked} // 待確認
+						// handleTweetClick={handleTweetClick}
+					/>
+				);
+			})}
+
 		</div>
 	);
 };
