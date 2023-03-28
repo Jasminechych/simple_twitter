@@ -1,9 +1,12 @@
+import { Link } from 'react-router-dom';
 import style from 'src/components/buttons/ButtonSW/ButtonSW.module.scss';
 
-export const ButtonSW = ({ text, onClick }) => {
+export const ButtonSW = ({ text, onClick, path }) => {
 	return (
-		<button className={style.buttonSW} onClick={onClick}>
-			{text}
-		</button>
+		<Link to={path}>
+			<button className={style.buttonSW} onClick={onClick}>
+				{text}
+			</button>
+		</Link>
 	);
 };
