@@ -130,7 +130,7 @@ function App() {
 						}
 					/>
 					<Route
-						path='/replyList'
+						path='/replyList:id'
 						element={
 							<MainPage>
 								<MainSection>

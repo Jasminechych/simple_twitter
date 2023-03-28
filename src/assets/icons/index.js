@@ -12,7 +12,6 @@ import { ReactComponent as AddPhoto } from 'src/assets/icons/addphoto.svg';
 import { ReactComponent as Cover } from 'src/assets/icons/background-photo.svg';
 import { ReactComponent as Back } from 'src/assets/icons/back.svg';
 
-
 export {
 	Logo,
 	HomeOutline,
