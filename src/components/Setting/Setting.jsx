@@ -34,20 +34,20 @@ export const Setting = () => {
 	// 取得
 	useEffect(() => {
 		const getUsersInfo = async () => {
-			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
-			// console.log('currentUserId: ', currentUserId.currentUserId);
-
-			// 取得token
-			const token = localStorage.getItem('token');
-			console.log('token:', token);
-
-			// 先驗證token，若無則直接回到login
-			if (!token) {
-				navigate('/signin');
-				return;
-			}
 			try {
+				// 取得token
+				const token = localStorage.getItem('token');
+				console.log('token:', token);
+
+				// 先驗證token，若無則直接回到login
+				if (!token) {
+					navigate('/signin');
+					return;
+				}
+				const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
+				// console.log('currentUserId: ', currentUserId.currentUserId);
 				const data = await getUserData(currentUserId.currentUserId);
+
 				setInitialValues({
 					id: data.id,
 					account: data.account,
@@ -59,7 +59,7 @@ export const Setting = () => {
 			}
 		};
 		getUsersInfo();
-	}, []);
+	}, [navigate]);
 
 	const handleSave = async () => {
 		// 先判斷輸入的內容長度不為0

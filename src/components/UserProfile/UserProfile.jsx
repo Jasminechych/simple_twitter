@@ -15,6 +15,7 @@ import { getUserData } from 'src/apis/user';
 import { MessageFilled, MessageOutline, NotiFilled, NotiOutline } from 'src/assets/icons';
 
 export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
+	const navigate = useNavigate();
 	const current = JSON.parse(localStorage.getItem('currentUser'));
 	const [activeTab, setActiveTab] = useState('tweetList');
 	console.log('tab: ', activeTab);
@@ -22,7 +23,6 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 	const currentPath = location.pathname;
 	const [messageClicked, setMessageClicked] = useState(false);
 	const [notiClicked, setNotiClicked] = useState(false);
-	const navigate = useNavigate();
 
 	const handleTabChange = (tab) => {
 		setActiveTab(tab);
@@ -40,20 +40,20 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 	// 取得
 	useEffect(() => {
 		const getUsersInfo = async () => {
-			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
-			// console.log('currentUserId: ', currentUserId.currentUserId);
-
 			try {
-				const data = await getUserData(currentUserId.currentUserId);
-				// 取得token
 				const token = localStorage.getItem('token');
 				console.log('token:', token);
 
 				// 先驗證token，若無則直接回到signin
 				if (!token) {
-					navigate('signin');
+					navigate('/signin', { replace: true });
 					return;
 				}
+				const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
+				// console.log('currentUserId: ', currentUserId.currentUserId);
+				const data = await getUserData(currentUserId.currentUserId);
+				// 取得token
+
 				setInitialValues({
 					id: data.id,
 					name: data.name,
@@ -66,7 +66,7 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 			}
 		};
 		getUsersInfo();
-	}, []);
+	}, [navigate]);
 
 	return (
 		<MainSection>

@@ -46,8 +46,6 @@ export const TweetList = () => {
 	useEffect(() => {
 		const getUserLikesAsync = async () => {
 			try {
-				const data = await getUserLikes(currentUserId);
-				setUserLikeData(data);
 				// 取得token
 				const token = localStorage.getItem('token');
 				console.log('token:', token);
@@ -57,6 +55,8 @@ export const TweetList = () => {
 					navigate('signin');
 					return;
 				}
+				const data = await getUserLikes(currentUserId);
+				setUserLikeData(data);
 				setIsUserLikeDataLoaded(true);
 				console.log('執行 getUserLikes');
 			} catch (error) {
