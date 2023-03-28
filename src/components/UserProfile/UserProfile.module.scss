@@ -61,6 +61,49 @@
 	.userProfileButton {
 		align-self: flex-end;
 		margin: 15px;
+
+		.otherUserButtons {
+			display: flex;
+			.messageBox {
+				outline: 1px solid var(--brand-color);
+				width: 40px;
+				height: 40px;
+				border-radius: 50%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				.messageOutline path {
+					fill: var(--brand-color);
+				}
+				.messageFilled path {
+					fill: var(--dark-0);
+					background-color: var(--brand-color);
+				}
+			}
+			.messageBoxClicked {
+				background-color: var(--brand-color);
+			}
+			.notiBox {
+				outline: 1px solid var(--brand-color);
+				width: 40px;
+				height: 40px;
+				border-radius: 50%;
+				margin: 0 16px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				.notiOutline path {
+					fill: var(--brand-color);
+				}
+				.notiFilled path {
+					fill: var(--dark-0);
+					background-color: var(--brand-color);
+				}
+			}
+			.notiBoxClicked {
+				background-color: var(--brand-color);
+			}
+		}
 	}
 
 	.userProfileInfoWrapper {
@@ -122,8 +165,8 @@
 			color: var(--brand-color);
 			border-bottom: 2px solid var(--brand-color);
 		}
-		.tab{
-			color:#657786;
+		.tab {
+			color: #657786;
 		}
 	}
 }

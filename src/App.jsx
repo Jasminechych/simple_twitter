@@ -19,6 +19,9 @@ import { ReplyListSection } from 'src/components/ReplyListSection/ReplyListSecti
 
 // import { compileString } from "sass";
 
+// eslint 會跳錯 process is not defined
+// const basename = process.REACT_APP_PUBLIC_URL;
+
 function App() {
 	const basename = window.ENV.REACT_APP_PUBLIC_URL;
 	return (
@@ -47,6 +50,14 @@ function App() {
 					<Route path='*' element={<RegisterPage />} />
 					<Route
 						path='user/self'
+						element={
+							<MainPage>
+								<UserProfile followerCounts={`${59}位`} followingCounts={`${34}個`} tweets={`25`} />
+							</MainPage>
+						}
+					/>
+					<Route
+						path='user/other'
 						element={
 							<MainPage>
 								<UserProfile followerCounts={`${59}位`} followingCounts={`${34}個`} tweets={`25`} />

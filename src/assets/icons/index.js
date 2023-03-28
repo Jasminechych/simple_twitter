@@ -11,6 +11,10 @@ import { ReactComponent as CogFilled } from 'src/assets/icons/cog-filled.svg';
 import { ReactComponent as AddPhoto } from 'src/assets/icons/addphoto.svg';
 import { ReactComponent as Cover } from 'src/assets/icons/background-photo.svg';
 import { ReactComponent as Back } from 'src/assets/icons/back.svg';
+import { ReactComponent as MessageOutline } from 'src/assets/icons/message-outline.svg';
+import { ReactComponent as MessageFilled } from 'src/assets/icons/message-filled.svg';
+import { ReactComponent as NotiOutline } from 'src/assets/icons/noti-outline.svg';
+import { ReactComponent as NotiFilled } from 'src/assets/icons/noti-filled.svg';
 
 export {
 	Logo,
@@ -26,4 +30,8 @@ export {
 	AddPhoto,
 	Cover,
 	Back,
+	MessageOutline,
+	MessageFilled,
+	NotiOutline,
+	NotiFilled,
 };

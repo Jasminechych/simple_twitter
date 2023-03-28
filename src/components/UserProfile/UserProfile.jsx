@@ -1,22 +1,27 @@
 import style from 'src/components/UserProfile/UserProfile.module.scss';
-import { ButtonSW } from 'src/components/buttons';
+import { ButtonS, ButtonSW } from 'src/components/buttons';
 import { ReactComponent as BackgroundPhoto } from 'src/assets/icons/background-photo.svg';
 import { LikeList } from 'src/components/LikeList/LikeList';
 import { ReplyListTab } from 'src/components/ReplyListTab/ReplyListTab';
 import { TweetListTab } from 'src/components/TweetListTab/TweetListTab';
 import { MainSection } from 'src/components/MainSection/MainSection';
 import { Header } from 'src/components/Header/Header';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ReactComponent as BackArrow } from 'src/assets/icons/back.svg';
 import { TweetList } from '../TweetList/TweetList';
 import { useEffect, useState } from 'react';
 import { ReplyList } from '../ReplyList/ReplyList';
 import { getUserData } from 'src/apis/user';
+import { MessageFilled, MessageOutline, NotiFilled, NotiOutline } from 'src/assets/icons';
 
 export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 	const current = JSON.parse(localStorage.getItem('currentUser'));
 	const [activeTab, setActiveTab] = useState('tweetList');
 	console.log('tab: ', activeTab);
+	const location = useLocation();
+	const currentPath = location.pathname;
+	const [messageClicked, setMessageClicked] = useState(false);
+	const [notiClicked, setNotiClicked] = useState(false);
 
 	const handleTabChange = (tab) => {
 		setActiveTab(tab);
@@ -71,9 +76,37 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 					<img src={initialValues.avatar} className={style.avatar} />
 				</div>
 				<div className={style.userProfileButton}>
-					<Link to='/user/self/edit'>
-						<ButtonSW text='編輯個人資料' />
-					</Link>
+					{currentPath === '/user/other' ? (
+						<div className={style.otherUserButtons}>
+							<div
+								className={
+									messageClicked
+										? `${style.messageBox} ${style.messageBoxClicked}`
+										: style.messageBox
+								}
+								onClick={() => setMessageClicked(!messageClicked)}
+							>
+								{messageClicked ? (
+									<MessageFilled className={style.messageFilled} />
+								) : (
+									<MessageOutline className={style.messageOutline} />
+								)}
+							</div>
+							<div
+								className={notiClicked ? `${style.notiBox} ${style.notiBoxClicked}` : style.notiBox}
+								onClick={() => setNotiClicked(!notiClicked)}
+							>
+								{notiClicked ? (
+									<NotiFilled className={style.notiFilled} />
+								) : (
+									<NotiOutline className={style.notiOutline} />
+								)}
+							</div>
+							<ButtonS text='正在追隨' className={style.followButton} />
+						</div>
+					) : (
+						<ButtonSW text='編輯個人資料' path={'/user/self/edit'} />
+					)}
 				</div>
 				<div className={style.userProfileInfoWrapper}>
 					<div className={style.userProfileNameWrapper}>
