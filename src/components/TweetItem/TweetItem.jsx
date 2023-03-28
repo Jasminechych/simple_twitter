@@ -13,8 +13,10 @@ export const TweetItem = ({
 	createdAt,
 	replyCounts,
 	likeCounts,
-	isLiked,
+	isLikeByUser,
+	handleHeartClick,
 }) => {
+	console.log('元件渲染 isLikeByUser: ', isLikeByUser);
 	const navigate = useNavigate();
 
 	// 點擊推文導向 replyList 頁面
@@ -24,7 +26,6 @@ export const TweetItem = ({
 
 	const handleAvatarClick = (id) => {
 		console.log('avatar click id: ', id);
-		// navigate(`/replyList:${id}`);
 	};
 
 	return (
@@ -51,10 +52,16 @@ export const TweetItem = ({
 						<p className={style.tweetItemCounter}>{replyCounts}</p>
 					</div>
 					<div className={style.tweetItemButtonGroup}>
-						{isLiked === 'true' ? (
-							<LikeFilled style={{ width: '13.7px', height: '13.7px' }} />
+						{isLikeByUser ? (
+							<LikeFilled
+								style={{ width: '13.7px', height: '13.7px' }}
+								onClick={() => handleHeartClick(id, 'unLike')}
+							/>
 						) : (
-							<LikeOutline style={{ width: '13.7px', height: '13.7px' }} />
+							<LikeOutline
+								style={{ width: '13.7px', height: '13.7px' }}
+								onClick={() => handleHeartClick(id, 'like')}
+							/>
 						)}
 						<p className={style.tweetItemCounter}>{likeCounts}</p>
 					</div>
