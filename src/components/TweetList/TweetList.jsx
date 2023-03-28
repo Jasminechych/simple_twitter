@@ -5,6 +5,7 @@ import { getTweets, getUserLikes } from 'src/apis/user';
 import { postLikeTweet, postUnLikeTweet } from 'src/apis/user';
 import { useCallback } from 'react';
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const TweetList = () => {
 	const [tweetListData, setTweetListData] = useState([]);
@@ -14,11 +15,21 @@ export const TweetList = () => {
 	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
 	const [isLikingOrUnLiking, setIsLikingOrUnLiking] = useState({ id: '', likeOrUnlike: '' });
 	const [isHeartClick, setIsHeartClick] = useState(false);
+	const navigate = useNavigate();
 
 	// 查看所有推文
 	useEffect(() => {
 		const getTweetsAsync = async () => {
 			try {
+				// 取得token
+				const token = localStorage.getItem('token');
+				console.log('token:', token);
+
+				// 先驗證token，若無則直接回到signin
+				if (!token) {
+					navigate('signin');
+					return;
+				}
 				const data = await getTweets();
 				// 待刪改
 				setTweetListData(data);
