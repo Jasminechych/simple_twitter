@@ -5,15 +5,16 @@ import { getTweets } from 'src/apis/user';
 
 export const TweetList = () => {
 	const [tweetListData, setTweetListData] = useState([]);
+	const [isDataLoaded, setIsDataLoaded] = useState(false);
 
 	// 查看所有推文
 	useEffect(() => {
 		const getTweetsAsync = async () => {
 			try {
 				const data = await getTweets();
-				if (data.length > 0) {
-					setTweetListData(data);
-				}
+
+				setTweetListData(data);
+				setIsDataLoaded(true);
 			} catch (error) {
 				console.error(error);
 			}
@@ -42,6 +43,7 @@ export const TweetList = () => {
 					/>
 				);
 			})}
+
 		</div>
 	);
 };

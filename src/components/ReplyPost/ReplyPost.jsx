@@ -2,6 +2,7 @@ import { ReactComponent as Reply } from 'src/assets/icons/reply.svg';
 import { ReactComponent as LikeFilled } from 'src/assets/icons/like-filled.svg';
 import { ReactComponent as LikeOutline } from 'src/assets/icons/like-outline.svg';
 import style from 'src/components/ReplyPost/ReplyPost.module.scss';
+import { formatDate } from 'src/utils/formatDate';
 
 export const ReplyPost = ({
 	id,
@@ -14,8 +15,7 @@ export const ReplyPost = ({
 	likedCounts,
 	isLikeByCurrentUse,
 }) => {
-	// const name = data.User.name;
-	console.log('data.User.account: ', account);
+	const createTime = formatDate(createdAt);
 	return (
 		<div className={style.replyPostContainer} id={id}>
 			<div className={style.replyPostHeaderInfo}>
@@ -26,7 +26,7 @@ export const ReplyPost = ({
 				</div>
 			</div>
 			<div className={style.replyPostDescription}>{description}</div>
-			<div className={style.replyPostCreateAt}>{createdAt}</div>
+			<div className={style.replyPostCreateAt}>{createTime}</div>
 			<div className={style.replyPostFooterContainer}>
 				<div className={style.replyPostCounterContainer}>
 					<div className={style.replyPostCounterGroup}>

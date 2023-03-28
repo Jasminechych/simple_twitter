@@ -19,6 +19,9 @@ import { ReplyListSection } from 'src/components/ReplyListSection/ReplyListSecti
 
 // import { compileString } from "sass";
 
+// eslint 會跳錯 process is not defined
+// const basename = process.REACT_APP_PUBLIC_URL;
+
 function App() {
 	return (
 		<div className='App'>
@@ -138,7 +141,7 @@ function App() {
 						}
 					/>
 					<Route
-						path='/replyList'
+						path='/replyList:id'
 						element={
 							<MainPage>
 								<MainSection>
