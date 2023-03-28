@@ -48,14 +48,7 @@ function App() {
 						path='user/self'
 						element={
 							<MainPage>
-								<UserProfile
-									name={`John Doe`}
-									account={`John Doe`}
-									intro={`Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor`}
-									followerCounts={`${59}位`}
-									followingCounts={`${34}個`}
-									tweets={`25`}
-								/>
+								<UserProfile followerCounts={`${59}位`} followingCounts={`${34}個`} tweets={`25`} />
 							</MainPage>
 						}
 					/>
@@ -87,14 +80,7 @@ function App() {
 						path='/user/self/edit'
 						element={
 							<MainPage>
-								<UserProfile
-									name={`John Doe`}
-									account={`John Doe`}
-									intro={`Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor`}
-									followerCounts={`${59}位`}
-									followingCounts={`${34}個`}
-									tweets={`25`}
-								/>
+								<UserProfile followerCounts={`${59}位`} followingCounts={`${34}個`} tweets={`25`} />
 								<EditModal />
 							</MainPage>
 						}
@@ -123,14 +109,7 @@ function App() {
 						path='user/self/tab=tweet'
 						element={
 							<MainPage>
-								<UserProfile
-									name={`John Doe`}
-									account={`John Doe`}
-									intro={`Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor`}
-									followerCounts={`${59}位`}
-									followingCounts={`${34}個`}
-									tweets={`25`}
-								/>
+								<UserProfile followerCounts={`${59}位`} followingCounts={`${34}個`} tweets={`25`} />
 							</MainPage>
 						}
 					/>
@@ -138,14 +117,7 @@ function App() {
 						path='user/self/tab=reply'
 						element={
 							<MainPage>
-								<UserProfile
-									name={`John Doe`}
-									account={`John Doe`}
-									intro={`Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor`}
-									followerCounts={`${59}位`}
-									followingCounts={`${34}個`}
-									tweets={`25`}
-								/>
+								<UserProfile followerCounts={`${59}位`} followingCounts={`${34}個`} tweets={`25`} />
 							</MainPage>
 						}
 					/>
@@ -153,14 +125,7 @@ function App() {
 						path='user/self/tab=like'
 						element={
 							<MainPage>
-								<UserProfile
-									name={`John Doe`}
-									account={`John Doe`}
-									intro={`Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor`}
-									followerCounts={`${59}位`}
-									followingCounts={`${34}個`}
-									tweets={`25`}
-								/>
+								<UserProfile followerCounts={`${59}位`} followingCounts={`${34}個`} tweets={`25`} />
 							</MainPage>
 						}
 					/>
