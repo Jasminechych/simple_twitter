@@ -4,6 +4,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+window.ENV = {
+	REACT_APP_PUBLIC_URL: '/simple_twitter',
+};
 root.render(
 	<React.StrictMode>
 		<App />,
