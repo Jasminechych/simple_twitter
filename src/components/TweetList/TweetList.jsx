@@ -23,7 +23,7 @@ export const TweetList = () => {
 
 	return (
 		<div className={style.tweetList}>
-			{tweetListData.map(({ id, description, createdAt, LikedCounts, RepliesCounts, Author }) => {
+			{tweetListData.map(({ id, description, createdAt, LikedCounts, RepliesCounts, User }) => {
 				const createdAtDate = new Date(createdAt);
 				const hour = createdAtDate.getHours();
 				return (
@@ -31,9 +31,9 @@ export const TweetList = () => {
 						key={id}
 						id={id}
 						description={description}
-						avatar={Author.avatar}
-						name={Author.name}
-						account={Author.account}
+						avatar={User.avatar}
+						name={User.name}
+						account={User.account}
 						createdAt={hour}
 						replyCounts={RepliesCounts}
 						likeCounts={LikedCounts}

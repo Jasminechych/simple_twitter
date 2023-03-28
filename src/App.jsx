@@ -53,6 +53,14 @@ function App() {
 						}
 					/>
 					<Route
+						path='user/other'
+						element={
+							<MainPage>
+								<UserProfile followerCounts={`${59}位`} followingCounts={`${34}個`} tweets={`25`} />
+							</MainPage>
+						}
+					/>
+					<Route
 						path='following'
 						element={
 							<MainPage>
