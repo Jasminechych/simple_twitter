@@ -1,7 +1,7 @@
 import { ReactComponent as Reply } from 'src/assets/icons/reply.svg';
 import { ReactComponent as LikeFilled } from 'src/assets/icons/like-filled.svg';
 import { ReactComponent as LikeOutline } from 'src/assets/icons/like-outline.svg';
-
+import { useNavigate } from 'react-router-dom';
 import style from 'src/components/TweetItem/TweetItem.module.scss';
 
 export const TweetItem = ({
@@ -15,9 +15,21 @@ export const TweetItem = ({
 	likeCounts,
 	isLiked,
 }) => {
+	const navigate = useNavigate();
+
+	// 點擊推文導向 replyList 頁面
+	const handleTweetClick = (id) => {
+		navigate(`/replyList:${id}`);
+	};
+
+	const handleAvatarClick = (id) => {
+		console.log('avatar click id: ', id);
+		// navigate(`/replyList:${id}`);
+	};
+
 	return (
 		<div className={style.tweetItemContainer} id={id}>
-			<section className={style.tweetItemAvatarSection}>
+			<section className={style.tweetItemAvatarSection} onClick={() => handleAvatarClick(id)}>
 				<img className={style.tweetItemAvatar} src={avatar} />
 			</section>
 
@@ -29,7 +41,9 @@ export const TweetItem = ({
 					</p>
 				</div>
 
-				<p className={style.tweetItemDescription}>{description}</p>
+				<p className={style.tweetItemDescription} onClick={() => handleTweetClick(id)}>
+					{description}
+				</p>
 
 				<div className={style.tweetItemFooter}>
 					<div className={style.tweetItemButtonGroup}>

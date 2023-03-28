@@ -7,7 +7,6 @@
 	height: auto;
 	padding: 16px 24px;
 	border-bottom: 1px solid var(--border-color);
-	cursor: pointer;
 }
 
 .tweetItemAvatarSection {
@@ -21,6 +20,7 @@
 		height: 50px;
 		object-fit: cover;
 		border-radius: 50%;
+		cursor: pointer;
 	}
 }
 
@@ -69,6 +69,7 @@
 		display: block;
 		width: 100%;
 		@extend %font-16-regular;
+		cursor: pointer;
 	}
 
 	.tweetItemFooter {
