@@ -48,6 +48,15 @@ export const TweetList = () => {
 			try {
 				const data = await getUserLikes(currentUserId);
 				setUserLikeData(data);
+				// 取得token
+				const token = localStorage.getItem('token');
+				console.log('token:', token);
+
+				// 先驗證token，若無則直接回到signin
+				if (!token) {
+					navigate('signin');
+					return;
+				}
 				setIsUserLikeDataLoaded(true);
 				console.log('執行 getUserLikes');
 			} catch (error) {

@@ -43,18 +43,17 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
 			// console.log('currentUserId: ', currentUserId.currentUserId);
 
-			// 取得token
-			const token = localStorage.getItem('token');
-			console.log('token:', token);
-
-			// 先驗證token，若無則直接回到signin
-			if (!token) {
-				navigate('signin');
-				return;
-			}
-
 			try {
 				const data = await getUserData(currentUserId.currentUserId);
+				// 取得token
+				const token = localStorage.getItem('token');
+				console.log('token:', token);
+
+				// 先驗證token，若無則直接回到signin
+				if (!token) {
+					navigate('signin');
+					return;
+				}
 				setInitialValues({
 					id: data.id,
 					name: data.name,
