@@ -19,10 +19,13 @@ import { ReplyListSection } from 'src/components/ReplyListSection/ReplyListSecti
 
 // import { compileString } from "sass";
 
+// eslint 會跳錯 process is not defined
+const basename = window.process.REACT_APP_PUBLIC_URL;
+
 function App() {
 	return (
 		<div className='App'>
-			<BrowserRouter basename={'/simple_twitter'}>
+			<BrowserRouter basename={basename}>
 				<Routes>
 					<Route path='register' element={<RegisterPage />} />
 					<Route path='signin' element={<SignInPage />} />
