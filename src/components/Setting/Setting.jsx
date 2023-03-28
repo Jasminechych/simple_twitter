@@ -43,7 +43,7 @@ export const Setting = () => {
 
 			// 先驗證token，若無則直接回到login
 			if (!token) {
-				navigate('/login');
+				navigate('/signin');
 				return;
 			}
 			try {
