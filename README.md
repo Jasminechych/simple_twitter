@@ -1,4 +1,5 @@
 # ALPHA Twitter Frontend Web
+
 ---
 此為 simple twitter 專案的前端入口，使用 React.js 做為開發框架，專案採前後分離的開發模式，小組成員共有四人，兩人負責前端，兩人負責後端。
 
@@ -35,6 +36,7 @@ password: 12345678
 ---
 
 ### 後台
+
 #### 登入頁
 ![image](https://user-images.githubusercontent.com/100898369/228001032-7b2fe67d-4b6f-4d7e-a823-5ddadde6a2f1.png)
 
@@ -43,9 +45,11 @@ password: 12345678
 
 #### 使用者清單
 
+
 ![image](https://user-images.githubusercontent.com/100898369/228002716-f31ef7b7-327e-4c94-a6df-9b7776bc574d.png)
 
 ---
+
 ### 前台
 #### 註冊頁
 ![image](https://user-images.githubusercontent.com/100898369/228000704-23467bc8-6c5c-4c80-b603-055843663c2d.png)
@@ -68,6 +72,7 @@ password: 12345678
 #### 發推文視窗
 ![image](https://user-images.githubusercontent.com/100898369/228002939-218107c3-bcb2-4002-8139-fa51daf0f32f.png)
 
+
 #### 回覆推文視窗
 ![image](https://user-images.githubusercontent.com/100898369/228003056-63e5058e-724f-4497-b180-8e498fdc703c.png)
 
@@ -76,23 +81,30 @@ password: 12345678
 ---
 前台
 - 使用者可以註冊、登入、登出，前台登入後即可使用 twitter 網站
+
 - 可於主畫面瀏覽所有推文
 - 點擊貼文方塊時，能查看貼文與回覆串
 - 使用者能新增推文 (推文不能為空白)
 - 使用者能回覆別人的推文 (無法回覆他人回覆)
 - 點擊貼文中使用者頭像時，能瀏覽該使用者的個人資料及推文
+
 - 使用者可以追蹤/取消追蹤其他使用者 (不能追蹤自己)
+
 - 使用者能對別人的推文按 Like/Unlike (無法對他人的回覆按 Like/Unlike)
 - 使用者能編輯自己的個人資料
 
 後台
+
+
 - 管理者可從專門的後台登入頁面進入網站後台
 - 管理者可以瀏覽全站的 Tweet 清單，且可以在清單上直接刪除任何人的推文
 - 管理者可以瀏覽站內所有的使用者清單，包括(推文數量、關注人數、跟隨者人數、推文被 like 的數量)
 
+
 ### Getting start
 ---
 #### Prerequisites - 環境建置
+
 
 1. [Node.js](https://nodejs.org/en/)
 2. [npm](https://www.npmjs.com/)
