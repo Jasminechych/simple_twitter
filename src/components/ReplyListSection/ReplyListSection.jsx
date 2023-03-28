@@ -45,8 +45,6 @@ export const ReplyListSection = () => {
 				const data = await getTweetReplies(cleanId);
 				// 拿到資料後儲存在setTweetRepliesData
 				setTweetRepliesData(data);
-				console.log('執行getTweetReplies');
-				// console.log('data', data);
 			} catch (error) {
 				console.error(error);
 			}
@@ -54,16 +52,15 @@ export const ReplyListSection = () => {
 		getTweetRepliesAsync();
 	}, []);
 
-	console.log('tweetRepliesData: ', tweetRepliesData);
-
 	// 單一推文比對使用者喜歡貼文是否相同
-	const isLikeByCurrentUser = currentUserLikesData.map((item) => {
+	const isLikeByCurrentUser = currentUserLikesData.some((item) => {
 		if (item.TweetId === replyPostData.id) {
 			return true;
 		} else {
 			return false;
 		}
 	});
+	console.log('isLikeByCurrentUser', isLikeByCurrentUser);
 
 	const handleClick = () => {
 		navigate('/main');
