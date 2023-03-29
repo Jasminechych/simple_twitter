@@ -16,6 +16,7 @@ import { TweetModal } from './components/Modal/TweetModal/TweetModal';
 import { AdminTweetsSection } from 'src/components/AdminTweetsSection/AdminTweetsSection';
 import { MainSection } from './components/MainSection/MainSection';
 import { ReplyListSection } from 'src/components/ReplyListSection/ReplyListSection';
+import { ReplyModal } from './components/ReplyModal/ReplyModal';
 
 // import { compileString } from "sass";
 
@@ -147,6 +148,14 @@ function App() {
 								<MainSection>
 									<ReplyListSection />
 								</MainSection>
+							</MainPage>
+						}
+					/>
+					<Route
+						path='/replyList:id/modal'
+						element={
+							<MainPage>
+								<ReplyModal />
 							</MainPage>
 						}
 					/>

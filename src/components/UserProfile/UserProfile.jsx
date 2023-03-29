@@ -33,7 +33,7 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 		name: current.currentUserName,
 		account: current.currentUserAccount,
 		avatar: current.currentUserAvatar,
-		intro: current.currentUserIntroduction,
+		introduction: current.currentUserIntroduction,
 	});
 	console.log('initialValues:', initialValues);
 
@@ -59,7 +59,7 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 					name: data.name,
 					account: data.account,
 					avatar: data.avatar,
-					intro: data.intro,
+					introduction: data.introduction,
 				});
 			} catch (error) {
 				console.error(error);
@@ -124,7 +124,7 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 						<h5 className={style.userProfileName}>{initialValues.name}</h5>
 						<div className={style.userProfileSubName}>@{initialValues.account}</div>
 					</div>
-					<p className={style.userProfileIntro}>{initialValues.intro}</p>
+					<p className={style.userProfileIntro}>{initialValues.introduction}</p>
 					<div className={style.userProfileFollowInfoWrapper}>
 						<div className={style.userProfileFollowing}>
 							{followingCounts}
