@@ -13,7 +13,7 @@ export const ReplyPost = ({
 	createdAt,
 	repliesCounts,
 	likedCounts,
-	isLikeByCurrentUse,
+	isLikeByCurrentUser,
 }) => {
 	const createTime = formatDate(createdAt);
 	return (
@@ -42,7 +42,7 @@ export const ReplyPost = ({
 
 				<div className={style.replyPostButtonContainer}>
 					<Reply />
-					{isLikeByCurrentUse ? <LikeFilled /> : <LikeOutline />}
+					{isLikeByCurrentUser ? <LikeFilled /> : <LikeOutline />}
 				</div>
 			</div>
 		</div>
