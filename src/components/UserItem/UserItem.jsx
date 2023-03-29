@@ -1,19 +1,12 @@
 import style from 'src/components/UserItem/UserItem.module.scss';
 import { ButtonS, ButtonSW } from 'src/components/buttons';
-import { useState } from 'react';
 
-export const UserItem = ({ id, name, description, avatar, initIsFollowing }) => {
-	const [isFollowing, setIsFollowing] = useState(initIsFollowing);
-
-	const handleFollowClick = () => {
-		setIsFollowing(!isFollowing);
-	};
-
+export const UserItem = ({ id, name, description, avatar, isFollowing, handleFollowClick }) => {
 	return (
 		<div className={style.userItemContainer} id={id}>
 			<div className={style.userItemWrapper}>
-				<div className={style.userItemAvatar}>
-					<img src={avatar} alt={avatar} />
+				<div>
+					<img src={avatar} alt={avatar} className={style.userItemAvatar} />
 				</div>
 				<div className={style.userItemInfoWrapper}>
 					<div className={style.userItemName}>{name}</div>
@@ -21,9 +14,9 @@ export const UserItem = ({ id, name, description, avatar, initIsFollowing }) => 
 				</div>
 				<div className={style.userItemButton}>
 					{isFollowing ? (
-						<ButtonS text='正在跟隨' onClick={handleFollowClick} />
+						<ButtonS text='正在跟隨' onClick={() => handleFollowClick(id, 'unFollow')} />
 					) : (
-						<ButtonSW text='跟隨' onClick={handleFollowClick} />
+						<ButtonSW text='跟隨' onClick={() => handleFollowClick(id, 'follow')} />
 					)}
 				</div>
 			</div>

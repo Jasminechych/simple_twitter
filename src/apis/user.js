@@ -80,8 +80,8 @@ export const getTopTenUsers = async () => {
 	}
 };
 
-// 查看自己追蹤中的使用者
-export const getFollowingsUsers = async (id) => {
+// api/users/:id/followings 查看此使用者ID追蹤中的人
+export const getsUsersFollowing = async (id) => {
 	const token = localStorage.getItem('token');
 	// console.log('token: ', token);
 	try {
@@ -92,8 +92,7 @@ export const getFollowingsUsers = async (id) => {
 		});
 		return res.data;
 	} catch (error) {
-		console.error('[Get Top Ten Users Failed]:', error);
-		return { success: false };
+		console.error('[Get users followings Failed]:', error.reponse);
 	}
 };
 
@@ -113,7 +112,7 @@ export const postFollowShips = async (id) => {
 		console.log(res.data);
 		return res.data;
 	} catch (error) {
-		console.error('[Get Follow Ships Failed]:', error.response);
+		console.error('[Post Follow Ships Failed]:', error.response);
 	}
 };
 
@@ -129,7 +128,7 @@ export const deleteFollowShips = async (id) => {
 		console.log(res.data);
 		return res.data;
 	} catch (error) {
-		console.error('[Get Follow Ships Failed]:', error.response);
+		console.error('[Delete Follow Ships Failed]:', error.response);
 	}
 };
 
@@ -224,5 +223,20 @@ export const postUnLikeTweet = async (id) => {
 		return res.data;
 	} catch (error) {
 		console.error('[Get Tweet Unlike Failed]:', error.response);
+	}
+};
+
+// api/users/:id/followers 查看追蹤此使用者ID的人
+export const getUsersFollowers = async (id) => {
+	const token = localStorage.getItem('token');
+	try {
+		const res = await axios.get(`${baseUrl}/users/${id}/followers`, {
+			headers: {
+				Authorization: 'Bearer ' + token,
+			},
+		});
+		return res.data;
+	} catch (error) {
+		console.error('[Get Users Followers Failed]:', error.response);
 	}
 };

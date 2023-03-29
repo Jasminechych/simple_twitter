@@ -4,89 +4,90 @@ import { Header } from 'src/components/Header/Header';
 import { MainSection } from 'src/components/MainSection/MainSection';
 import { ReactComponent as BackArrow } from 'src/assets/icons/back.svg';
 import { UserItem } from 'src/components/UserItem/UserItem';
-
-const dummyFollowData = [
-	{
-		// 第一個id 是tweet 的id
-		id: '2',
-		// 二個是這個推文的作者id
-		UserId: '3',
-		description:
-			'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.',
-		User: {
-			// 第三個跟第二個一樣 主要是要把name, avatar帶出來用的
-			id: '5',
-			account: 'Miki',
-			name: 'Miki',
-			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
-		},
-		isFollowing: true,
-	},
-	{
-		// 第一個id 是tweet 的id
-		id: '3',
-		// 二個是這個推文的作者id
-		UserId: '4',
-		description: 'Good job!',
-		User: {
-			// 第三個跟第二個一樣 主要是要把name, avatar帶出來用的
-			id: '6',
-			account: 'Jasmine',
-			name: 'Jasmine',
-			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
-		},
-		isFollowing: true,
-	},
-	{
-		// 第一個id 是tweet 的id
-		id: '4',
-		// 二個是這個推文的作者id
-		UserId: '5',
-		description: 'Good job!',
-		User: {
-			// 第三個跟第二個一樣 主要是要把name, avatar帶出來用的
-			id: '6',
-			account: 'Chole',
-			name: 'Chole',
-			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
-		},
-		isFollowing: false,
-	},
-	{
-		// 第一個id 是tweet 的id
-		id: '5',
-		// 二個是這個推文的作者id
-		UserId: '6',
-		description:
-			'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.',
-		User: {
-			// 第三個跟第二個一樣 主要是要把name, avatar帶出來用的
-			id: '6',
-			account: 'Johnny',
-			name: 'Johnny',
-			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
-		},
-		isFollowing: false,
-	},
-	{
-		// 第一個id 是tweet 的id
-		id: '6',
-		// 二個是這個推文的作者id
-		UserId: '7',
-		description:
-			'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.',
-		User: {
-			// 第三個跟第二個一樣 主要是要把name, avatar帶出來用的
-			id: '6',
-			account: 'Amy',
-			name: 'Amy',
-			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
-		},
-		isFollowing: false,
-	},
-];
+import { useEffect, useState, useMemo } from 'react';
+import {
+	getUsersFollowers,
+	getsUsersFollowing,
+	deleteFollowShips,
+	postFollowShips,
+} from 'src/apis/user';
 
 export const FollowerList = ({ name, tweets }) => {
+	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
+	const [usersFollowersData, setUsersFollowersData] = useState([]);
+	const [usersFollowingsData, setUsersFollowingsData] = useState([]);
+	const [followShipState, setFollowShipState] = useState({ userId: '', followShip: '' });
+
+	const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+	// 取得目前使用者的跟隨者
+	useEffect(() => {
+		const getUsersFollowersAsync = async () => {
+			try {
+				const followersData = await getUsersFollowers(currentUserId);
+				setUsersFollowersData(followersData);
+				const followingData = await getsUsersFollowing(currentUserId);
+				setUsersFollowingsData(followingData);
+				setIsDataLoaded(true);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		getUsersFollowersAsync();
+	}, []);
+
+	// 比對目前使用者有無跟隨跟隨者
+	const comparedData = useMemo(() => {
+		return usersFollowersData.map((follower) => {
+			const isMatch = usersFollowingsData.some(
+				(following) => follower.followerId === following.followingId,
+			);
+
+			if (isMatch) {
+				return {
+					...follower,
+					matched: true,
+				};
+			} else {
+				return follower;
+			}
+		});
+	}, [usersFollowersData, usersFollowingsData]);
+
+	const handleFollowClick = (id, followOrUnFollow) => {
+		setIsDataLoaded(false);
+		setFollowShipState({ userId: id, followShip: followOrUnFollow });
+	};
+
+	// 取消追蹤或追蹤某位使用者
+	useEffect(() => {
+		const followShipAsync = async () => {
+			if (followShipState.followShip === 'follow') {
+				try {
+					await postFollowShips(followShipState.userId);
+					const followingData = await getsUsersFollowing(currentUserId);
+					setUsersFollowingsData(followingData);
+					setIsDataLoaded(true);
+				} catch (error) {
+					console.log(error);
+				}
+				return;
+			}
+			if (followShipState.followShip === 'unFollow') {
+				try {
+					await deleteFollowShips(followShipState.userId);
+					const followingData = await getsUsersFollowing(currentUserId);
+					setUsersFollowingsData(followingData);
+					setIsDataLoaded(true);
+				} catch (error) {
+					console.log(error);
+				}
+				return;
+			}
+		};
+		followShipAsync();
+	}, [followShipState]);
+
 	return (
 		<MainSection>
 			<div className={style.followHeaderWrapper}>
@@ -106,18 +107,23 @@ export const FollowerList = ({ name, tweets }) => {
 					</Link>
 				</div>
 				<div className={style.userItemWrapper}>
-					{dummyFollowData.map(({ id, User, description, isFollowing }) => {
-						return (
-							<UserItem
-								key={id}
-								id={id}
-								name={User.name}
-								avatar={User.avatar}
-								description={description}
-								initIsFollowing={isFollowing}
-							/>
-						);
-					})}
+					{isDataLoaded ? (
+						comparedData.map((item) => {
+							return (
+								<UserItem
+									key={item.Follower.id}
+									id={item.Follower.id}
+									name={item.Follower.name}
+									avatar={item.Follower.avatar}
+									description={item.Follower.introduction}
+									isFollowing={item.matched}
+									handleFollowClick={handleFollowClick}
+								/>
+							);
+						})
+					) : (
+						<h5>loading...</h5>
+					)}
 				</div>
 			</div>
 		</MainSection>
