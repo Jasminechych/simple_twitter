@@ -2,14 +2,44 @@
 import style from 'src/components/ReplyModal/ReplyModal.module.scss';
 import { Close } from 'src/assets/icons';
 import { ButtonS } from 'src/components/buttons';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { postTweetReplies } from 'src/apis/user';
 
-export const ReplyModal = () => {
+export const ReplyModal = (id) => {
+	const navigate = useNavigate();
+	const [inputValue, setInputValue] = useState('');
+	console.log('inputValue', inputValue);
+
+	console.log('有街道id嗎', id);
+
+	// 回到上一頁
+	function handleClick() {
+		navigate(-1);
+	}
+
+	const handleSubmit = () => {
+		console.log('submit');
+	};
+
+	useEffect(() => {
+		const postTweetRepliesAsync = async () => {
+			try {
+				const res = await postTweetReplies(id);
+				console.log('res', res);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		postTweetRepliesAsync();
+	}, [handleSubmit]);
+
 	return (
 		<>
 			<div className={style.modalBackground}></div>
 			<div className={style.modalContainer}>
 				<div className={style.modalHeader}>
-					<Close />
+					<Close onClick={handleClick} />
 				</div>
 				<div className={style.modalBody}>
 					<div className={style.bodySection}>
@@ -44,11 +74,18 @@ export const ReplyModal = () => {
 							src='https://loremflickr.com/320/240/people,casual/?random=7.451016840043523'
 							alt='avatar'
 						/>
-						<p className={style.replyHint}>推你的回覆</p>
+						<textarea
+							className={style.replyHint}
+							name='reply'
+							placeholder='推你的回覆'
+							value={inputValue}
+							onChange={(e) => setInputValue(e.target.value)}
+							rows={11}
+						></textarea>
 					</div>
 				</div>
 				<div className={style.modalFooter}>
-					<ButtonS text='回覆' />
+					<ButtonS text='回覆' onClick={handleSubmit} />
 				</div>
 			</div>
 		</>

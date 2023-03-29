@@ -35,7 +35,6 @@ export const userSignIn = async ({ account, password }) => {
 		return data;
 	} catch (error) {
 		console.error('[Login Failed]:', error);
-		// const errorMessage = error.response.data.message;
 		return { success: false };
 	}
 };

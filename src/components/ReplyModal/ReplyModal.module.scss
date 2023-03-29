@@ -111,6 +111,10 @@
 	@extend %font-16-regular;
 	line-height: 26px;
 	color: var(--secondary-color);
+	width: 100%;
+	@extend %font-16-regular;
+	border-color: transparent;
+	resize: none;
 }
 
 .modalFooter {

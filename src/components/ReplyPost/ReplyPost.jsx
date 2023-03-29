@@ -15,6 +15,7 @@ export const ReplyPost = ({
 	repliesCounts,
 	likedCounts,
 	isLikeByCurrentUser,
+	// 回文給誰資料要拿出來
 }) => {
 	const createTime = formatDate(createdAt);
 	return (
@@ -42,7 +43,14 @@ export const ReplyPost = ({
 				</div>
 
 				<div className={style.replyPostButtonContainer}>
-					<Link to='/replyList:id/modal'>
+					<Link
+						to={`/replyList:${id}/modal`}
+						id={id}
+						avatar={avatar}
+						name={name}
+						account={account}
+						createTime={createTime}
+					>
 						<Reply />
 					</Link>
 					{isLikeByCurrentUser ? <LikeFilled /> : <LikeOutline />}

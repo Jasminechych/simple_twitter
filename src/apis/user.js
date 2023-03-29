@@ -240,3 +240,18 @@ export const getUsersFollowers = async (id) => {
 		console.error('[Get Users Followers Failed]:', error.response);
 	}
 };
+
+// api/tweets/:tweet_id/replies 在此id貼文下新增回復
+export const postTweetReplies = async (id) => {
+	const token = localStorage.getItem('token');
+	try {
+		const res = await axios.post(`${baseUrl}/tweets/${id}/replies`, {
+			headers: {
+				Authorization: 'Bearer ' + token,
+			},
+		});
+		return res.data;
+	} catch (error) {
+		console.error('[Post Tweet Replies Failed]:', error.response);
+	}
+};
