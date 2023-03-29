@@ -2,7 +2,7 @@ import style from 'src/components/PopularListSection/PopularList.module.scss';
 import { PopularListItem } from 'src/components/PopularListSection/PopularListItem';
 import {
 	getTopTenUsers,
-	getFollowingsUsers,
+	getsUsersFollowing,
 	postFollowShips,
 	deleteFollowShips,
 } from 'src/apis/user';
@@ -23,7 +23,7 @@ export const PopularList = () => {
 				setTopTenList(topTen);
 
 				// 取得目前使用者 follow 清單
-				const userFollowingData = await getFollowingsUsers(currentUserId);
+				const userFollowingData = await getsUsersFollowing(currentUserId);
 				setCurrentUserFollowing(userFollowingData);
 			} catch (error) {
 				console.error(error);
@@ -64,7 +64,7 @@ export const PopularList = () => {
 					setTopTenList(topTen);
 
 					// 重新取得目前使用者 follow 清單
-					const userFollowingData = await getFollowingsUsers(currentUserId);
+					const userFollowingData = await getsUsersFollowing(currentUserId);
 					setCurrentUserFollowing(userFollowingData);
 				} catch (error) {
 					console.error(error);
@@ -82,7 +82,7 @@ export const PopularList = () => {
 					setTopTenList(topTen);
 
 					// 重新取得目前使用者 follow 清單
-					const userFollowingData = await getFollowingsUsers(currentUserId);
+					const userFollowingData = await getsUsersFollowing(currentUserId);
 					setCurrentUserFollowing(userFollowingData);
 				} catch (error) {
 					console.error(error);

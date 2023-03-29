@@ -1,119 +1,88 @@
-// import style from 'src/components/FollowSection/FollowSection.module.scss';
-// import { UserItem } from 'src/components/UserItem/UserItem';
-// import { FollowerList } from 'src/components/FollowSection/FollowerList/FollowerList';
-// import { FollowingList } from 'src/components/FollowSection/FollowingList/FollowingList';
+// import { Link } from 'react-router-dom';
+// import style from 'src/components/FollowSection/FollowerList/FollowerList.module.scss';
+// import { Header } from 'src/components/Header/Header';
 // import { MainSection } from 'src/components/MainSection/MainSection';
 // import { ReactComponent as BackArrow } from 'src/assets/icons/back.svg';
-// import { Header } from 'src/components/Header/Header';
+// import { UserItem } from 'src/components/UserItem/UserItem';
+// import { useEffect, useState } from 'react';
+// import { getUsersFollowers, getsUsersFollowing } from 'src/apis/user';
 
-// const dummyFollowData = [
-// 	{
-// 		// 第一個id 是tweet 的id
-// 		id: '2',
-// 		// 二個是這個推文的作者id
-// 		UserId: '3',
-// 		description:
-// 			'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.',
-// 		User: {
-// 			// 第三個跟第二個一樣 主要是要把name, avatar帶出來用的
-// 			id: '5',
-// 			account: 'Miki',
-// 			name: 'Miki',
-// 			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
-// 		},
-// 		isFollowing: true,
-// 	},
-// 	{
-// 		// 第一個id 是tweet 的id
-// 		id: '3',
-// 		// 二個是這個推文的作者id
-// 		UserId: '4',
-// 		description: 'Good job!',
-// 		User: {
-// 			// 第三個跟第二個一樣 主要是要把name, avatar帶出來用的
-// 			id: '6',
-// 			account: 'Jasmine',
-// 			name: 'Jasmine',
-// 			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
-// 		},
-// 		isFollowing: false,
-// 	},
-// 	{
-// 		// 第一個id 是tweet 的id
-// 		id: '4',
-// 		// 二個是這個推文的作者id
-// 		UserId: '5',
-// 		description: 'Good job!',
-// 		User: {
-// 			// 第三個跟第二個一樣 主要是要把name, avatar帶出來用的
-// 			id: '6',
-// 			account: 'Jasmine',
-// 			name: 'Jasmine',
-// 			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
-// 		},
-// 		isFollowing: false,
-// 	},
-// 	{
-// 		// 第一個id 是tweet 的id
-// 		id: '5',
-// 		// 二個是這個推文的作者id
-// 		UserId: '6',
-// 		description:
-// 			'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.',
-// 		User: {
-// 			// 第三個跟第二個一樣 主要是要把name, avatar帶出來用的
-// 			id: '6',
-// 			account: 'Jasmine',
-// 			name: 'Jasmine',
-// 			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
-// 		},
-// 		isFollowing: false,
-// 	},
-// 	{
-// 		// 第一個id 是tweet 的id
-// 		id: '6',
-// 		// 二個是這個推文的作者id
-// 		UserId: '7',
-// 		description:
-// 			'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.',
-// 		User: {
-// 			// 第三個跟第二個一樣 主要是要把name, avatar帶出來用的
-// 			id: '6',
-// 			account: 'Jasmine',
-// 			name: 'Jasmine',
-// 			avatar: 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png',
-// 		},
-// 		isFollowing: false,
-// 	},
-// ];
+// export const FollowerList = ({ name, tweets }) => {
+// 	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
+// 	const [usersFollowersData, setUsersFollowersData] = useState([]);
+// 	const [usersFollowingsData, setUsersFollowingsData] = useState([]);
 
-// export const FollowSection = ({ name, tweets }) => {
+// 	const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+// 	// 取得目前使用者的跟隨者
+// 	useEffect(() => {
+// 		const getUsersFollowersAsync = async () => {
+// 			try {
+// 				const followersData = await getUsersFollowers(currentUserId);
+// 				setUsersFollowersData(followersData);
+// 				console.log('getUsersFollowers: ', usersFollowersData);
+// 				const followingData = await getsUsersFollowing(currentUserId);
+// 				setUsersFollowingsData(followingData);
+// 				setIsDataLoaded(true);
+// 			} catch (error) {
+// 				console.log(error);
+// 			}
+// 		};
+// 		getUsersFollowersAsync();
+// 	}, []);
+
+// 	// 比對目前使用者有無跟隨跟隨者
+// 	const comparedData = usersFollowersData.map((follower) => {
+// 		console.log('follower: ', follower);
+// 		const isMatch = usersFollowingsData.some(
+// 			(following) => follower.followerId === following.followingId,
+// 		);
+
+// 		if (isMatch) {
+// 			return {
+// 				...follower,
+// 				matched: true,
+// 			};
+// 		} else {
+// 			return follower;
+// 		}
+// 	});
+
 // 	return (
 // 		<MainSection>
 // 			<div className={style.followHeaderWrapper}>
-// 				<BackArrow className={style.backArrow} />
+// 				<Link to='/user/self'>
+// 					<BackArrow className={style.backArrow} />
+// 				</Link>
 // 				<div className={style.followHeader}>
 // 					<Header header={name} className={style.header} />
 // 					<a href='' className={style.tweets}>{`${tweets}推文`}</a>
 // 				</div>
 // 			</div>
-// 			<div className={style.followSectionContainer}>
+// 			<div className={style.followerListContainer}>
 // 				<div className={style.followTabWrapper}>
-// 					<FollowerList />
-// 					<FollowingList />
+// 					<div className={style.followerListTitle}>追隨者</div>
+// 					<Link to='/following' className={style.followingListTitle}>
+// 						正在追隨
+// 					</Link>
 // 				</div>
 // 				<div className={style.userItemWrapper}>
-// 					{dummyFollowData.map(({ id, User, description, isFollowing }) => {
-// 						return (
-// 							<UserItem
-// 								key={id}
-// 								id={id}
-// 								name={User.name}
-// 								description={description}
-// 								initIsFollowing={isFollowing}
-// 							/>
-// 						);
-// 					})}
+// 					{isDataLoaded ? (
+// 						comparedData.map(({ Follower }) => {
+// 							return (
+// 								<UserItem
+// 									key={Follower.id}
+// 									id={Follower.id}
+// 									name={Follower.name}
+// 									avatar={Follower.avatar}
+// 									description={Follower.introduction}
+// 									isFollowing={matched}
+// 								/>
+// 							);
+// 						})
+// 					) : (
+// 						<h5>loading...</h5>
+// 					)}
 // 				</div>
 // 			</div>
 // 		</MainSection>
