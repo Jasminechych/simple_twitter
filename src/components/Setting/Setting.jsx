@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getUserData, putUserData } from 'src/apis/user.js';
 import style from 'src/components/Setting/Setting.module.scss';
 import { AuthInput } from '../AuthInput/AuthInput';
@@ -9,7 +10,7 @@ import { MainSection } from '../MainSection/MainSection';
 
 export const Setting = () => {
 	const current = JSON.parse(localStorage.getItem('currentUser'));
-	console.log('setting page current: ', current);
+	// console.log('setting page current: ', current);
 
 	//輸入時同步取得
 	const [account, setAccount] = useState('');
@@ -19,6 +20,7 @@ export const Setting = () => {
 	const [checkPassword, setCheckPassword] = useState('');
 	const [checkPasswordErrorMessage, setCheckPasswordErrorMessage] = useState('');
 	const [emailErrorMessage, setEmailErrorMessage] = useState('');
+	const navigate = useNavigate();
 
 	// 	取使用者自己的資料
 	const [initialValues, setInitialValues] = useState({
@@ -32,10 +34,20 @@ export const Setting = () => {
 	// 取得
 	useEffect(() => {
 		const getUsersInfo = async () => {
-			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
-			// console.log('currentUserId: ', currentUserId.currentUserId);
 			try {
+				// 取得token
+				const token = localStorage.getItem('token');
+				console.log('token:', token);
+
+				// 先驗證token，若無則直接回到login
+				if (!token) {
+					navigate('/signin');
+					return;
+				}
+				const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
+				// console.log('currentUserId: ', currentUserId.currentUserId);
 				const data = await getUserData(currentUserId.currentUserId);
+
 				setInitialValues({
 					id: data.id,
 					account: data.account,
@@ -47,7 +59,7 @@ export const Setting = () => {
 			}
 		};
 		getUsersInfo();
-	}, []);
+	}, [navigate]);
 
 	const handleSave = async () => {
 		// 先判斷輸入的內容長度不為0

@@ -6,7 +6,7 @@ import { ReplyListTab } from 'src/components/ReplyListTab/ReplyListTab';
 import { TweetListTab } from 'src/components/TweetListTab/TweetListTab';
 import { MainSection } from 'src/components/MainSection/MainSection';
 import { Header } from 'src/components/Header/Header';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ReactComponent as BackArrow } from 'src/assets/icons/back.svg';
 import { TweetList } from '../TweetList/TweetList';
 import { useEffect, useState } from 'react';
@@ -15,6 +15,7 @@ import { getUserData } from 'src/apis/user';
 import { MessageFilled, MessageOutline, NotiFilled, NotiOutline } from 'src/assets/icons';
 
 export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
+	const navigate = useNavigate();
 	const current = JSON.parse(localStorage.getItem('currentUser'));
 	const [activeTab, setActiveTab] = useState('tweetList');
 	console.log('tab: ', activeTab);
@@ -39,10 +40,20 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 	// 取得
 	useEffect(() => {
 		const getUsersInfo = async () => {
-			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
-			console.log('currentUserId: ', currentUserId.currentUserId);
 			try {
+				const token = localStorage.getItem('token');
+				console.log('token:', token);
+
+				// 先驗證token，若無則直接回到signin
+				if (!token) {
+					navigate('/signin', { replace: true });
+					return;
+				}
+				const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
+				// console.log('currentUserId: ', currentUserId.currentUserId);
 				const data = await getUserData(currentUserId.currentUserId);
+				// 取得token
+
 				setInitialValues({
 					id: data.id,
 					name: data.name,
@@ -55,7 +66,7 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 			}
 		};
 		getUsersInfo();
-	}, []);
+	}, [navigate]);
 
 	return (
 		<MainSection>

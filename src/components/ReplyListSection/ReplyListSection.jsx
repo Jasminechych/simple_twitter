@@ -16,7 +16,6 @@ export const ReplyListSection = () => {
 	const { id } = useParams();
 	const cleanId = id.slice(1);
 
-
 	// 取得單篇推文資料
 	useEffect(() => {
 		const getOneTweetAsync = async () => {
