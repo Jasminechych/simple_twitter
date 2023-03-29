@@ -1,8 +1,9 @@
-.mainPageContainer{
-  width: 80%;
-  height: 100vh;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-
+.mainPageContainer {
+	display: flex;
+	flex-flow: row wrap;
+	width: 80%;
+	height: 100vh;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
 }

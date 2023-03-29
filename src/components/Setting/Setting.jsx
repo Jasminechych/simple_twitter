@@ -48,13 +48,14 @@ export const Setting = () => {
 				const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
 				// console.log('currentUserId: ', currentUserId.currentUserId);
 				const data = await getUserData(currentUserId.currentUserId);
-
-				setInitialValues({
-					id: data.id,
-					account: data.account,
-					name: data.name,
-					email: data.email,
-				});
+				if (data) {
+					setInitialValues({
+						id: data.id,
+						account: data.account,
+						name: data.name,
+						email: data.email,
+					});
+				}
 			} catch (error) {
 				console.error(error);
 			}
