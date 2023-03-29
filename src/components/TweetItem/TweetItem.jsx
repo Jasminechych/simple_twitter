@@ -16,7 +16,6 @@ export const TweetItem = ({
 	isLikeByUser,
 	handleHeartClick,
 }) => {
-	console.log('元件渲染 isLikeByUser: ', isLikeByUser);
 	const navigate = useNavigate();
 
 	// 點擊推文導向 replyList 頁面

@@ -5,7 +5,7 @@
 	flex-direction: column;
 	gap: 8px;
 	padding: 16px 16px 8px;
-	border-bottom: 1px solid var(--border-colo);
+	border-bottom: 1px solid var(--border-color);
 }
 
 .replyPostHeaderInfo {
@@ -71,8 +71,6 @@
 }
 
 .replyPostButtonContainer {
-	// outline: 1px solid blue;
-
 	display: flex;
 	align-items: center;
 	gap: 133px;

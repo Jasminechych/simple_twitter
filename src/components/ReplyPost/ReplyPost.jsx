@@ -14,7 +14,7 @@ export const ReplyPost = ({
 	createdAt,
 	repliesCounts,
 	likedCounts,
-	isLikeByCurrentUse,
+	isLikeByCurrentUser,
 }) => {
 	const createTime = formatDate(createdAt);
 	return (
