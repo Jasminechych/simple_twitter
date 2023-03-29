@@ -86,6 +86,7 @@ export const EditModal = () => {
 						placeholder='請輸入使用者名稱'
 						maxLength='50'
 						value={name}
+						errorMessage={!name.trim().length && '內容不可空白'}
 						onChange={(nameInputValue) => setName(nameInputValue)}
 					/>
 
@@ -96,6 +97,7 @@ export const EditModal = () => {
 						placeholder='自我介紹'
 						maxLength='160'
 						value={intro}
+						errorMessage={!intro.trim().length && '內容不可空白'}
 						onChange={(introInputValue) => setIntro(introInputValue)}
 						style={{ height: '147px !important' }}
 					/>
