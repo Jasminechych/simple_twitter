@@ -45,7 +45,7 @@ export const ReplyPost = ({
 					<Link to='/replyList:id/modal'>
 						<Reply />
 					</Link>
-					{isLikeByCurrentUse ? <LikeFilled /> : <LikeOutline />}
+					{isLikeByCurrentUser ? <LikeFilled /> : <LikeOutline />}
 				</div>
 			</div>
 		</div>

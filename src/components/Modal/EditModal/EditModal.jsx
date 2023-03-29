@@ -10,10 +10,6 @@ export const EditModal = () => {
 	const current = JSON.parse(localStorage.getItem('currentUser'));
 	// console.log('setting page current: ', current);
 
-	// 可修改名稱和自我介紹
-	const [name, setName] = useState('');
-	const [intro, setIntro] = useState('');
-
 	// 	使用者取得自己的資料
 	const [initialValues, setInitialValues] = useState({
 		id: current.currentUserId,
@@ -23,6 +19,10 @@ export const EditModal = () => {
 		intro: current.currentUserIntroduction,
 	});
 	console.log('initialValues:', initialValues);
+
+	// 輸入時同步取得,可修改名稱和自我介紹
+	const [name, setName] = useState(initialValues.name);
+	const [intro, setIntro] = useState(initialValues.intro);
 
 	// 取得
 	useEffect(() => {
@@ -47,7 +47,7 @@ export const EditModal = () => {
 
 	//
 	const handleSave = () => {
-		// 先判斷輸入的內容長度不為0, 防止表單送出
+		// 輸入框若有任一為空，防止表單送出，且跳出提示視窗
 		if (!name.trim().length || !intro.trim().length) {
 			return;
 		}
@@ -85,17 +85,19 @@ export const EditModal = () => {
 						type='text'
 						placeholder='請輸入使用者名稱'
 						maxLength='50'
-						value={initialValues.name}
+						value={name}
 						onChange={(nameInputValue) => setName(nameInputValue)}
 					/>
+
 					<AuthInput
 						label='自我介紹'
 						title='name'
 						type='text'
 						placeholder='自我介紹'
 						maxLength='160'
-						value={initialValues.intro ?? ''}
+						value={intro}
 						onChange={(introInputValue) => setIntro(introInputValue)}
+						style={{ height: '147px !important' }}
 					/>
 				</div>
 			</div>
