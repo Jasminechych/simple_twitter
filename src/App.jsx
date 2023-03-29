@@ -23,10 +23,9 @@ import { ReplyListSection } from 'src/components/ReplyListSection/ReplyListSecti
 // const basename = process.REACT_APP_PUBLIC_URL;
 
 function App() {
-	const basename = window.ENV.REACT_APP_PUBLIC_URL;
 	return (
 		<div className='App'>
-			<BrowserRouter basename={basename}>
+			<BrowserRouter basename={'/simple_twitter'}>
 				<Routes>
 					<Route path='register' element={<RegisterPage />} />
 					<Route path='signin' element={<SignInPage />} />
