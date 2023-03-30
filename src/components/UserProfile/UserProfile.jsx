@@ -1,6 +1,5 @@
 import style from 'src/components/UserProfile/UserProfile.module.scss';
 import { ButtonS, ButtonSW } from 'src/components/buttons';
-import { ReactComponent as BackgroundPhoto } from 'src/assets/icons/background-photo.svg';
 import { LikeList } from 'src/components/LikeList/LikeList';
 import { ReplyListTab } from 'src/components/ReplyListTab/ReplyListTab';
 import { TweetListTab } from 'src/components/TweetListTab/TweetListTab';
@@ -35,6 +34,7 @@ export const UserProfile = () => {
 	const [initialValues, setInitialValues] = useState({
 		id: current.currentUserId,
 		name: current.currentUserName,
+		cover: current.currentUserCover,
 		account: current.currentUserAccount,
 		avatar: current.currentUserAvatar,
 		introduction: current.currentUserIntroduction,
@@ -61,6 +61,7 @@ export const UserProfile = () => {
 					name: data.name,
 					account: data.account,
 					avatar: data.avatar,
+					cover: data.cover,
 					introduction: data.introduction,
 				});
 			} catch (error) {
@@ -83,7 +84,7 @@ export const UserProfile = () => {
 			</div>
 			<div className={style.userProfileContainer}>
 				<div className={style.userProfileBackgroundPhoto}>
-					<BackgroundPhoto />
+					<img src={initialValues.cover} className={style.cover} />
 				</div>
 				<div className={style.userProfileAvatar}>
 					<img src={initialValues.avatar} className={style.avatar} />

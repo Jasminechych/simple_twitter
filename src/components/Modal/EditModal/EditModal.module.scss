@@ -96,6 +96,13 @@
 			height: 100%;
 			border-radius: 50%;
 		}
+		.addAvatarPhoto {
+			position: absolute;
+			cursor: pointer;
+			& path {
+				fill: var(--dark-0);
+			}
+		}
 	}
 	.editModalInfo {
 		// outline: 2px solid green;

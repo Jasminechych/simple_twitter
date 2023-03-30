@@ -1,10 +1,10 @@
 import style from 'src/components/Modal/EditModal/EditModal.module.scss';
 import { AuthInput } from 'src/components/AuthInput/AuthInput';
-import { AddPhoto, Close, Cover } from 'src/assets/icons';
+import { AddPhoto, Close } from 'src/assets/icons';
 import { ButtonS } from 'src/components/buttons';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getUserData, putUserData } from 'src/apis/user';
+import { getUserData, putEditProfile } from 'src/apis/user';
 import Swal from 'sweetalert2';
 
 export const EditModal = () => {
@@ -28,6 +28,7 @@ export const EditModal = () => {
 			console.log('currentUserId: ', currentUserId.currentUserId);
 			try {
 				const data = await getUserData(currentUserId.currentUserId);
+				console.log('從後台來的data:', data);
 				if (data) {
 					setInitialValues({
 						id: data.id,
@@ -61,7 +62,7 @@ export const EditModal = () => {
 
 			// 帶入id，把更新的資料傳回後端
 			const id = currentUserId.currentUserId;
-			const response = await putUserData(id, {
+			const response = await putEditProfile(id, {
 				name: initialValues.name,
 				introduction: initialValues.introduction,
 			});
@@ -112,7 +113,7 @@ export const EditModal = () => {
 					<ButtonS text='儲存' onClick={handleSave} />
 				</div>
 				<div className={style.editModalBackgroundPhoto}>
-					<Cover className={style.backgroundPhoto} />
+					<img src={initialValues.cover} className={style.backgroundPhoto} />
 					<div className={style.addAndClose}>
 						<AddPhoto className={style.addPhoto} />
 						<Close className={style.closePhoto} />
@@ -120,6 +121,7 @@ export const EditModal = () => {
 				</div>
 				<div className={style.editModalAvatar}>
 					<img src={initialValues.avatar} className={style.avatar} />
+					<AddPhoto className={style.addAvatarPhoto} />
 				</div>
 				<div className={style.editModalInfo}>
 					<AuthInput
