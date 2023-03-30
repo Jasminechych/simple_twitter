@@ -21,7 +21,7 @@ const baseUrl = 'https://quiet-fortress-55098.herokuapp.com/api';
 // 	}
 // };
 
-// 使用者可以設定自己的資料(setting)
+// 使用者可以設定自己的資料
 // 裡面是需要被更新的資料
 export const putUserData = async (
 	id,
@@ -41,7 +41,7 @@ export const putUserData = async (
 				},
 			},
 		);
-		// console.log('後台獲得的res:', res);
+		console.log('後台獲得的res:', res);
 		return res;
 	} catch (error) {
 		console.log(`[Put Setting Failed]:`, error);

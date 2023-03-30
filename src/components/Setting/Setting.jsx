@@ -9,6 +9,7 @@ import { MainSection } from '../MainSection/MainSection';
 import Swal from 'sweetalert2';
 
 export const Setting = () => {
+	const navigate = useNavigate();
 	const current = JSON.parse(localStorage.getItem('currentUser'));
 	console.log('setting page current: ', current);
 
@@ -19,7 +20,7 @@ export const Setting = () => {
 		name: current.currentUserName,
 		email: current.currentUserEmail,
 	});
-	// console.log('initialValues:', initialValues);
+	console.log('initialValues:', initialValues);
 
 	//輸入時同步取得
 	const [account, setAccount] = useState(initialValues.account);
@@ -30,21 +31,21 @@ export const Setting = () => {
 	const [checkPasswordErrorMessage, setCheckPasswordErrorMessage] = useState('');
 	const [emailErrorMessage, setEmailErrorMessage] = useState('');
 	const [accountErrorMessage, setAccountErrorMessage] = useState('');
-	const navigate = useNavigate();
 
-	// 取得
+	// 取得初始資料
 	useEffect(() => {
 		const getUsersInfo = async () => {
 			try {
 				// 取得token
 				const token = localStorage.getItem('token');
-				// console.log('token:', token);
+				console.log('前台token:', token);
 
 				// 先驗證token，若無則直接回到login
 				if (!token) {
 					navigate('/signin');
 					return;
 				}
+				// 登入時的使用者
 				const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
 				// console.log('currentUserId: ', currentUserId.currentUserId);
 				const data = await getUserData(currentUserId.currentUserId);
@@ -55,6 +56,7 @@ export const Setting = () => {
 						name: data.name,
 						email: data.email,
 					});
+					console.log('修改為的資料', data);
 				}
 			} catch (error) {
 				console.error(error);
@@ -80,15 +82,22 @@ export const Setting = () => {
 			setCheckPasswordErrorMessage('密碼不相符');
 			return;
 		}
+
+		// 每次按下儲存時先清空所有錯誤訊息
+		setAccountErrorMessage('');
+		setEmailErrorMessage('');
+		setCheckPasswordErrorMessage('');
+
 		try {
 			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
 			console.log('currentUserId: ', currentUserId.currentUserId);
+
 			const id = currentUserId.currentUserId;
 			const data = await putUserData(id, name, account, email, password, checkPassword);
-			console.log('data:', data);
+			console.log('從後台回來的資料:', data);
 
 			const errorMessage = data.errorMessage;
-			const success = data.success;
+			const success = data.statusText;
 			// 如果 account 已被註冊，顯示錯誤訊息
 			if (errorMessage === 'Error: 此帳號已被註冊') {
 				setAccountErrorMessage('此帳號已被註冊');
@@ -98,7 +107,7 @@ export const Setting = () => {
 			if (errorMessage === 'Error: 此信箱已被註冊') {
 				setEmailErrorMessage('此信箱已被註冊');
 			}
-			if (success) {
+			if (success === 'OK') {
 				Swal.fire({
 					title: '儲存成功',
 					icon: 'success',
@@ -110,25 +119,6 @@ export const Setting = () => {
 		} catch (error) {
 			console.log(error);
 		}
-
-		// 每次按下註冊按鈕時先清空所有錯誤訊息
-		setAccountErrorMessage('');
-		setEmailErrorMessage('');
-		setCheckPasswordErrorMessage('');
-
-		// if (response && response.data) {
-		// 	const { data } = response;
-		// 	// 進行對data的操作
-		// 	localStorage.setItem('token', data.token);
-		// 	Swal.fire({
-		// 		title: '儲存成功',
-		// 		icon: 'success',
-		// 		showConfirmButton: false,
-		// 		position: 'top',
-		// 		timer: 1000,
-		// 	});
-		// 	return;
-		// }
 	};
 
 	return (
