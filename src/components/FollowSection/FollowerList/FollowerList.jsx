@@ -11,14 +11,17 @@ import {
 	deleteFollowShips,
 	postFollowShips,
 } from 'src/apis/user';
+import { useUserData } from 'src/context/UserContext';
 
-export const FollowerList = ({ name, tweets }) => {
+export const FollowerList = () => {
 	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
 	const [usersFollowersData, setUsersFollowersData] = useState([]);
 	const [usersFollowingsData, setUsersFollowingsData] = useState([]);
 	const [followShipState, setFollowShipState] = useState({ userId: '', followShip: '' });
-
 	const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+	// 把使用者資訊拿出來用
+	const { currentUserInfo, usersTweets } = useUserData();
 
 	// 取得目前使用者的跟隨者
 	useEffect(() => {
@@ -95,8 +98,8 @@ export const FollowerList = ({ name, tweets }) => {
 					<BackArrow className={style.backArrow} />
 				</Link>
 				<div className={style.followHeader}>
-					<Header header={name} className={style.header} />
-					<a href='' className={style.tweets}>{`${tweets}推文`}</a>
+					<Header header={currentUserInfo.name} className={style.header} />
+					<a href='' className={style.tweets}>{`${usersTweets.length}推文`}</a>
 				</div>
 			</div>
 			<div className={style.followerListContainer}>

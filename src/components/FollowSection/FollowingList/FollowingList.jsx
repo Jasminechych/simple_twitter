@@ -6,15 +6,18 @@ import { ReactComponent as BackArrow } from 'src/assets/icons/back.svg';
 import { Link } from 'react-router-dom';
 import { getsUsersFollowing } from 'src/apis/user';
 import { useEffect, useState } from 'react';
+import { useUserData } from 'src/context/UserContext';
 
-export const FollowingList = ({ name, tweets }) => {
+export const FollowingList = () => {
 	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
 	console.log('currentUserId: ', currentUserId);
-	const [usersFollowingsData, setUsersFollowingsData] = useState(false);
+	const [usersFollowingsData, setUsersFollowingsData] = useState([]);
 	const [isUsersFollowingsDataLoaded, setUsersIsFollowingsDataLoaded] = useState(false);
 
-	// 查看此使用者ID追蹤中的人
+	// 把使用者資訊拿出來用
+	const { currentUserInfo, usersTweets } = useUserData();
 
+	// 查看此使用者ID追蹤中的人
 	useEffect(() => {
 		const getFollowingsUsersAsync = async () => {
 			try {
@@ -36,8 +39,8 @@ export const FollowingList = ({ name, tweets }) => {
 					<BackArrow className={style.backArrow} />
 				</Link>
 				<div className={style.followHeader}>
-					<Header header={name} className={style.header} />
-					<a href='' className={style.tweets}>{`${tweets}推文`}</a>
+					<Header header={currentUserInfo.name} className={style.header} />
+					<a href='' className={style.tweets}>{`${usersTweets.length}推文`}</a>
 				</div>
 			</div>
 			<div className={style.followingListContainer}>

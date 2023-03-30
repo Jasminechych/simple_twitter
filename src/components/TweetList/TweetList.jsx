@@ -98,7 +98,7 @@ export const TweetList = ({ tab }) => {
 
 	const matchData = useMemo(() => {
 		if (!isDataLoaded || !isUserLikeDataLoaded) return [];
-		if (tab === 'tweetList') {
+		if (tab === 'tweetList' || tab === undefined) {
 			return tweetListData.map((item) => {
 				const isLiked = userLikeData.some((likeItem) => likeItem.TweetId === item.id);
 				return { ...item, isLikeByUser: isLiked };
@@ -111,8 +111,6 @@ export const TweetList = ({ tab }) => {
 			});
 		}
 	}, [isDataLoaded, isUserLikeDataLoaded, tweetListData, userLikeData]);
-
-	console.log('matchData', matchData);
 
 	return (
 		<div className={style.tweetList}>
@@ -134,10 +132,14 @@ export const TweetList = ({ tab }) => {
 							<TweetItem
 								key={id}
 								id={id}
-								description={tab === 'tweetList' ? description : Tweet.description}
-								avatar={tab === 'tweetList' ? User.avatar : Tweet.User.avatar}
-								name={tab === 'tweetList' ? User.name : Tweet.User.name}
-								account={tab === 'tweetList' ? User.account : Tweet.User.account}
+								description={
+									tab === 'tweetList' || tab === undefined ? description : Tweet.description
+								}
+								avatar={tab === 'tweetList' || tab === undefined ? User.avatar : Tweet.User.avatar}
+								name={tab === 'tweetList' || tab === undefined ? User.name : Tweet.User.name}
+								account={
+									tab === 'tweetList' || tab === undefined ? User.account : Tweet.User.account
+								}
 								createdAt={hour}
 								replyCounts={RepliesCounts}
 								likeCounts={LikedCounts}

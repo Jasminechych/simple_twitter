@@ -17,6 +17,10 @@ import { AdminTweetsSection } from 'src/components/AdminTweetsSection/AdminTweet
 import { MainSection } from './components/MainSection/MainSection';
 import { ReplyListSection } from 'src/components/ReplyListSection/ReplyListSection';
 import { ReplyModal } from './components/ReplyModal/ReplyModal';
+// import { useState, useEffect } from 'react';
+// import { getUserData } from 'src/apis/user';
+
+import { UserProvider } from 'src/context/UserContext';
 
 // import { compileString } from "sass";
 
@@ -24,151 +28,170 @@ import { ReplyModal } from './components/ReplyModal/ReplyModal';
 // const basename = process.REACT_APP_PUBLIC_URL;
 
 function App() {
+	// const { currentUserInfo } = useUserData();
+	// const currentUserName = JSON.parse(localStorage.getItem('currentUserId')).currentUserName;
+
+	// const [currentUserInfo, setCurrentUserInfo] = useState('');
+
+	// useEffect(() => {
+	// 	const getUserAsync = async () => {
+	// 		try {
+	// 			const data = await getUserData(currentUserId);
+	// 			setCurrentUserInfo(data);
+	// 		} catch (error) {
+	// 			console.log(error);
+	// 		}
+	// 	};
+	// 	getUserAsync();
+	// }, []);
+
+	// console.log(currentUserInfo);
+
 	return (
 		<div className='App'>
-			<BrowserRouter basename={'/simple_twitter'}>
-				<Routes>
-					<Route path='register' element={<RegisterPage />} />
-					<Route path='signin' element={<SignInPage />} />
-					<Route
-						path='main'
-						element={
-							<MainPage>
-								<TweetInput />
-							</MainPage>
-						}
-					/>
-					<Route
-						path='/main/tweet'
-						element={
-							<MainPage>
-								<TweetInput />
-								<TweetModal />
-							</MainPage>
-						}
-					/>
-					<Route path='*' element={<RegisterPage />} />
-					<Route
-						path='user/self'
-						element={
-							<MainPage>
-								<UserProfile followerCounts={`${59}位`} followingCounts={`${34}個`} tweets={`25`} />
-							</MainPage>
-						}
-					/>
-					<Route
-						path='user/other'
-						element={
-							<MainPage>
-								<UserProfile followerCounts={`${59}位`} followingCounts={`${34}個`} tweets={`25`} />
-							</MainPage>
-						}
-					/>
-					<Route
-						path='following'
-						element={
-							<MainPage>
-								<FollowingList name={`John Doe`} tweets={`25`} />
-							</MainPage>
-						}
-					/>
-					<Route
-						path='follower'
-						element={
-							<MainPage>
-								<FollowerList name={`John Doe`} tweets={`25`} />
-							</MainPage>
-						}
-					/>
-					<Route
-						path='setting'
-						element={
-							<MainPage>
-								<Setting />
-							</MainPage>
-						}
-					/>
-					<Route
-						path='/user/self/edit'
-						element={
-							<MainPage>
-								<UserProfile followerCounts={`${59}位`} followingCounts={`${34}個`} tweets={`25`} />
-								<EditModal />
-							</MainPage>
-						}
-					/>
-					{/* 後台 */}
-					<Route path='adminsignin' element={<AdminPage />} />
-					<Route path='admin' element={<AdminMainPage />}>
+			<UserProvider>
+				<BrowserRouter basename={'/simple_twitter'}>
+					<Routes>
+						<Route path='register' element={<RegisterPage />} />
+						<Route path='signin' element={<SignInPage />} />
 						<Route
-							path='tweets'
+							path='main'
 							element={
-								<AdminTweetsSection title='推文清單'>
-									<AdminTweetList />
-								</AdminTweetsSection>
+								<MainPage>
+									<TweetInput />
+								</MainPage>
 							}
 						/>
 						<Route
-							path='users'
+							path='/main/tweet'
 							element={
-								<AdminUsersSection title='使用者列表'>
-									<UserList />
-								</AdminUsersSection>
+								<MainPage>
+									<TweetInput />
+									<TweetModal />
+								</MainPage>
 							}
 						/>
-					</Route>
-					<Route
-						path='user/self/tab=tweet'
-						element={
-							<MainPage>
-								<UserProfile followerCounts={`${59}位`} followingCounts={`${34}個`} tweets={`25`} />
-							</MainPage>
-						}
-					/>
-					<Route
-						path='user/self/tab=reply'
-						element={
-							<MainPage>
-								<UserProfile followerCounts={`${59}位`} followingCounts={`${34}個`} tweets={`25`} />
-							</MainPage>
-						}
-					/>
-					<Route
-						path='user/self/tab=like'
-						element={
-							<MainPage>
-								<UserProfile followerCounts={`${59}位`} followingCounts={`${34}個`} tweets={`25`} />
-							</MainPage>
-						}
-					/>
-					<Route
-						path='/replyList:id'
-						element={
-							<MainPage>
-								<MainSection>
-									<ReplyListSection />
-								</MainSection>
-							</MainPage>
-						}
-					/>
-					<Route
-						path='/replyList:id/modal'
-						element={
-							<MainPage>
-								<ReplyModal />
-							</MainPage>
-						}
-					/>
-					{/* <Route
-						path='/replyList:id/:id/:name/:account/:createtime'
-						element={
-							<MainPage>
-								<ReplyModal />
-							</MainPage>
-						}
-					/> */}
-				</Routes>
-			</BrowserRouter>
+						<Route path='*' element={<RegisterPage />} />
+
+						<Route
+							path='user/self'
+							element={
+								<MainPage>
+									<UserProfile />
+								</MainPage>
+							}
+						/>
+
+						<Route
+							path='user/other'
+							element={
+								<MainPage>
+									<UserProfile />
+								</MainPage>
+							}
+						/>
+						<Route
+							path='following'
+							element={
+								<MainPage>
+									<FollowingList />
+								</MainPage>
+							}
+						/>
+						<Route
+							path='follower'
+							element={
+								<MainPage>
+									<FollowerList />
+								</MainPage>
+							}
+						/>
+						<Route
+							path='setting'
+							element={
+								<MainPage>
+									<Setting />
+								</MainPage>
+							}
+						/>
+						<Route
+							path='/user/self/edit'
+							element={
+								<MainPage>
+									<UserProfile
+										followerCounts={`${59}位`}
+										followingCounts={`${34}個`}
+										tweets={`25`}
+									/>
+									<EditModal />
+								</MainPage>
+							}
+						/>
+						{/* 後台 */}
+						<Route path='adminsignin' element={<AdminPage />} />
+						<Route path='admin' element={<AdminMainPage />}>
+							<Route
+								path='tweets'
+								element={
+									<AdminTweetsSection title='推文清單'>
+										<AdminTweetList />
+									</AdminTweetsSection>
+								}
+							/>
+							<Route
+								path='users'
+								element={
+									<AdminUsersSection title='使用者列表'>
+										<UserList />
+									</AdminUsersSection>
+								}
+							/>
+						</Route>
+						<Route
+							path='user/self/tab=tweet'
+							element={
+								<MainPage>
+									<UserProfile />
+								</MainPage>
+							}
+						/>
+						<Route
+							path='user/self/tab=reply'
+							element={
+								<MainPage>
+									<UserProfile />
+								</MainPage>
+							}
+						/>
+						<Route
+							path='user/self/tab=like'
+							element={
+								<MainPage>
+									<UserProfile />
+								</MainPage>
+							}
+						/>
+						<Route
+							path='/replyList:id'
+							element={
+								<MainPage>
+									<MainSection>
+										<ReplyListSection />
+									</MainSection>
+								</MainPage>
+							}
+						/>
+						<Route
+							path='/replyList:id/modal'
+							element={
+								<MainPage>
+									<ReplyModal />
+								</MainPage>
+							}
+						/>
+					</Routes>
+				</BrowserRouter>
+			</UserProvider>
 		</div>
 	);
 }
