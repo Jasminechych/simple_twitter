@@ -12,7 +12,6 @@ export const AdminTweetList = () => {
 		const getAdminTweetsAsync = async () => {
 			try {
 				const data = await getAdminTweets();
-				console.log('data', data);
 				setTweets(data);
 				setIsDataLoaded(true);
 			} catch (error) {
