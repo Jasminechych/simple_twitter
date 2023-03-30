@@ -6,6 +6,7 @@ import style from 'src/pages/MainPage/MainPage.module.scss';
 export const MainPage = ({ children }) => {
 	const location = useLocation();
 	const currentPath = location.pathname;
+	console.log('currentPath', currentPath);
 	return (
 		<div className={style.mainPageContainer}>
 			<Sidebar />

@@ -17,8 +17,6 @@ export const TweetList = ({ tab }) => {
 	const [isHeartClick, setIsHeartClick] = useState(false);
 	const navigate = useNavigate();
 
-	console.log('tab', tab);
-
 	// 查看所有推文
 	useEffect(() => {
 		const getTweetsAsync = async () => {

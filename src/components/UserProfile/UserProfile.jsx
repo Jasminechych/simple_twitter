@@ -27,10 +27,6 @@ export const UserProfile = () => {
 	// 把使用者資料拿出來用
 	const { currentUserInfo, usersFollowersData, usersFollowingsData, usersTweets } = useUserData();
 
-	// console.log('PcurrentUserInfo', currentUserInfo);
-	// console.log('PusersFollowersData.length', usersFollowersData.length);
-	// console.log('PusersFollowingsData.length', usersFollowingsData.length);
-
 	const handleTabChange = (tab) => {
 		setActiveTab(tab);
 	};

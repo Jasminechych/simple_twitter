@@ -81,9 +81,18 @@ function App() {
 								</MainPage>
 							}
 						/>
-
+						{/* 待刪除 */}
 						<Route
 							path='user/other'
+							element={
+								<MainPage>
+									<UserProfile />
+								</MainPage>
+							}
+						/>
+						{/* 測試中 */}
+						<Route
+							path='user:id'
 							element={
 								<MainPage>
 									<UserProfile />
@@ -147,6 +156,7 @@ function App() {
 								}
 							/>
 						</Route>
+						{/* 後台結束 */}
 						<Route
 							path='user/self/tab=tweet'
 							element={

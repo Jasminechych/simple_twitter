@@ -13,7 +13,6 @@ export const UserProvider = ({ children }) => {
 			try {
 				const data = await getUserData(currentUserId);
 				setCurrentUserInfo(data);
-				console.log('getUserData', data);
 			} catch (error) {
 				console.log(error);
 			}
@@ -56,7 +55,6 @@ export const UserProvider = ({ children }) => {
 		const getUserTweetsAsync = async () => {
 			try {
 				const data = await getUserTweets(currentUserId);
-				console.log('getsUsersFollowing: ', data);
 				setUserTweets(data);
 			} catch (error) {
 				console.log(error);

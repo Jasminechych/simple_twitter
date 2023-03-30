@@ -25,12 +25,13 @@ export const TweetItem = ({
 
 	const handleAvatarClick = (id) => {
 		console.log('avatar click id: ', id);
+		navigate(`/users:${id}`);
 	};
 
 	return (
 		<div className={style.tweetItemContainer} id={id}>
-			<section className={style.tweetItemAvatarSection} onClick={() => handleAvatarClick(id)}>
-				<img className={style.tweetItemAvatar} src={avatar} />
+			<section className={style.tweetItemAvatarSection}>
+				<img className={style.tweetItemAvatar} src={avatar} onClick={() => handleAvatarClick(id)} />
 			</section>
 
 			<section className={style.tweetItemContentSection}>
