@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 
 export const AdminTweetList = () => {
 	const [tweets, setTweets] = useState([]);
+	const [isDataLoaded, setIsDataLoaded] = useState(false);
 
 	// 從資料庫撈所有推文資料
 	useEffect(() => {
@@ -13,6 +14,7 @@ export const AdminTweetList = () => {
 				const data = await getAdminTweets();
 				if (data.length > 0) {
 					setTweets(data);
+					setIsDataLoaded(true);
 				}
 			} catch (error) {
 				console.error(error);
@@ -33,22 +35,26 @@ export const AdminTweetList = () => {
 
 	return (
 		<div className={style.tweetList}>
-			{tweets.map(({ id, description, createdAt, Author }) => {
-				const createdAtDate = new Date(createdAt);
-				const hour = createdAtDate.getHours();
-				return (
-					<AdminTweetItem
-						key={id}
-						id={id}
-						description={description}
-						avatar={Author.avatar}
-						name={Author.name}
-						account={Author.account}
-						createdAt={hour}
-						handleDelete={handleDelete}
-					/>
-				);
-			})}
+			{isDataLoaded ? (
+				tweets.map(({ id, description, createdAt, User }) => {
+					const createdAtDate = new Date(createdAt);
+					const hour = createdAtDate.getHours();
+					return (
+						<AdminTweetItem
+							key={id}
+							id={id}
+							description={description}
+							avatar={User.avatar}
+							name={User.name}
+							account={User.account}
+							createdAt={hour}
+							handleDelete={handleDelete}
+						/>
+					);
+				})
+			) : (
+				<h5>{'loading....'}</h5>
+			)}
 		</div>
 	);
 };
