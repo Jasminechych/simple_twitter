@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, Close } from 'src/assets/icons';
 import { ButtonXS } from 'src/components/buttons';
 import style from 'src/components/Modal/TweetModal/TweetModal.module.scss';
-import { useUserData } from 'src/context/UserContext';
 import { postTweets } from 'src/apis/user';
 import Swal from 'sweetalert2';
 
@@ -11,7 +10,7 @@ export const TweetModal = () => {
 	const [inputValue, setInputValue] = useState('');
 	const [hintMessage, setHintMessage] = useState('');
 	const [isReadyForTweetSubmit, setIsReadyForSubmit] = useState(false);
-	const { currentUserInfo } = useUserData();
+	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
 	const navigate = useNavigate();
 	const maxLength = 140;
 
@@ -38,7 +37,7 @@ export const TweetModal = () => {
 		const postTweetsAsync = async () => {
 			if (isReadyForTweetSubmit) {
 				try {
-					await postTweets(currentUserInfo.id, inputValue);
+					await postTweets(currentUserId, inputValue);
 					Swal.fire({
 						position: 'center',
 						icon: 'success',
@@ -78,7 +77,7 @@ export const TweetModal = () => {
 					</div>
 					<div className={style.buttonWrapper}>
 						<div className={style.hintMessage}>{hintMessage}</div>
-						<ButtonXS text='推文' onClick={() => handleTweetSubmit(currentUserInfo.id)} />
+						<ButtonXS text='推文' onClick={() => handleTweetSubmit(currentUserId)} />
 					</div>
 				</div>
 			</div>

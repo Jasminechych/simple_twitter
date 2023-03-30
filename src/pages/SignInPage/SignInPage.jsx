@@ -15,7 +15,6 @@ export const SignInPage = () => {
 	const handleClick = async () => {
 		if (!account.trim().length || !password.trim().length) return;
 		const { data, success } = await userSignIn({ account, password });
-		console.log('登入頁面的data.userData: ', data.userData);
 		const currentUser = {
 			currentUserId: data.userData.id,
 			currentUserAccount: data.userData.account,
