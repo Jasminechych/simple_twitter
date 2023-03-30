@@ -1,5 +1,11 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { getUserData, getUsersFollowers, getsUsersFollowing, getUserTweets } from 'src/apis/user';
+import {
+	getUserData,
+	getUsersFollowers,
+	getsUsersFollowing,
+	getUserTweets,
+	// postTweets,
+} from 'src/apis/user';
 
 const UserContext = createContext();
 
@@ -63,8 +69,23 @@ export const UserProvider = ({ children }) => {
 		getUserTweetsAsync();
 	}, []);
 
-	// 如果沒有把它 memo 起來，一旦 CounterProvider re-render，其所有的
-	// consumer 都會 re-render（即使 counter 沒有改變）
+	// 發推文
+	// const [postTweetsInfo, setPostTweetsInfo] = useState('');
+	// const handlePostTweetClick = (userId, description) => {
+	// 	setPostTweetsInfo(userId, description);
+	// };
+	// useEffect(() => {
+	// 	const postTweetsAsync = async () => {
+	// 		try {
+	// 			await postTweets(currentUserId);
+	// 			setPostTweetsInfo('');
+	// 		} catch (error) {
+	// 			console.log(error);
+	// 		}
+	// 	};
+	// 	postTweetsAsync();
+	// }, [handlePostTweetClick]);
+
 	const UserContextData = useMemo(() => {
 		return {
 			currentUserInfo,

@@ -291,3 +291,22 @@ export const getUserTweets = async (id) => {
 		console.error('[Get User Tweets Failed]:', error.response);
 	}
 };
+
+// api/tweets 發推文
+export const postTweets = async (userId, description) => {
+	const token = localStorage.getItem('token');
+	try {
+		const res = await axios.post(
+			`${baseUrl}/tweets`,
+			{ userId, description },
+			{
+				headers: {
+					Authorization: 'Bearer ' + token,
+				},
+			},
+		);
+		return res.data;
+	} catch (error) {
+		console.error('[Post Tweets Failed]:', error.response);
+	}
+};
