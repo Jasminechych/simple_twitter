@@ -21,24 +21,27 @@ const baseUrl = 'https://quiet-fortress-55098.herokuapp.com/api';
 // 	}
 // };
 
-// 使用者可以編輯自己的資料(setting)
+// 使用者可以設定自己的資料(setting)
 // 裡面是需要被更新的資料
-export const putUserData = async (id, name, account, email, password, checkPassword) => {
+export const putUserData = async (
+	id,
+	{ name, account, email, password, checkPassword, introduction },
+) => {
 	const token = localStorage.getItem('token');
 
-	console.log('id: ', id);
+	// console.log('id: ', id);
 
 	try {
 		const res = await axios.put(
 			`${baseUrl}/users/${id}`,
-			{ id, name, account, email, password, checkPassword },
+			{ id, name, account, email, password, checkPassword, introduction },
 			{
 				headers: {
 					Authorization: 'Bearer ' + token,
 				},
 			},
 		);
-		console.log('res.data:', res);
+		// console.log('後台獲得的res:', res);
 		return res;
 	} catch (error) {
 		console.log(`[Put Setting Failed]:`, error);
