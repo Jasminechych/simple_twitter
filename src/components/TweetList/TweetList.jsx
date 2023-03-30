@@ -6,6 +6,7 @@ import { postLikeTweet, postUnLikeTweet } from 'src/apis/user';
 import { useCallback } from 'react';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { convertDateToHours } from 'src/utils/convertDateToHours';
 
 export const TweetList = ({ tab }) => {
 	const [tweetListData, setTweetListData] = useState([]);
@@ -124,8 +125,7 @@ export const TweetList = ({ tab }) => {
 						Tweet,
 						isLikeByUser,
 					}) => {
-						const createdAtDate = new Date(createdAt);
-						const hour = createdAtDate.getHours();
+						const hour = convertDateToHours(createdAt);
 						return (
 							<TweetItem
 								key={id}

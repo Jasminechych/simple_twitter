@@ -5,6 +5,7 @@ import { ButtonXS } from 'src/components/buttons';
 import style from 'src/components/Modal/TweetModal/TweetModal.module.scss';
 import { useUserData } from 'src/context/UserContext';
 import { postTweets } from 'src/apis/user';
+import Swal from 'sweetalert2';
 
 export const TweetModal = () => {
 	const [inputValue, setInputValue] = useState('');
@@ -38,6 +39,13 @@ export const TweetModal = () => {
 			if (isReadyForTweetSubmit) {
 				try {
 					await postTweets(currentUserInfo.id, inputValue);
+					Swal.fire({
+						position: 'center',
+						icon: 'success',
+						title: '建立推文成功！',
+						showConfirmButton: false,
+						timer: 1500,
+					});
 					navigate('/main');
 				} catch (error) {
 					console.log(error);

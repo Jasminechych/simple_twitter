@@ -5,6 +5,7 @@ import { getOneTweet, getTweetReplies, getUserLikes } from 'src/apis/user';
 import { useState, useEffect } from 'react';
 import { ReplyItem } from 'src/components/ReplyItem/ReplyItem';
 import { useNavigate, useParams } from 'react-router-dom';
+import { convertDateToHours } from 'src/utils/convertDateToHours';
 
 export const ReplyListSection = () => {
 	const [replyPostData, setReplyPostData] = useState({});
@@ -89,6 +90,8 @@ export const ReplyListSection = () => {
 			)}
 
 			{tweetRepliesData.map(({ Tweet, id, User, comment, createdAt }) => {
+				const createTime = convertDateToHours(createdAt);
+
 				return (
 					<ReplyItem
 						key={id}
@@ -97,7 +100,7 @@ export const ReplyListSection = () => {
 						avatar={User.avatar}
 						name={User.name}
 						comment={comment}
-						createdAt={createdAt}
+						createdAt={createTime}
 					/>
 				);
 			})}

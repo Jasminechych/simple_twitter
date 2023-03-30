@@ -5,12 +5,14 @@ import { ButtonS } from 'src/components/buttons';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
 import { postTweetReplies } from 'src/apis/user';
-import { convertDateToHours } from 'src/utils/convertDateToHours';
+// import { convertDateToHours } from 'src/utils/convertDateToHours';
+import Swal from 'sweetalert2';
 
 export const ReplyModal = () => {
 	const navigate = useNavigate();
 	const [inputValue, setInputValue] = useState('');
 	const [isReadyToSubmit, setIsReadyToSubmit] = useState(false);
+	const [hintMessage, setHintMessage] = useState('');
 
 	// 從網址拿 tweet 資料
 	const [searchParams] = useSearchParams();
@@ -21,9 +23,6 @@ export const ReplyModal = () => {
 	const avatar = searchParams.get('avatar');
 	const description = decodeURIComponent(searchParams.get('description'));
 
-	// 轉化時間
-	const createTime = convertDateToHours(createdAt);
-
 	const currentUserAvatar = JSON.parse(localStorage.getItem('currentUser')).currentUserAvatar;
 
 	// 回到上一頁
@@ -32,7 +31,10 @@ export const ReplyModal = () => {
 	}
 
 	const handleSubmit = useCallback(() => {
-		if (!inputValue.trim().length) return;
+		if (!inputValue.trim().length) {
+			setHintMessage('內容不可空白');
+			return;
+		}
 		setIsReadyToSubmit(true);
 	}, [inputValue]);
 
@@ -42,6 +44,13 @@ export const ReplyModal = () => {
 				try {
 					await postTweetReplies(id, inputValue);
 					setIsReadyToSubmit(false);
+					Swal.fire({
+						position: 'center',
+						icon: 'success',
+						title: '回覆推文成功！',
+						showConfirmButton: false,
+						timer: 1500,
+					});
 					navigate(-1);
 				} catch (error) {
 					console.log(error);
@@ -69,13 +78,13 @@ export const ReplyModal = () => {
 							<div className={style.nameAndAccountWrapper}>
 								<p className={style.name}>{name}</p>
 								<p className={style.account}>
-									@{account} • {createTime}
+									@{account} • {createdAt}
 								</p>
 							</div>
 							<p className={style.description}>{description}</p>
 							<div className={style.replyToGroup}>
 								<p className={style.replyToText}>回覆給</p>
-								<p className={style.replyToAccount}>@sdjfiosjf</p>
+								<p className={style.replyToAccount}>@{account}</p>
 							</div>
 						</div>
 					</div>
@@ -93,6 +102,7 @@ export const ReplyModal = () => {
 					</div>
 				</div>
 				<div className={style.modalFooter}>
+					<div className={style.hintMessage}>{hintMessage}</div>
 					<ButtonS text='回覆' onClick={handleSubmit} />
 				</div>
 			</div>
