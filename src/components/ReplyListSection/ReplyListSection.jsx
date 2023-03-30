@@ -17,14 +17,14 @@ export const ReplyListSection = () => {
 
 	// 取的目前頁面的推文id
 	const { id } = useParams();
-	const cleanId = id.slice(1);
+	const currentTweetId = id.slice(1);
 
 	// 取得單篇推文資料
 	useEffect(() => {
 		const getReplyListDataAsync = async () => {
 			try {
 				// 取得一篇推文
-				const data = await getOneTweet(cleanId);
+				const data = await getOneTweet(currentTweetId);
 				setReplyPostData(data);
 				setIsDataLoaded(true);
 
@@ -42,7 +42,7 @@ export const ReplyListSection = () => {
 	useEffect(() => {
 		const getTweetRepliesAsync = async () => {
 			try {
-				const data = await getTweetReplies(cleanId);
+				const data = await getTweetReplies(currentTweetId);
 				// 拿到資料後儲存在setTweetRepliesData
 				setTweetRepliesData(data);
 			} catch (error) {
@@ -60,10 +60,9 @@ export const ReplyListSection = () => {
 			return false;
 		}
 	});
-	console.log('isLikeByCurrentUser', isLikeByCurrentUser);
 
 	const handleClick = () => {
-		navigate('/main');
+		navigate(-1);
 	};
 
 	return (
@@ -89,10 +88,10 @@ export const ReplyListSection = () => {
 				<h5>loading...</h5>
 			)}
 
-			{tweetRepliesData.map(({ Tweet, User, comment, createdAt }) => {
+			{tweetRepliesData.map(({ Tweet, id, User, comment, createdAt }) => {
 				return (
 					<ReplyItem
-						key={comment}
+						key={id}
 						tweetUserAccount={Tweet.User.account}
 						replyUserAccount={User.account}
 						avatar={User.avatar}

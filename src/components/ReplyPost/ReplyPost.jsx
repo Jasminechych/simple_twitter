@@ -17,7 +17,7 @@ export const ReplyPost = ({
 	isLikeByCurrentUser,
 	// 回文給誰資料要拿出來
 }) => {
-	const createTime = formatDate(createdAt);
+	const createtime = formatDate(createdAt);
 	return (
 		<div className={style.replyPostContainer} id={id}>
 			<div className={style.replyPostHeaderInfo}>
@@ -28,7 +28,7 @@ export const ReplyPost = ({
 				</div>
 			</div>
 			<div className={style.replyPostDescription}>{description}</div>
-			<div className={style.replyPostCreateAt}>{createTime}</div>
+			<div className={style.replyPostCreateAt}>{createtime}</div>
 			<div className={style.replyPostFooterContainer}>
 				<div className={style.replyPostCounterContainer}>
 					<div className={style.replyPostCounterGroup}>
@@ -44,12 +44,12 @@ export const ReplyPost = ({
 
 				<div className={style.replyPostButtonContainer}>
 					<Link
-						to={`/replyList:${id}/modal`}
-						id={id}
-						avatar={avatar}
-						name={name}
-						account={account}
-						createTime={createTime}
+						to={{
+							pathname: `/replyList:${id}/modal`,
+							search: `id=${id}&name=${name}&account=${account}&createdAt=${createdAt}&avatar=${avatar}&description=${encodeURIComponent(
+								description,
+							)}`,
+						}}
 					>
 						<Reply />
 					</Link>
