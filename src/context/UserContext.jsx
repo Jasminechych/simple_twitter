@@ -10,6 +10,11 @@ import {
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+	const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+	if (!currentUser) {
+		return <UserContext.Provider value={{}}>{children}</UserContext.Provider>;
+	}
+
 	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
 
 	// 取得目前使用者基本資料
