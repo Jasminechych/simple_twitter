@@ -18,7 +18,6 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 	const navigate = useNavigate();
 	const current = JSON.parse(localStorage.getItem('currentUser'));
 	const [activeTab, setActiveTab] = useState('tweetList');
-	console.log('tab: ', activeTab);
 	const location = useLocation();
 	const currentPath = location.pathname;
 	const [messageClicked, setMessageClicked] = useState(false);
@@ -35,14 +34,12 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 		avatar: current.currentUserAvatar,
 		introduction: current.currentUserIntroduction,
 	});
-	console.log('initialValues:', initialValues);
 
 	// 取得
 	useEffect(() => {
 		const getUsersInfo = async () => {
 			try {
 				const token = localStorage.getItem('token');
-				console.log('token:', token);
 
 				// 先驗證token，若無則直接回到signin
 				if (!token) {
@@ -50,7 +47,6 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 					return;
 				}
 				const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
-				// console.log('currentUserId: ', currentUserId.currentUserId);
 				const data = await getUserData(currentUserId.currentUserId);
 				// 取得token
 
