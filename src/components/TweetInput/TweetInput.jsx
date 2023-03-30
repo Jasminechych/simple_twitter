@@ -4,12 +4,9 @@ import { ButtonS } from '../buttons';
 import { Header } from '../Header/Header';
 import { MainSection } from '../MainSection/MainSection';
 import { TweetList } from '../TweetList/TweetList';
-import { useUserData } from 'src/context/UserContext';
 
 export const TweetInput = () => {
-	const { currentUserInfo } = useUserData();
-	const currentUserAvatar = currentUserInfo.avatar;
-	console.log(currentUserInfo.avatar);
+	const currentUserAvatar = JSON.parse(localStorage.getItem('currentUser')).currentUserAvatar;
 	return (
 		<MainSection>
 			<Header header='首頁' />

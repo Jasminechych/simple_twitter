@@ -16,6 +16,7 @@ export const UserProvider = ({ children }) => {
 	}
 
 	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
+	// const [isDataLoaded, setIsDataLoaded] = useState(false);
 
 	// 取得目前使用者基本資料
 	const [currentUserInfo, setCurrentUserInfo] = useState('');
