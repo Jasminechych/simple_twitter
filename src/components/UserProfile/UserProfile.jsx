@@ -147,9 +147,9 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 					/>
 				</div>
 				<div>
-					{activeTab === 'tweetList' && <TweetList />}
-					{activeTab === 'replyPost' && <ReplyList />}
-					{activeTab === 'likeList' && <TweetList />}
+					{activeTab === 'tweetList' && <TweetList tab='tweetList' />}
+					{activeTab === 'replyPost' && <ReplyList tab='replyPost' />}
+					{activeTab === 'likeList' && <TweetList tab='likeList' />}
 				</div>
 			</div>
 		</MainSection>

@@ -37,7 +37,7 @@ export const TweetItem = ({
 				<div className={style.tweetItemHeaderInfo}>
 					<p className={style.tweetItemUserName}>{name}</p>
 					<p className={style.tweetItemUserAccount}>
-						@{account}・{createdAt} 小時
+						@{account} • {createdAt} 小時
 					</p>
 				</div>
 

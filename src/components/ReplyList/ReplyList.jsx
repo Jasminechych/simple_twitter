@@ -16,7 +16,6 @@ export const ReplyList = () => {
 		const getUserRepliedTweetsAsync = async () => {
 			try {
 				const data = await getUserRepliedTweets(currentUserId);
-				console.log('data', data);
 				setUserRepliedData(data);
 				setIsDataLoaded(true);
 			} catch (error) {
