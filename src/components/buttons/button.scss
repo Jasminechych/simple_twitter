@@ -3,6 +3,7 @@
 	border-radius: 50px;
 	color: var(--dark-0);
 	background-color: var(--brand-color);
+  cursor: pointer;
 }
 
 %buttonWhite {
@@ -11,4 +12,5 @@
 	border: 1px solid var(--brand-color);
 	color: var(--brand-color);
 	background-color: var(--dark-0);
+  cursor: pointer;
 }

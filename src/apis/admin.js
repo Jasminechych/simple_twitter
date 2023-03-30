@@ -10,7 +10,6 @@ const baseUrl = 'https://quiet-fortress-55098.herokuapp.com/api';
 export const getAdminTweets = async () => {
 	try {
 		const token = localStorage.getItem('token');
-		console.log('token: ', token);
 		const res = await axios.get(`${baseUrl}/admin/tweets`, {
 			headers: {
 				Authorization: 'Bearer ' + token,
@@ -28,7 +27,6 @@ export const getAdminTweets = async () => {
 // 後台取得所有使用者
 export const getAdminUsers = async () => {
 	const token = localStorage.getItem('token');
-	console.log('token: ', token);
 	try {
 		const res = await axios.get(`${baseUrl}/admin/users`, {
 			headers: {
@@ -46,7 +44,6 @@ export const getAdminUsers = async () => {
 // 後台刪除所單一推文
 export const deleteAdminTweet = async (id) => {
 	const token = localStorage.getItem('token');
-	console.log('token: ', token);
 	try {
 		const res = await axios.delete(`${baseUrl}/admin/tweets/${id}`, {
 			headers: {
