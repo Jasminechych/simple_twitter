@@ -13,16 +13,19 @@ import { useEffect, useState } from 'react';
 import { ReplyList } from '../ReplyList/ReplyList';
 import { getUserData } from 'src/apis/user';
 import { MessageFilled, MessageOutline, NotiFilled, NotiOutline } from 'src/assets/icons';
+import { useUserData } from 'src/context/UserContext';
 
-export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
+export const UserProfile = () => {
 	const navigate = useNavigate();
 	const current = JSON.parse(localStorage.getItem('currentUser'));
 	const [activeTab, setActiveTab] = useState('tweetList');
-	console.log('tab: ', activeTab);
 	const location = useLocation();
 	const currentPath = location.pathname;
 	const [messageClicked, setMessageClicked] = useState(false);
 	const [notiClicked, setNotiClicked] = useState(false);
+
+	// 把使用者資料拿出來用
+	const { currentUserInfo, usersFollowersData, usersFollowingsData, usersTweets } = useUserData();
 
 	const handleTabChange = (tab) => {
 		setActiveTab(tab);
@@ -35,14 +38,12 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 		avatar: current.currentUserAvatar,
 		introduction: current.currentUserIntroduction,
 	});
-	console.log('initialValues:', initialValues);
 
 	// 取得
 	useEffect(() => {
 		const getUsersInfo = async () => {
 			try {
 				const token = localStorage.getItem('token');
-				console.log('token:', token);
 
 				// 先驗證token，若無則直接回到signin
 				if (!token) {
@@ -50,7 +51,6 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 					return;
 				}
 				const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
-				// console.log('currentUserId: ', currentUserId.currentUserId);
 				const data = await getUserData(currentUserId.currentUserId);
 				// 取得token
 
@@ -76,7 +76,7 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 				</Link>
 				<div className={style.userHeader}>
 					<Header header={initialValues.name} className={style.header} />
-					<a href='' className={style.tweets}>{`${tweets}推文`}</a>
+					<a href='' className={style.tweets}>{`${usersTweets.length}推文`}</a>
 				</div>
 			</div>
 			<div className={style.userProfileContainer}>
@@ -121,18 +121,18 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 				</div>
 				<div className={style.userProfileInfoWrapper}>
 					<div className={style.userProfileNameWrapper}>
-						<h5 className={style.userProfileName}>{initialValues.name}</h5>
-						<div className={style.userProfileSubName}>@{initialValues.account}</div>
+						<h5 className={style.userProfileName}>{currentUserInfo.name}</h5>
+						<div className={style.userProfileSubName}>@{currentUserInfo.account}</div>
 					</div>
-					<p className={style.userProfileIntro}>{initialValues.introduction}</p>
+					<p className={style.userProfileIntro}>{currentUserInfo.introduction || ''}</p>
 					<div className={style.userProfileFollowInfoWrapper}>
 						<div className={style.userProfileFollowing}>
-							{followingCounts}
-							<Link to='/following'>跟隨中</Link>
+							{usersFollowingsData.length}
+							<Link to='/following'>個跟隨中</Link>
 						</div>
 						<div className={style.userProfileFollower}>
-							{followerCounts}
-							<Link to='/follower'>跟隨者</Link>
+							{usersFollowersData.length}
+							<Link to='/follower'>位跟隨者</Link>
 						</div>
 					</div>
 				</div>
@@ -151,9 +151,9 @@ export const UserProfile = ({ followingCounts, followerCounts, tweets }) => {
 					/>
 				</div>
 				<div>
-					{activeTab === 'tweetList' && <TweetList />}
-					{activeTab === 'replyPost' && <ReplyList />}
-					{activeTab === 'likeList' && <TweetList />}
+					{activeTab === 'tweetList' && <TweetList tab='tweetList' />}
+					{activeTab === 'replyPost' && <ReplyList tab='replyPost' />}
+					{activeTab === 'likeList' && <TweetList tab='likeList' />}
 				</div>
 			</div>
 		</MainSection>

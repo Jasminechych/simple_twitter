@@ -6,8 +6,9 @@ import { postLikeTweet, postUnLikeTweet } from 'src/apis/user';
 import { useCallback } from 'react';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { convertDateToHours } from 'src/utils/convertDateToHours';
 
-export const TweetList = () => {
+export const TweetList = ({ tab }) => {
 	const [tweetListData, setTweetListData] = useState([]);
 	const [isDataLoaded, setIsDataLoaded] = useState(false);
 	const [userLikeData, setUserLikeData] = useState([]);
@@ -61,14 +62,7 @@ export const TweetList = () => {
 		getUserLikesAsync();
 	}, [isHeartClick]);
 
-	// 按讚或取消按讚
-	// const handleHeartClick = (id, likeOrUnlike) => {
-	// 	console.log('click id: ', id, likeOrUnlike);
-	// 	setIsLikingOrUnLiking({ id: id, likeOrUnlike: likeOrUnlike });
-	// 	setIsDataLoaded(false);
-	// 	setIsUserLikeDataLoaded(false);
-	// };
-
+	// 對貼文按愛心或取消愛心
 	// 需要再優化
 	const handleHeartClick = useCallback((id, likeOrUnlike) => {
 		console.log('click id: ', id, likeOrUnlike);
@@ -79,7 +73,6 @@ export const TweetList = () => {
 
 	useEffect(() => {
 		const postLikeOrUnlikeTweetAsync = async () => {
-			// matchData = [];
 			try {
 				if (isLikingOrUnLiking.id !== '') {
 					if (isLikingOrUnLiking.likeOrUnlike === 'like') {
@@ -100,46 +93,51 @@ export const TweetList = () => {
 	}, [isLikingOrUnLiking]);
 
 	// 比對使用者喜歡的貼文與全部貼文
-	// let matchData = [];
-	// if (isDataLoaded && isUserLikeDataLoaded) {
-	// 	matchData = tweetListData.map((item) => {
-	// 		console.log('item', item);
-	// 		const isLiked = userLikeData.some((likeItem) => {
-	// 			console.log('likeItem', likeItem);
-	// 			return likeItem.TweetId === item.id;
-	// 		});
-	// 		console.log('比對貼文');
-	// 		// 如果該推文有被使用者按讚，則將 isLikeByUser 設為 true，否則為 false
-	// 		return {
-	// 			...item,
-	// 			isLikeByUser: isLiked,
-	// 		};
-	// 	});
-	// }
-	// 需要再優化
+	// 或是使用者喜歡貼文清單帶上isLikeByUser: true
+
 	const matchData = useMemo(() => {
 		if (!isDataLoaded || !isUserLikeDataLoaded) return [];
-		return tweetListData.map((item) => {
-			const isLiked = userLikeData.some((likeItem) => likeItem.TweetId === item.id);
-			return { ...item, isLikeByUser: isLiked };
-		});
+		if (tab === 'tweetList' || tab === undefined) {
+			return tweetListData.map((item) => {
+				const isLiked = userLikeData.some((likeItem) => likeItem.TweetId === item.id);
+				return { ...item, isLikeByUser: isLiked };
+			});
+		}
+
+		if (tab === 'likeList') {
+			return userLikeData.map((item) => {
+				return { ...item, isLikeByUser: true };
+			});
+		}
 	}, [isDataLoaded, isUserLikeDataLoaded, tweetListData, userLikeData]);
 
 	return (
 		<div className={style.tweetList}>
 			{isDataLoaded && isUserLikeDataLoaded ? (
 				matchData.map(
-					({ id, description, createdAt, LikedCounts, RepliesCounts, User, isLikeByUser }) => {
-						const createdAtDate = new Date(createdAt);
-						const hour = createdAtDate.getHours();
+					({
+						id,
+						description,
+						createdAt,
+						LikedCounts,
+						RepliesCounts,
+						User,
+						Tweet,
+						isLikeByUser,
+					}) => {
+						const hour = convertDateToHours(createdAt);
 						return (
 							<TweetItem
 								key={id}
 								id={id}
-								description={description}
-								avatar={User.avatar}
-								name={User.name}
-								account={User.account}
+								description={
+									tab === 'tweetList' || tab === undefined ? description : Tweet.description
+								}
+								avatar={tab === 'tweetList' || tab === undefined ? User.avatar : Tweet.User.avatar}
+								name={tab === 'tweetList' || tab === undefined ? User.name : Tweet.User.name}
+								account={
+									tab === 'tweetList' || tab === undefined ? User.account : Tweet.User.account
+								}
 								createdAt={hour}
 								replyCounts={RepliesCounts}
 								likeCounts={LikedCounts}

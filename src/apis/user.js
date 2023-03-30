@@ -53,7 +53,6 @@ export const putUserData = async (
 //使用者可以取得自己的資料
 export const getUserData = async (id) => {
 	const token = localStorage.getItem('token');
-	// console.log('token: ', token);
 	try {
 		const res = await axios.get(`${baseUrl}/users/${id}`, {
 			headers: {
@@ -247,7 +246,6 @@ export const getUsersFollowers = async (id) => {
 // api/tweets/:tweet_id/replies 在此id貼文下新增回復
 export const postTweetReplies = async (id, comment) => {
 	const token = localStorage.getItem('token');
-	console.log('送進來的comment', comment);
 	try {
 		const res = await axios.post(
 			`${baseUrl}/tweets/${id}/replies`,
@@ -261,5 +259,54 @@ export const postTweetReplies = async (id, comment) => {
 		return res.data;
 	} catch (error) {
 		console.error('[Post Tweet Replies Failed]:', error.response);
+	}
+};
+
+// api/users/:id/replied_tweets 查看此使用者ID回覆過的貼文
+export const getUserRepliedTweets = async (id) => {
+	const token = localStorage.getItem('token');
+	try {
+		const res = await axios.get(`${baseUrl}/users/${id}/replied_tweets`, {
+			headers: {
+				Authorization: 'Bearer ' + token,
+			},
+		});
+		return res.data;
+	} catch (error) {
+		console.error('[Get User Replied Tweets Failed]:', error.response);
+	}
+};
+
+// api/users/:id/tweets 查看此使用者ID的推文
+export const getUserTweets = async (id) => {
+	const token = localStorage.getItem('token');
+	try {
+		const res = await axios.get(`${baseUrl}/users/${id}/tweets`, {
+			headers: {
+				Authorization: 'Bearer ' + token,
+			},
+		});
+		return res.data;
+	} catch (error) {
+		console.error('[Get User Tweets Failed]:', error.response);
+	}
+};
+
+// api/tweets 發推文
+export const postTweets = async (userId, description) => {
+	const token = localStorage.getItem('token');
+	try {
+		const res = await axios.post(
+			`${baseUrl}/tweets`,
+			{ userId, description },
+			{
+				headers: {
+					Authorization: 'Bearer ' + token,
+				},
+			},
+		);
+		return res.data;
+	} catch (error) {
+		console.error('[Post Tweets Failed]:', error.response);
 	}
 };

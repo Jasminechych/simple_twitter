@@ -1,7 +1,7 @@
 import { ReactComponent as Reply } from 'src/assets/icons/reply.svg';
 import { ReactComponent as LikeFilled } from 'src/assets/icons/like-filled.svg';
 import { ReactComponent as LikeOutline } from 'src/assets/icons/like-outline.svg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import style from 'src/components/TweetItem/TweetItem.module.scss';
 
 export const TweetItem = ({
@@ -25,19 +25,20 @@ export const TweetItem = ({
 
 	const handleAvatarClick = (id) => {
 		console.log('avatar click id: ', id);
+		navigate(`/users:${id}`);
 	};
 
 	return (
 		<div className={style.tweetItemContainer} id={id}>
-			<section className={style.tweetItemAvatarSection} onClick={() => handleAvatarClick(id)}>
-				<img className={style.tweetItemAvatar} src={avatar} />
+			<section className={style.tweetItemAvatarSection}>
+				<img className={style.tweetItemAvatar} src={avatar} onClick={() => handleAvatarClick(id)} />
 			</section>
 
 			<section className={style.tweetItemContentSection}>
 				<div className={style.tweetItemHeaderInfo}>
 					<p className={style.tweetItemUserName}>{name}</p>
 					<p className={style.tweetItemUserAccount}>
-						@{account}・{createdAt} 小時
+						@{account} • {createdAt}
 					</p>
 				</div>
 
@@ -47,7 +48,20 @@ export const TweetItem = ({
 
 				<div className={style.tweetItemFooter}>
 					<div className={style.tweetItemButtonGroup}>
-						<Reply style={{ width: '13.7px', height: '13.7px' }} />
+						{/* 測試用 */}
+						<Link
+							to={{
+								pathname: `/replyList:${id}/modal`,
+								search: `id=${id}&name=${name}&account=${account}&createdAt=${createdAt}&avatar=${avatar}&description=${encodeURIComponent(
+									description,
+								)}`,
+							}}
+						>
+							<Reply style={{ width: '13.7px', height: '13.7px' }} />
+						</Link>
+
+						{/* 下面是原本的 */}
+						{/* <Reply style={{ width: '13.7px', height: '13.7px' }} /> */}
 						<p className={style.tweetItemCounter}>{replyCounts}</p>
 					</div>
 					<div className={style.tweetItemButtonGroup}>

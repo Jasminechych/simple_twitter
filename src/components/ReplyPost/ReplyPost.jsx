@@ -4,6 +4,7 @@ import { ReactComponent as LikeOutline } from 'src/assets/icons/like-outline.svg
 import style from 'src/components/ReplyPost/ReplyPost.module.scss';
 import { formatDate } from 'src/utils/formatDate';
 import { Link } from 'react-router-dom';
+import { convertDateToHours } from 'src/utils/convertDateToHours';
 
 export const ReplyPost = ({
 	id,
@@ -15,9 +16,11 @@ export const ReplyPost = ({
 	repliesCounts,
 	likedCounts,
 	isLikeByCurrentUser,
-	// 回文給誰資料要拿出來
+	// 回文給誰資料還沒有，用user自己代替
 }) => {
 	const createtime = formatDate(createdAt);
+	const createHour = convertDateToHours(createdAt);
+	console.log('replypost creatHour', createHour);
 	return (
 		<div className={style.replyPostContainer} id={id}>
 			<div className={style.replyPostHeaderInfo}>
@@ -46,7 +49,7 @@ export const ReplyPost = ({
 					<Link
 						to={{
 							pathname: `/replyList:${id}/modal`,
-							search: `id=${id}&name=${name}&account=${account}&createdAt=${createdAt}&avatar=${avatar}&description=${encodeURIComponent(
+							search: `id=${id}&name=${name}&account=${account}&createdAt=${createHour}&avatar=${avatar}&description=${encodeURIComponent(
 								description,
 							)}`,
 						}}

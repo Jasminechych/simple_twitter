@@ -117,7 +117,20 @@
 	resize: none;
 }
 
+// .modalFooter {
+// 	padding-left: 554px;
+// 	padding-bottom: 16px;
+// }
+
 .modalFooter {
-	padding-left: 554px;
-	padding-bottom: 16px;
-}
+			margin: 3px 16px 16px auto;
+			display: flex;
+			justify-content: flex-end;
+
+			.hintMessage {
+				@extend %font-14-medium;
+				color: var(--danger-color);
+				align-self: center;
+				margin-right: 20px;
+			}
+		}

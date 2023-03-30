@@ -12,10 +12,8 @@ export const AdminTweetList = () => {
 		const getAdminTweetsAsync = async () => {
 			try {
 				const data = await getAdminTweets();
-				if (data.length > 0) {
-					setTweets(data);
-					setIsDataLoaded(true);
-				}
+				setTweets(data);
+				setIsDataLoaded(true);
 			} catch (error) {
 				console.error(error);
 			}
@@ -27,7 +25,8 @@ export const AdminTweetList = () => {
 	const handleDelete = async (id) => {
 		try {
 			await deleteAdminTweet(id);
-			setTweets((prev) => prev.filter((tweet) => tweet.id !== id));
+			const data = await getAdminTweets();
+			setTweets(data);
 		} catch (error) {
 			console.error(error);
 		}

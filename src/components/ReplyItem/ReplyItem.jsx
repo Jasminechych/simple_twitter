@@ -20,7 +20,7 @@ export const ReplyItem = ({
 				<div className={style.replyItemHeaderInfo}>
 					<p className={style.replyItemUserName}>{name}</p>
 					<p className={style.replyItemUserAccount}>
-						@{replyUserAccount}・{dateHour}
+						@{replyUserAccount} • {dateHour}
 					</p>
 				</div>
 
