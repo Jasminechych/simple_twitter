@@ -28,25 +28,6 @@ import { UserProvider } from 'src/context/UserContext';
 // const basename = process.REACT_APP_PUBLIC_URL;
 
 function App() {
-	// const { currentUserInfo } = useUserData();
-	// const currentUserName = JSON.parse(localStorage.getItem('currentUserId')).currentUserName;
-
-	// const [currentUserInfo, setCurrentUserInfo] = useState('');
-
-	// useEffect(() => {
-	// 	const getUserAsync = async () => {
-	// 		try {
-	// 			const data = await getUserData(currentUserId);
-	// 			setCurrentUserInfo(data);
-	// 		} catch (error) {
-	// 			console.log(error);
-	// 		}
-	// 	};
-	// 	getUserAsync();
-	// }, []);
-
-	// console.log(currentUserInfo);
-
 	return (
 		<div className='App'>
 			<UserProvider>
@@ -71,7 +52,7 @@ function App() {
 								</MainPage>
 							}
 						/>
-						<Route path='*' element={<RegisterPage />} />
+						<Route path='*' element={<SignInPage />} />
 
 						<Route
 							path='user/self'

@@ -16,7 +16,7 @@ export const adminSignIn = async ({ account, password }) => {
 		return data;
 	} catch (error) {
 		console.log('error.response.data.message: ', error.response.data.message);
-		console.error('[Login Failed]:', error);
+		console.error('[Login Failed]:', error.response);
 		const errorMessage = error.response.data.message;
 		return { success: false, errorMessage };
 	}
@@ -34,8 +34,10 @@ export const userSignIn = async ({ account, password }) => {
 
 		return data;
 	} catch (error) {
-		console.error('[Login Failed]:', error);
-		return { success: false };
+		console.error('[Login Failed]:', error.response);
+		const errorMessage = error.response.data.message;
+		console.log('auth 的errorMessage:', errorMessage);
+		return { success: false, errorMessage };
 	}
 };
 
@@ -57,7 +59,7 @@ export const register = async ({ name, account, email, password, checkPassword }
 
 		return data;
 	} catch (error) {
-		console.error('[Login Failed]:', error);
+		console.error('[Login Failed]:', error.response);
 		const errorMessage = error.response.data.message;
 		return { success: false, errorMessage };
 	}
