@@ -14,18 +14,24 @@ export const Setting = () => {
 	console.log('setting page current: ', current);
 
 	// 	取使用者自己的資料
+	// const [initialValues, setInitialValues] = useState({
+	// 	id: current.currentUserId,
+	// 	account: current.currentUserAccount,
+	// 	name: current.currentUserName,
+	// 	email: current.currentUserEmail,
+	// });
+	// 	使用者取得自己的資料
 	const [initialValues, setInitialValues] = useState({
-		id: current.currentUserId,
-		account: current.currentUserAccount,
-		name: current.currentUserName,
-		email: current.currentUserEmail,
+		name: '',
+		account: '',
+		email: '',
 	});
 	console.log('initialValues:', initialValues);
 
 	//輸入時同步取得
-	const [account, setAccount] = useState(initialValues.account);
-	const [name, setName] = useState(initialValues.name);
-	const [email, setEmail] = useState(initialValues.email);
+	// const [account, setAccount] = useState(initialValues.account);
+	// const [name, setName] = useState(initialValues.name);
+	// const [email, setEmail] = useState(initialValues.email);
 	const [password, setPassword] = useState('');
 	const [checkPassword, setCheckPassword] = useState('');
 	const [checkPasswordErrorMessage, setCheckPasswordErrorMessage] = useState('');
@@ -35,23 +41,22 @@ export const Setting = () => {
 	// 取得初始資料
 	useEffect(() => {
 		const getUsersInfo = async () => {
-			try {
-				// 取得token
-				const token = localStorage.getItem('token');
-				console.log('前台token:', token);
+			// 取得token
+			const token = localStorage.getItem('token');
+			console.log('前台token:', token);
 
-				// 先驗證token，若無則直接回到login
-				if (!token) {
-					navigate('/signin');
-					return;
-				}
-				// 登入時的使用者
-				const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
-				// console.log('currentUserId: ', currentUserId.currentUserId);
+			// 先驗證token，若無則直接回到login
+			if (!token) {
+				navigate('/signin');
+				return;
+			}
+			// 登入時的使用者
+			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
+			// console.log('currentUserId: ', currentUserId.currentUserId);
+			try {
 				const data = await getUserData(currentUserId.currentUserId);
 				if (data) {
 					setInitialValues({
-						id: data.id,
 						account: data.account,
 						name: data.name,
 						email: data.email,
@@ -63,22 +68,22 @@ export const Setting = () => {
 			}
 		};
 		getUsersInfo();
-	}, [navigate]);
+	}, []);
 
 	// 點選儲存驗證
 	const handleSave = async () => {
 		// 輸入框若有任一為空，防止表單送出，且跳出提示視窗
 		if (
-			!account.trim().length ||
-			!name.trim().length ||
-			!email.trim().length ||
+			!initialValues.account.trim().length ||
+			!initialValues.name.trim().length ||
+			!initialValues.email.trim().length ||
 			!password.trim().length ||
 			!checkPassword.trim().length
 		) {
 			return;
 		}
 		// 密碼與確認密碼若不相符，防止表單送出，且跳出提示視窗
-		if (password !== checkPassword) {
+		if (initialValues.password !== initialValues.checkPassword) {
 			setCheckPasswordErrorMessage('密碼不相符');
 			return;
 		}
@@ -92,19 +97,36 @@ export const Setting = () => {
 			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
 			console.log('currentUserId: ', currentUserId.currentUserId);
 
+			// 帶入id，把更新的資料傳回後端
 			const id = currentUserId.currentUserId;
-			const data = await putUserData(id, name, account, email, password, checkPassword);
-			console.log('從後台回來的資料:', data);
+			const data = await putUserData(id, {
+				name: initialValues.name,
+				account: initialValues.account,
+				email: initialValues.email,
+				password: password,
+				checkPassword: checkPassword,
+			});
+			console.log('Data updated successfully', data);
+
+			// 再取一次userData
+			// if (data) {
+			// 	setInitialValues({
+			// 		account: data.data.userData.account,
+			// 		name: data.data.userData.name,
+			// 		email: data.data.userData.email,
+			// 	});
+			// 	console.log('渲染的新資料', data.data.userData);
+			// }
 
 			const errorMessage = data.errorMessage;
 			const success = data.statusText;
 			// 如果 account 已被註冊，顯示錯誤訊息
-			if (errorMessage === 'Error: 此帳號已被註冊') {
+			if (errorMessage === '此帳號已被註冊') {
 				setAccountErrorMessage('此帳號已被註冊');
 			}
 
 			// 如果 email 已被註冊，顯示錯誤訊息
-			if (errorMessage === 'Error: 此信箱已被註冊') {
+			if (errorMessage === '此信箱已被註冊') {
 				setEmailErrorMessage('此信箱已被註冊');
 			}
 			if (success === 'OK') {
@@ -114,6 +136,11 @@ export const Setting = () => {
 					showConfirmButton: false,
 					position: 'top',
 					timer: 1000,
+				});
+				setInitialValues({
+					account: data.data.userData.account,
+					name: data.data.userData.name,
+					email: data.data.userData.email,
 				});
 			}
 		} catch (error) {
@@ -129,26 +156,43 @@ export const Setting = () => {
 					label='帳號'
 					title='account'
 					type='text'
-					errorMessage={!account.trim().length ? '內容不得為空白' : accountErrorMessage}
-					value={account}
-					onChange={(accountInputValue) => setAccount(accountInputValue)}
+					errorMessage={
+						!initialValues.account.trim().length ? '內容不得為空白' : accountErrorMessage
+					}
+					value={initialValues.account}
+					onChange={(accountInputValue) =>
+						setInitialValues({
+							...initialValues,
+							account: accountInputValue,
+						})
+					}
 				/>
 				<AuthInput
 					label='名稱'
 					title='name'
 					type='text'
 					maxLength='50'
-					errorMessage={!name.trim().length && '內容不得為空白'}
-					value={name}
-					onChange={(nameInputValue) => setName(nameInputValue)}
+					value={initialValues.name}
+					errorMessage={!initialValues.name.trim().length && '內容不得為空白'}
+					onChange={(nameInputValue) =>
+						setInitialValues({
+							...initialValues,
+							name: nameInputValue,
+						})
+					}
 				/>
 				<AuthInput
 					label='Email'
 					title='email'
 					type='email'
-					errorMessage={!email.trim().length ? '內容不得為空白' : emailErrorMessage}
-					value={email}
-					onChange={(emailInputValue) => setEmail(emailInputValue)}
+					errorMessage={!initialValues.email.trim().length ? '內容不得為空白' : emailErrorMessage}
+					value={initialValues.email}
+					onChange={(emailInputValue) =>
+						setInitialValues({
+							...initialValues,
+							email: emailInputValue,
+						})
+					}
 				/>
 				<AuthInput
 					label='密碼'

@@ -29,12 +29,12 @@ export const putUserData = async (
 ) => {
 	const token = localStorage.getItem('token');
 
-	// console.log('id: ', id);
+	console.log('id: ', id);
 
 	try {
 		const res = await axios.put(
 			`${baseUrl}/users/${id}`,
-			{ id, name, account, email, password, checkPassword, introduction },
+			{ name, account, email, password, checkPassword, introduction },
 			{
 				headers: {
 					Authorization: 'Bearer ' + token,

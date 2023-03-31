@@ -26,6 +26,7 @@ export const UserProfile = () => {
 
 	// 把使用者資料拿出來用
 	const { currentUserInfo, usersFollowersData, usersFollowingsData, usersTweets } = useUserData();
+	console.log('currentUserInfo:', currentUserInfo);
 
 	const handleTabChange = (tab) => {
 		setActiveTab(tab);
@@ -38,6 +39,7 @@ export const UserProfile = () => {
 		avatar: current.currentUserAvatar,
 		introduction: current.currentUserIntroduction,
 	});
+	console.log('initialValues:', initialValues);
 
 	// 取得
 	useEffect(() => {
