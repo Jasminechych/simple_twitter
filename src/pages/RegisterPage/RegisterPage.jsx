@@ -5,8 +5,7 @@ import style from 'src/pages/RegisterPage/RegisterPage.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { register } from 'src/apis/auth';
-import userProfileDefaultAvatar from 'src/assets/images/userProfileDefaultAvatar.jpeg';
-import userProfileDefaultBackground from 'src/assets/images/userProfileDefaultBackground.jpg';
+import Swal from 'sweetalert2';
 
 export const RegisterPage = () => {
 	const [account, setAccount] = useState('');
@@ -14,13 +13,53 @@ export const RegisterPage = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [checkPassword, setCheckPassword] = useState('');
+	// errorMessage
 	const [accountErrorMessage, setAccountErrorMessage] = useState('');
+	const [nameErrorMessage, setNameErrorMessage] = useState('');
 	const [emailErrorMessage, setEmailErrorMessage] = useState('');
+	const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
 	const [checkPasswordErrorMessage, setCheckPasswordErrorMessage] = useState('');
 
 	const navigate = useNavigate();
 
 	const handleClick = async () => {
+		// 每次按下註冊按鈕時先清空所有錯誤訊息
+		setAccountErrorMessage('');
+		setNameErrorMessage('');
+		setEmailErrorMessage('');
+		setPasswordErrorMessage('');
+		setCheckPasswordErrorMessage('');
+
+		// 若帳號為空，防止表單送出
+		if (!account.trim().length) {
+			setAccountErrorMessage('帳號不得為空');
+			// return;
+		}
+
+		// 若名稱為空，防止表單送出
+		if (!name.trim().length) {
+			setNameErrorMessage('名稱不得為空');
+			// return;
+		}
+
+		// 若 email 為空，防止表單送出
+		if (!email.trim().length) {
+			setEmailErrorMessage('Email 不得為空');
+			// return;
+		}
+
+		// 若密碼為空，防止表單送出
+		if (!password.trim().length) {
+			setPasswordErrorMessage('密碼不得為空');
+			// return;
+		}
+
+		// 若確認密碼為空，防止表單送出
+		if (!password.trim().length) {
+			setCheckPasswordErrorMessage('確認密碼不得為空');
+			// return;
+		}
+
 		// 輸入框若有任一為空，防止表單送出
 		if (
 			!account.trim().length ||
@@ -38,11 +77,6 @@ export const RegisterPage = () => {
 			return;
 		}
 
-		// 每次按下註冊按鈕時先清空所有錯誤訊息
-		setAccountErrorMessage('');
-		setEmailErrorMessage('');
-		setCheckPasswordErrorMessage('');
-
 		const { data, success, errorMessage } = await register({
 			account,
 			name,
@@ -51,16 +85,6 @@ export const RegisterPage = () => {
 			checkPassword,
 		});
 
-		// 如果 account 已被註冊，顯示錯誤訊息
-		if (errorMessage === 'Error: 此帳號已被註冊') {
-			setAccountErrorMessage('此帳號已被註冊');
-		}
-
-		// 如果 email 已被註冊，顯示錯誤訊息
-		if (errorMessage === 'Error: 此信箱已被註冊') {
-			setEmailErrorMessage('此信箱已被註冊');
-		}
-
 		if (success) {
 			// 註冊成功儲存使用者資料
 			const currentUser = {
@@ -68,13 +92,36 @@ export const RegisterPage = () => {
 				currentUserAccount: data.userData.account,
 				currentUserName: data.userData.name,
 				currentUserEmail: data.userData.email,
-				currentUserAvatar: userProfileDefaultAvatar,
-				currentUserCover: userProfileDefaultBackground,
 				currentUserIntroduction: '',
 			};
 			localStorage.setItem('token', data.token);
 			localStorage.setItem('currentUser', JSON.stringify(currentUser));
+			Swal.fire({
+				position: 'center',
+				icon: 'success',
+				title: '註冊成功！',
+				showConfirmButton: false,
+				timer: 1500,
+			});
 			navigate('/main');
+		} else {
+			Swal.fire({
+				position: 'center',
+				icon: 'error',
+				title: '註冊失敗！',
+				showConfirmButton: false,
+				timer: 1500,
+			});
+
+			// 如果 account 已被註冊，顯示錯誤訊息
+			if (errorMessage === 'account 已重複註冊！') {
+				setAccountErrorMessage('此帳號已被註冊');
+			}
+
+			// 如果 email 已被註冊，顯示錯誤訊息
+			if (errorMessage === 'email 已重複註冊！') {
+				setEmailErrorMessage('此信箱已被註冊');
+			}
 		}
 	};
 
@@ -102,6 +149,7 @@ export const RegisterPage = () => {
 					maxLength='50'
 					value={name}
 					onChange={(nameInputValue) => setName(nameInputValue)}
+					errorMessage={nameErrorMessage}
 				/>
 				<AuthInput
 					label='Email'
@@ -119,6 +167,7 @@ export const RegisterPage = () => {
 					placeholder='請設定密碼'
 					value={password}
 					onChange={(passwordInputValue) => setPassword(passwordInputValue)}
+					errorMessage={passwordErrorMessage}
 				/>
 				<AuthInput
 					label='密碼確認'

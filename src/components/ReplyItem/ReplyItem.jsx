@@ -2,7 +2,7 @@ import style from 'src/components/ReplyItem/ReplyItem.module.scss';
 import { convertDateToHours } from 'src/utils/convertDateToHours';
 
 export const ReplyItem = ({
-	tweetUserAccount,
+	// tweetUserAccount,
 	replyUserAccount,
 	avatar,
 	name,
@@ -26,7 +26,7 @@ export const ReplyItem = ({
 
 				<div className={style.replyItemReplyGroup}>
 					<p className={style.replyItemReply}>回覆</p>
-					<p className={style.replyItemReplyAccount}>@{tweetUserAccount}</p>
+					<p className={style.replyItemReplyAccount}>@Mitsubishi</p>
 				</div>
 
 				<p className={style.replyItemDescription}>{comment}</p>
