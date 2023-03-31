@@ -215,7 +215,7 @@ export const EditModal = () => {
 								introduction: introInputValue,
 							})
 						}
-						style={{ height: '147px' }}
+						inputHeight={147}
 					/>
 				</div>
 			</div>
