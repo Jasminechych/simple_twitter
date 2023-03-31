@@ -121,13 +121,13 @@ export const Setting = () => {
 			const errorMessage = data.errorMessage;
 			const success = data.statusText;
 			// 如果 account 已被註冊，顯示錯誤訊息
-			if (errorMessage === '此帳號已被註冊') {
-				setAccountErrorMessage('此帳號已被註冊');
+			if (errorMessage === 'account 已重複註冊！') {
+				setAccountErrorMessage('account 已重複註冊！');
 			}
 
 			// 如果 email 已被註冊，顯示錯誤訊息
-			if (errorMessage === '此信箱已被註冊') {
-				setEmailErrorMessage('此信箱已被註冊');
+			if (errorMessage === 'email 已重複註冊！') {
+				setEmailErrorMessage('email 已重複註冊！');
 			}
 			if (success === 'OK') {
 				Swal.fire({
