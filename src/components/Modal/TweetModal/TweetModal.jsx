@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Avatar, Close } from 'src/assets/icons';
+import { Close } from 'src/assets/icons';
 import { ButtonXS } from 'src/components/buttons';
 import style from 'src/components/Modal/TweetModal/TweetModal.module.scss';
-import { postTweets } from 'src/apis/user';
+import { getUserData, postTweets } from 'src/apis/user';
 import Swal from 'sweetalert2';
 
 export const TweetModal = () => {
+	const current = JSON.parse(localStorage.getItem('currentUser'));
+	const [initialValues, setInitialValues] = useState({ avatar: current.currentUserAvatar });
 	const [inputValue, setInputValue] = useState('');
 	const [hintMessage, setHintMessage] = useState('');
 	const [isReadyForTweetSubmit, setIsReadyForSubmit] = useState(false);
 	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
+
 	const navigate = useNavigate();
 	const maxLength = 140;
 
@@ -31,6 +34,26 @@ export const TweetModal = () => {
 			setIsReadyForSubmit(true);
 		}
 	};
+
+	// 取得
+	useEffect(() => {
+		const getUsersInfo = async () => {
+			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
+			console.log('currentUserId: ', currentUserId.currentUserId);
+			try {
+				const data = await getUserData(currentUserId.currentUserId);
+				console.log('GET從後台來的data:', data);
+				if (data) {
+					setInitialValues({
+						avatar: data.avatar,
+					});
+				}
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		getUsersInfo();
+	}, []);
 
 	// 新增推文
 	useEffect(() => {
@@ -64,7 +87,7 @@ export const TweetModal = () => {
 				</Link>
 				<div className={style.textContainer}>
 					<div className={style.textWrapper}>
-						<Avatar className={style.tweetModalAvatar} />
+						<img src={initialValues.avatar} className={style.tweetModalAvatar} />
 						<div className={style.inputSection}>
 							<textarea
 								name='introduction'

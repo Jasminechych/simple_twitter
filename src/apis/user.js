@@ -50,6 +50,30 @@ export const putUserData = async (
 	}
 };
 
+// 編輯個人資料
+export const getEditProfile = async (id, { name, avatar, cover, introduction }) => {
+	const token = localStorage.getItem('token');
+	console.log('前台更新的avatar:', avatar);
+	try {
+		const formData = new FormData();
+		formData.append('name', name);
+		formData.append('avatar', avatar);
+		formData.append('cover', cover);
+		formData.append('introduction', introduction);
+
+		const response = await axios.put(`${baseUrl}/users/${id}/profile`, formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+				Authorization: 'Bearer ' + token,
+			},
+		});
+		console.log('後台的res:', response);
+		return response;
+	} catch (error) {
+		console.error(`[Put EditProfile Failed]:`, error);
+	}
+};
+
 //使用者可以取得自己的資料
 export const getUserData = async (id) => {
 	const token = localStorage.getItem('token');

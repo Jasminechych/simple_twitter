@@ -38,6 +38,10 @@
 
 	.userProfileBackgroundPhoto {
 		width: 100%;
+		height: 200px;
+		.cover {
+			object-fit: cover;
+		}
 	}
 
 	.userProfileAvatar {
@@ -55,6 +59,7 @@
 		left: 16px;
 		.avatar {
 			border-radius: 50%;
+			object-fit: cover;
 		}
 	}
 

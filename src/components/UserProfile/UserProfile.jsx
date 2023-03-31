@@ -1,6 +1,5 @@
 import style from 'src/components/UserProfile/UserProfile.module.scss';
 import { ButtonS, ButtonSW } from 'src/components/buttons';
-import { ReactComponent as BackgroundPhoto } from 'src/assets/icons/background-photo.svg';
 import { LikeList } from 'src/components/LikeList/LikeList';
 import { ReplyListTab } from 'src/components/ReplyListTab/ReplyListTab';
 import { TweetListTab } from 'src/components/TweetListTab/TweetListTab';
@@ -14,13 +13,15 @@ import { ReplyList } from '../ReplyList/ReplyList';
 import { getUserData } from 'src/apis/user';
 import { MessageFilled, MessageOutline, NotiFilled, NotiOutline } from 'src/assets/icons';
 import { useUserData } from 'src/context/UserContext';
+import defaultAvatar from 'src/assets/icons/man-avatar.svg';
+import defaultCover from 'src/assets/icons/background-photo.svg';
 
 export const UserProfile = () => {
 	const navigate = useNavigate();
-	const current = JSON.parse(localStorage.getItem('currentUser'));
-	const [activeTab, setActiveTab] = useState('tweetList');
 	const location = useLocation();
 	const currentPath = location.pathname;
+	const current = JSON.parse(localStorage.getItem('currentUser'));
+	const [activeTab, setActiveTab] = useState('tweetList');
 	const [messageClicked, setMessageClicked] = useState(false);
 	const [notiClicked, setNotiClicked] = useState(false);
 
@@ -35,6 +36,7 @@ export const UserProfile = () => {
 	const [initialValues, setInitialValues] = useState({
 		id: current.currentUserId,
 		name: current.currentUserName,
+		cover: current.currentUserCover,
 		account: current.currentUserAccount,
 		avatar: current.currentUserAvatar,
 		introduction: current.currentUserIntroduction,
@@ -61,6 +63,7 @@ export const UserProfile = () => {
 					name: data.name,
 					account: data.account,
 					avatar: data.avatar,
+					cover: data.cover,
 					introduction: data.introduction,
 				});
 			} catch (error) {
@@ -83,10 +86,10 @@ export const UserProfile = () => {
 			</div>
 			<div className={style.userProfileContainer}>
 				<div className={style.userProfileBackgroundPhoto}>
-					<BackgroundPhoto />
+					<img src={initialValues.cover || defaultCover} className={style.cover} />
 				</div>
 				<div className={style.userProfileAvatar}>
-					<img src={initialValues.avatar} className={style.avatar} />
+					<img src={initialValues.avatar || defaultAvatar} className={style.avatar} />
 				</div>
 				<div className={style.userProfileButton}>
 					{currentPath === '/user/other' ? (
