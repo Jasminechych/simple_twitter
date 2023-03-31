@@ -57,12 +57,10 @@ export const EditModal = () => {
 
 	// 選擇avatar檔案時觸發的事件處理函式
 	const handleAvatarFileChange = (event) => {
-		event.preventDefault();
 		setInitialValues({ ...initialValues, avatar: event.target.files[0] });
 	};
 	// 選擇cover檔案時觸發的事件處理函式
 	const handleCoverFileChange = (event) => {
-		event.preventDefault();
 		setInitialValues({ ...initialValues, cover: event.target.files[0] });
 	};
 
@@ -192,7 +190,9 @@ export const EditModal = () => {
 						placeholder='請輸入使用者名稱'
 						maxLength='50'
 						value={initialValues.name}
-						errorMessage={!initialValues.name.trim().length && '內容不可空白'}
+						errorMessage={
+							!initialValues.name || !initialValues.name.trim().length ? '內容不可空白' : ''
+						}
 						onChange={(nameInputValue) =>
 							setInitialValues({
 								...initialValues,
@@ -208,7 +208,11 @@ export const EditModal = () => {
 						placeholder='自我介紹'
 						maxLength='160'
 						value={initialValues.introduction}
-						errorMessage={!initialValues.introduction.trim().length && '內容不可空白'}
+						errorMessage={
+							!initialValues.introduction || !initialValues.introduction.trim().length
+								? '內容不可空白'
+								: ''
+						}
 						onChange={(introInputValue) =>
 							setInitialValues({
 								...initialValues,
