@@ -3,17 +3,18 @@ import { AuthInput } from 'src/components/AuthInput/AuthInput';
 import { AddPhoto, Close } from 'src/assets/icons';
 import { ButtonS } from 'src/components/buttons';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { getUserData, putEditProfile } from 'src/apis/user';
+import { useEffect, useRef, useState } from 'react';
+import { getEditProfile, getUserData } from 'src/apis/user';
 import Swal from 'sweetalert2';
 
 export const EditModal = () => {
 	const navigate = useNavigate();
-	// const current = JSON.parse(localStorage.getItem('currentUser'));
-	// console.log('setting page current: ', current);
+	const avatarInputRef = useRef(null);
+	const coverInputRef = useRef(null);
 
 	// 	使用者取得自己的資料
 	const [initialValues, setInitialValues] = useState({
+		id: '',
 		name: '',
 		avatar: '',
 		cover: '',
@@ -25,10 +26,10 @@ export const EditModal = () => {
 	useEffect(() => {
 		const getUsersInfo = async () => {
 			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
-			console.log('currentUserId: ', currentUserId.currentUserId);
+			// console.log('currentUserId: ', currentUserId.currentUserId);
 			try {
 				const data = await getUserData(currentUserId.currentUserId);
-				console.log('從後台來的data:', data);
+				console.log('GET從後台來的data:', data);
 				if (data) {
 					setInitialValues({
 						id: data.id,
@@ -49,6 +50,26 @@ export const EditModal = () => {
 	// const [name, setName] = useState(initialValues.name);
 	// const [introduction, setIntro] = useState(initialValues.introduction);
 
+	// 阻擋預設行為
+	const handleSubmit = (event) => {
+		event.preventDefault();
+	};
+
+	// 選擇avatar檔案時觸發的事件處理函式
+	const handleAvatarFileChange = (event) => {
+		// const file = event.target.files[0];
+		// const url = URL.createObjectURL(file);
+		// setInitialValues({ ...initialValues, avatar: url });
+		setInitialValues({ ...initialValues, avatar: event.target.files[0] });
+	};
+	// 選擇cover檔案時觸發的事件處理函式
+	const handleCoverFileChange = (event) => {
+		// const file = event.target.files[0];
+		// const url = URL.createObjectURL(file);
+		// setInitialValues({ ...initialValues, cover: url });
+		setInitialValues({ ...initialValues, cover: event.target.files[0] });
+	};
+
 	//
 	const handleSave = async () => {
 		// 輸入框若有任一為空，防止表單送出，且跳出提示視窗
@@ -58,16 +79,33 @@ export const EditModal = () => {
 
 		try {
 			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
-			console.log('currentUserId: ', currentUserId.currentUserId);
+			console.log('currentUserId: ', currentUserId);
 
 			// 帶入id，把更新的資料傳回後端
 			const id = currentUserId.currentUserId;
-			const response = await putEditProfile(id, {
+			// console.log('ID', id);
+			const response = await getEditProfile(id, {
 				name: initialValues.name,
+				avatar: initialValues.avatar,
+				cover: initialValues.cover,
 				introduction: initialValues.introduction,
 			});
-			console.log('Data updated successfully', response);
-			// console.log('response.data:', response.data);
+			console.log('點選儲存後,從後台回傳前台的Data', response);
+
+			// 再取一次userData
+			const data = await getUserData(currentUserId.currentUserId);
+			console.log('再度拿更新後的data', data);
+
+			if (data) {
+				setInitialValues({
+					name: data.name,
+					avatar: data.avatar,
+					cover: data.cover,
+					introduction: data.introduction,
+				});
+				console.log('修改為的資料', data);
+			}
+
 			const success = response.statusText;
 			if (success === 'OK') {
 				Swal.fire({
@@ -83,20 +121,6 @@ export const EditModal = () => {
 		} catch (error) {
 			console.log(error);
 		}
-
-		// const handleChangeName = (e) => {
-		// 	setInitialValues({
-		// 		...initialValues,
-		// 		name: e.target.value,
-		// 	});
-		// };
-
-		// const handleChangeIntro = (e) => {
-		// 	setInitialValues({
-		// 		...initialValues,
-		// 		introduction: e.target.value,
-		// 	});
-		// };
 	};
 
 	return (
@@ -112,16 +136,54 @@ export const EditModal = () => {
 					</div>
 					<ButtonS text='儲存' onClick={handleSave} />
 				</div>
-				<div className={style.editModalBackgroundPhoto}>
-					<img src={initialValues.cover} className={style.backgroundPhoto} />
-					<div className={style.addAndClose}>
-						<AddPhoto className={style.addPhoto} />
-						<Close className={style.closePhoto} />
-					</div>
+				<div>
+					<form
+						action='/users/{{id}}?_method=PUT'
+						method='PUT'
+						onSubmit={handleSubmit}
+						className={style.editModalBackgroundPhoto}
+						encType='multipart/form-data'
+					>
+						<img src={initialValues.cover} className={style.backgroundPhoto} />
+						<div className={style.addAndClose}>
+							<AddPhoto
+								className={style.addPhoto}
+								onClick={() => {
+									coverInputRef.current.click();
+								}}
+							/>
+							<input
+								type='file'
+								style={{ display: 'none' }} // 隱藏 input 元素
+								ref={coverInputRef} // 取得 input 元素的引用
+								onChange={handleCoverFileChange}
+							/>
+							<Close className={style.closePhoto} />
+						</div>
+					</form>
 				</div>
-				<div className={style.editModalAvatar}>
-					<img src={initialValues.avatar} className={style.avatar} />
-					<AddPhoto className={style.addAvatarPhoto} />
+				<div>
+					<form
+						action='/users/{{id}}?_method=PUT'
+						method='PUT'
+						onSubmit={handleSubmit}
+						className={style.editModalAvatar}
+						encType='multipart/form-data'
+					>
+						<img src={initialValues.avatar} className={style.avatar} />
+						<AddPhoto
+							className={style.addAvatarPhoto}
+							onClick={() => {
+								avatarInputRef.current.click();
+							}}
+						/>
+						<input
+							type='file'
+							style={{ display: 'none' }} // 隱藏 input 元素
+							ref={avatarInputRef} // 取得 input 元素的引用
+							onChange={handleAvatarFileChange}
+						/>
+					</form>
 				</div>
 				<div className={style.editModalInfo}>
 					<AuthInput

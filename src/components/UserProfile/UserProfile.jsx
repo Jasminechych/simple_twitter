@@ -16,10 +16,10 @@ import { useUserData } from 'src/context/UserContext';
 
 export const UserProfile = () => {
 	const navigate = useNavigate();
-	const current = JSON.parse(localStorage.getItem('currentUser'));
-	const [activeTab, setActiveTab] = useState('tweetList');
 	const location = useLocation();
 	const currentPath = location.pathname;
+	const current = JSON.parse(localStorage.getItem('currentUser'));
+	const [activeTab, setActiveTab] = useState('tweetList');
 	const [messageClicked, setMessageClicked] = useState(false);
 	const [notiClicked, setNotiClicked] = useState(false);
 

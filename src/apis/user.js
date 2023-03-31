@@ -51,8 +51,9 @@ export const putUserData = async (
 };
 
 // 編輯個人資料
-export const putEditProfile = async (id, { name, avatar, cover, introduction }) => {
+export const getEditProfile = async (id, { name, avatar, cover, introduction }) => {
 	const token = localStorage.getItem('token');
+	console.log('前台更新的avatar:', avatar);
 	try {
 		const formData = new FormData();
 		formData.append('name', name);
@@ -66,7 +67,7 @@ export const putEditProfile = async (id, { name, avatar, cover, introduction }) 
 				Authorization: 'Bearer ' + token,
 			},
 		});
-		console.log('後台獲得的res:', response);
+		console.log('後台的res:', response);
 		return response;
 	} catch (error) {
 		console.error(`[Put EditProfile Failed]:`, error);
