@@ -4,7 +4,7 @@ import { ReactComponent as Logo } from 'src/assets/icons/logo.svg';
 import style from 'src/pages/SignInPage/SignInPage.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { userSignIn } from 'src/apis/auth';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 
 export const SignInPage = () => {
@@ -14,6 +14,19 @@ export const SignInPage = () => {
 	const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
 
 	const navigate = useNavigate();
+
+	const [isLogined, setIsLogined] = useState(null);
+
+	useEffect(() => {
+		const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+		setIsLogined(currentUser);
+	}, []);
+
+	useEffect(() => {
+		if (isLogined) {
+			navigate('/main');
+		}
+	}, [isLogined, navigate]);
 
 	const handleClick = async () => {
 		setAccountErrorMessage('');

@@ -40,7 +40,6 @@ export const AdminPage = () => {
 			});
 			navigate('/admin/tweets');
 		} else {
-			console.log(errorMessage);
 			Swal.fire({
 				position: 'center',
 				icon: 'error',
