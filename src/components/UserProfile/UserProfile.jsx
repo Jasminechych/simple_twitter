@@ -13,6 +13,8 @@ import { ReplyList } from '../ReplyList/ReplyList';
 import { getUserData } from 'src/apis/user';
 import { MessageFilled, MessageOutline, NotiFilled, NotiOutline } from 'src/assets/icons';
 import { useUserData } from 'src/context/UserContext';
+import defaultAvatar from 'src/assets/icons/man-avatar.svg';
+import defaultCover from 'src/assets/icons/background-photo.svg';
 
 export const UserProfile = () => {
 	const navigate = useNavigate();
@@ -84,10 +86,10 @@ export const UserProfile = () => {
 			</div>
 			<div className={style.userProfileContainer}>
 				<div className={style.userProfileBackgroundPhoto}>
-					<img src={initialValues.cover} className={style.cover} />
+					<img src={initialValues.cover || defaultCover} className={style.cover} />
 				</div>
 				<div className={style.userProfileAvatar}>
-					<img src={initialValues.avatar} className={style.avatar} />
+					<img src={initialValues.avatar || defaultAvatar} className={style.avatar} />
 				</div>
 				<div className={style.userProfileButton}>
 					{currentPath === '/user/other' ? (

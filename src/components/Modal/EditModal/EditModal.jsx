@@ -29,7 +29,7 @@ export const EditModal = () => {
 			// console.log('currentUserId: ', currentUserId.currentUserId);
 			try {
 				const data = await getUserData(currentUserId.currentUserId);
-				console.log('GET從後台來的data:', data);
+				console.log('GET從後台的data:', data);
 				if (data) {
 					setInitialValues({
 						id: data.id,
@@ -57,16 +57,12 @@ export const EditModal = () => {
 
 	// 選擇avatar檔案時觸發的事件處理函式
 	const handleAvatarFileChange = (event) => {
-		// const file = event.target.files[0];
-		// const url = URL.createObjectURL(file);
-		// setInitialValues({ ...initialValues, avatar: url });
+		event.preventDefault();
 		setInitialValues({ ...initialValues, avatar: event.target.files[0] });
 	};
 	// 選擇cover檔案時觸發的事件處理函式
 	const handleCoverFileChange = (event) => {
-		// const file = event.target.files[0];
-		// const url = URL.createObjectURL(file);
-		// setInitialValues({ ...initialValues, cover: url });
+		event.preventDefault();
 		setInitialValues({ ...initialValues, cover: event.target.files[0] });
 	};
 
@@ -158,7 +154,10 @@ export const EditModal = () => {
 								ref={coverInputRef} // 取得 input 元素的引用
 								onChange={handleCoverFileChange}
 							/>
-							<Close className={style.closePhoto} />
+							<Close
+								className={style.closePhoto}
+								onClick={() => setInitialValues({ ...initialValues, cover: null })}
+							/>
 						</div>
 					</form>
 				</div>
