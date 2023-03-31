@@ -23,7 +23,7 @@ export const AdminTweetItem = ({
 				<div className={style.tweetItemHeaderInfo}>
 					<p className={style.tweetItemUserName}>{name}</p>
 					<p className={style.tweetItemUserAccount}>
-						@{account} • {createdAt} 小時
+						@{account} • {createdAt}
 					</p>
 				</div>
 

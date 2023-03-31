@@ -2,6 +2,7 @@ import { AdminTweetItem } from 'src/components/AdminTweetItem/AdminTweetItem';
 import style from 'src/components/AdminTweetList/AdminTweetList.module.scss';
 import { getAdminTweets, deleteAdminTweet } from 'src/apis/admin';
 import { useEffect, useState } from 'react';
+import { convertDateToHours } from 'src/utils/convertDateToHours';
 
 export const AdminTweetList = () => {
 	const [tweets, setTweets] = useState([]);
@@ -36,8 +37,7 @@ export const AdminTweetList = () => {
 		<div className={style.tweetList}>
 			{isDataLoaded ? (
 				tweets.map(({ id, description, createdAt, User }) => {
-					const createdAtDate = new Date(createdAt);
-					const hour = createdAtDate.getHours();
+					const hour = convertDateToHours(createdAt);
 					return (
 						<AdminTweetItem
 							key={id}

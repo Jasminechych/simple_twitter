@@ -18,6 +18,7 @@ export const ReplyList = () => {
 				const data = await getUserRepliedTweets(currentUserId);
 				setUserRepliedData(data);
 				setIsDataLoaded(true);
+				console.log('getUserRepliedTweets', data);
 			} catch (error) {
 				console.log(error);
 			}
@@ -28,7 +29,7 @@ export const ReplyList = () => {
 	return (
 		<div className={style.replyList}>
 			{isDataLoaded ? (
-				userRepliedData.map(({ id, comment, createdAt }) => {
+				userRepliedData.map(({ id, comment, createdAt, Tweet }) => {
 					return (
 						<ReplyItem
 							key={id}
@@ -36,7 +37,7 @@ export const ReplyList = () => {
 							createdAt={createdAt}
 							name={currentUserName}
 							avatar={currentUserAvatar}
-							tweetUserAccount=''
+							tweetUserAccount={Tweet.User.account || ''}
 							replyUserAccount={currentUserAccount}
 						/>
 					);

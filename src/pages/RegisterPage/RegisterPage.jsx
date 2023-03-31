@@ -30,34 +30,29 @@ export const RegisterPage = () => {
 		setPasswordErrorMessage('');
 		setCheckPasswordErrorMessage('');
 
-		// 若帳號為空，防止表單送出
+		// 若帳號為空，設定錯誤訊息
 		if (!account.trim().length) {
 			setAccountErrorMessage('帳號不得為空');
-			// return;
 		}
 
-		// 若名稱為空，防止表單送出
+		// 若名稱為空，設定錯誤訊息
 		if (!name.trim().length) {
 			setNameErrorMessage('名稱不得為空');
-			// return;
 		}
 
-		// 若 email 為空，防止表單送出
+		// 若 email 為空，設定錯誤訊息
 		if (!email.trim().length) {
 			setEmailErrorMessage('Email 不得為空');
-			// return;
 		}
 
-		// 若密碼為空，防止表單送出
+		// 若密碼為空，設定錯誤訊息
 		if (!password.trim().length) {
 			setPasswordErrorMessage('密碼不得為空');
-			// return;
 		}
 
-		// 若確認密碼為空，防止表單送出
-		if (!password.trim().length) {
+		// 若確認密碼為空，設定錯誤訊息
+		if (!checkPassword.trim().length) {
 			setCheckPasswordErrorMessage('確認密碼不得為空');
-			// return;
 		}
 
 		// 輸入框若有任一為空，防止表單送出
