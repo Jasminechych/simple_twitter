@@ -23,6 +23,7 @@ export const FollowingList = () => {
 			try {
 				const data = await getsUsersFollowing(currentUserId);
 				setUsersFollowingsData(data);
+				console.log('getsUsersFollowing', data);
 				setUsersIsFollowingsDataLoaded(true);
 			} catch (error) {
 				console.log(error);
