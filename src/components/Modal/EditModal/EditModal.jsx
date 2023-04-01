@@ -30,15 +30,14 @@ export const EditModal = () => {
 			try {
 				const data = await getUserData(currentUserId.currentUserId);
 				console.log('GET從後台的data:', data);
-				if (data) {
-					setInitialValues({
-						id: data.id,
-						name: data.name,
-						avatar: data.avatar,
-						cover: data.cover,
-						introduction: data.introduction,
-					});
-				}
+
+				setInitialValues({
+					id: data.id,
+					name: data.name,
+					avatar: data.avatar,
+					cover: data.cover,
+					introduction: data.introduction,
+				});
 			} catch (error) {
 				console.error(error);
 			}
@@ -58,6 +57,7 @@ export const EditModal = () => {
 	// 選擇avatar檔案時觸發的事件處理函式
 	const handleAvatarFileChange = (event) => {
 		setInitialValues({ ...initialValues, avatar: event.target.files[0] });
+		console.log('initialValues.avatar:', initialValues.avatar);
 	};
 	// 選擇cover檔案時觸發的事件處理函式
 	const handleCoverFileChange = (event) => {
@@ -132,7 +132,7 @@ export const EditModal = () => {
 				<div>
 					<form
 						action='/users/{{id}}?_method=PUT'
-						method='PUT'
+						method='POST'
 						onSubmit={handleSubmit}
 						className={style.editModalBackgroundPhoto}
 						encType='multipart/form-data'

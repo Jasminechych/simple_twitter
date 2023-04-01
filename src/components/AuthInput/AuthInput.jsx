@@ -44,6 +44,7 @@ export const AuthInput = ({
 				type={type}
 				style={{
 					height: `${inputHeight}px`,
+					verticalAlign: 'top',
 				}}
 				placeholder={placeholder}
 				value={value}
