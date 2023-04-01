@@ -3,7 +3,7 @@ import style from 'src/components/ReplyItem/ReplyItem.module.scss';
 
 export const ReplyItem = ({
 	tweetUserAccount = '',
-	replyUserAccount,
+	replyUserAccount = '',
 	avatar,
 	name,
 	comment,

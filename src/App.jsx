@@ -3,9 +3,9 @@ import 'src/style/base.scss';
 import { MainPage, RegisterPage, SignInPage, AdminPage, AdminMainPage } from 'src/pages';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { UserProfile } from 'src/components/UserProfile/UserProfile';
-import { FollowingList } from 'src/components/FollowSection/FollowingList/FollowingList';
-import { FollowerList } from 'src/components/FollowSection/FollowerList/FollowerList';
-
+// import { FollowingList } from 'src/components/FollowSection/FollowingList/FollowingList';
+// import { FollowerList } from 'src/components/FollowSection/FollowerList/FollowerList';
+import { FollowSection } from 'src/components/FollowSection/FollowSection';
 import { AdminTweetList } from 'src/components/AdminTweetList/AdminTweetList';
 import { UserList } from 'src/components/UserList/UserList';
 import { AdminUsersSection } from 'src/components/AdminUsersSection/AdminUsersSection';
@@ -20,7 +20,7 @@ import { ReplyModal } from './components/ReplyModal/ReplyModal';
 // import { useState, useEffect } from 'react';
 // import { getUserData } from 'src/apis/user';
 
-import { UserProvider } from 'src/context/UserContext';
+// import { UserProvider } from 'src/context/UserContext';
 
 // import { compileString } from "sass";
 
@@ -30,153 +30,154 @@ import { UserProvider } from 'src/context/UserContext';
 function App() {
 	return (
 		<div className='App'>
-			<UserProvider>
-				<BrowserRouter basename={'/simple_twitter'}>
-					<Routes>
-						<Route path='*' element={<SignInPage />} />
-						<Route path='register' element={<RegisterPage />} />
-						<Route path='signin' element={<SignInPage />} />
-						<Route
-							path='main'
-							element={
-								<MainPage>
-									<TweetInput />
-								</MainPage>
-							}
-						/>
-						<Route
-							path='/main/tweet'
-							element={
-								<MainPage>
-									<TweetInput />
-									<TweetModal />
-								</MainPage>
-							}
-						/>
+			{/* <UserProvider> */}
+			<BrowserRouter basename={'/simple_twitter'}>
+				<Routes>
+					<Route path='*' element={<SignInPage />} />
+					<Route path='register' element={<RegisterPage />} />
+					<Route path='signin' element={<SignInPage />} />
+					<Route
+						path='main'
+						element={
+							<MainPage>
+								<TweetInput />
+							</MainPage>
+						}
+					/>
+					<Route
+						path='/main/tweet'
+						element={
+							<MainPage>
+								<TweetInput />
+								<TweetModal />
+							</MainPage>
+						}
+					/>
 
-						<Route
-							path='user/self'
-							element={
-								<MainPage>
-									<UserProfile />
-								</MainPage>
-							}
-						/>
-						{/* 待刪除 */}
-						<Route
-							path='user/other'
-							element={
-								<MainPage>
-									<UserProfile />
-								</MainPage>
-							}
-						/>
-						{/* 測試中 */}
-						<Route path='user/:id' element={<MainPage />}>
-							<Route index element={<UserProfile />} />
-							<Route path='following' element={<FollowingList />} />
-							<Route path='follower' element={<FollowerList />} />
-						</Route>
+					<Route
+						path='user/self'
+						element={
+							<MainPage>
+								<UserProfile />
+							</MainPage>
+						}
+					/>
+					{/* 待刪除 */}
+					<Route
+						path='user/other'
+						element={
+							<MainPage>
+								<UserProfile />
+							</MainPage>
+						}
+					/>
+					{/* 測試中 */}
+					<Route path='user/:id' element={<MainPage />}>
+						<Route index element={<UserProfile />} />
+						<Route path='following' element={<FollowSection />} />
+						<Route path='follower' element={<FollowSection />} />
+					</Route>
 
+					{/* <Route
+						path='following'
+						element={
+							<MainPage>
+								<FollowingList />
+							</MainPage>
+						}
+					/>
+					<Route
+						path='follower'
+						element={
+							<MainPage>
+								<FollowerList />
+							</MainPage>
+						}
+					/> */}
+
+					<Route
+						path='setting'
+						element={
+							<MainPage>
+								<Setting />
+							</MainPage>
+						}
+					/>
+					<Route
+						path='/user/self/edit'
+						element={
+							<MainPage>
+								<UserProfile />
+								<EditModal />
+							</MainPage>
+						}
+					/>
+					{/* 後台 */}
+					<Route path='adminsignin' element={<AdminPage />} />
+					<Route path='admin' element={<AdminMainPage />}>
 						<Route
-							path='following'
+							path='tweets'
 							element={
-								<MainPage>
-									<FollowingList />
-								</MainPage>
+								<AdminTweetsSection title='推文清單'>
+									<AdminTweetList />
+								</AdminTweetsSection>
 							}
 						/>
 						<Route
-							path='follower'
+							path='users'
 							element={
-								<MainPage>
-									<FollowerList />
-								</MainPage>
+								<AdminUsersSection title='使用者列表'>
+									<UserList />
+								</AdminUsersSection>
 							}
 						/>
-						<Route
-							path='setting'
-							element={
-								<MainPage>
-									<Setting />
-								</MainPage>
-							}
-						/>
-						<Route
-							path='/user/self/edit'
-							element={
-								<MainPage>
-									<UserProfile />
-									<EditModal />
-								</MainPage>
-							}
-						/>
-						{/* 後台 */}
-						<Route path='adminsignin' element={<AdminPage />} />
-						<Route path='admin' element={<AdminMainPage />}>
-							<Route
-								path='tweets'
-								element={
-									<AdminTweetsSection title='推文清單'>
-										<AdminTweetList />
-									</AdminTweetsSection>
-								}
-							/>
-							<Route
-								path='users'
-								element={
-									<AdminUsersSection title='使用者列表'>
-										<UserList />
-									</AdminUsersSection>
-								}
-							/>
-						</Route>
-						{/* 後台結束 */}
-						<Route
-							path='user/self/tab=tweet'
-							element={
-								<MainPage>
-									<UserProfile />
-								</MainPage>
-							}
-						/>
-						<Route
-							path='user/self/tab=reply'
-							element={
-								<MainPage>
-									<UserProfile />
-								</MainPage>
-							}
-						/>
-						<Route
-							path='user/self/tab=like'
-							element={
-								<MainPage>
-									<UserProfile />
-								</MainPage>
-							}
-						/>
-						<Route
-							path='/reply_list/:id'
-							element={
-								<MainPage>
-									<MainSection>
-										<ReplyListSection />
-									</MainSection>
-								</MainPage>
-							}
-						/>
-						<Route
-							path='/replyList:id/modal'
-							element={
-								<MainPage>
-									<ReplyModal />
-								</MainPage>
-							}
-						/>
-					</Routes>
-				</BrowserRouter>
-			</UserProvider>
+					</Route>
+					{/* 後台結束 */}
+					<Route
+						path='user/self/tab=tweet'
+						element={
+							<MainPage>
+								<UserProfile />
+							</MainPage>
+						}
+					/>
+					<Route
+						path='user/self/tab=reply'
+						element={
+							<MainPage>
+								<UserProfile />
+							</MainPage>
+						}
+					/>
+					<Route
+						path='user/self/tab=like'
+						element={
+							<MainPage>
+								<UserProfile />
+							</MainPage>
+						}
+					/>
+					<Route
+						path='/reply_list/:id'
+						element={
+							<MainPage>
+								<MainSection>
+									<ReplyListSection />
+								</MainSection>
+							</MainPage>
+						}
+					/>
+					<Route
+						path='/replyList:id/modal'
+						element={
+							<MainPage>
+								<ReplyModal />
+							</MainPage>
+						}
+					/>
+				</Routes>
+			</BrowserRouter>
+			{/* </UserProvider> */}
 		</div>
 	);
 }

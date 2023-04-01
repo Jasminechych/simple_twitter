@@ -12,17 +12,17 @@ import {
 import { ButtonL } from 'src/components/buttons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { SidebarTab } from '../SidebarTab/SidebarTab';
-import { useUserData } from 'src/context/UserContext';
+// import { useUserData } from 'src/context/UserContext';
 
 export const Sidebar = () => {
 	const location = useLocation();
 	const currentPath = location.pathname;
 	const navigate = useNavigate();
 	console.log('currentPath', currentPath);
-	const { currentUserId, isShownUserInfo, setIsShownUserInfo } = useUserData();
-	console.log('isShowUserInfo', isShownUserInfo);
+	// const { currentUserId, isShownUserInfo, setIsShownUserInfo } = useUserData();
+	// console.log('isShowUserInfo', isShownUserInfo);
 	// 目前登入的使用者 ID
-	// const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
+	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
 
 	// 如過路徑以 /user 開頭設為 true
 	const userPath = currentPath.startsWith('/user/');
@@ -49,13 +49,13 @@ export const Sidebar = () => {
 						isActiveText={currentPath === '/main'}
 					/>
 					<SidebarTab
-						path={`/user/${isShownUserInfo}`}
+						path={`/user/${currentUserId}`}
 						text='個人資料'
 						icon={userPath ? <UserFilled /> : <UserOutline />}
 						isActiveText={userPath}
-						onClick={() => {
-							setIsShownUserInfo(currentUserId);
-						}}
+						// onClick={() => {
+						// 	setIsShownUserInfo(currentUserId);
+						// }}
 					/>
 					<SidebarTab
 						path='/setting'

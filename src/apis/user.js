@@ -85,7 +85,7 @@ export const getUserData = async (id) => {
 		});
 		return res.data;
 	} catch (error) {
-		console.log(`[Get UserData Failed]:`, error);
+		console.log(`[Get UserData Failed]:`, error.response);
 	}
 };
 
@@ -100,8 +100,7 @@ export const getTopTenUsers = async () => {
 		});
 		return res.data;
 	} catch (error) {
-		console.error('[Get Top Ten Users Failed]:', error);
-		return { success: false };
+		console.error('[Get Top Ten Users Failed]:', error.response);
 	}
 };
 
@@ -116,7 +115,7 @@ export const getsUsersFollowing = async (id) => {
 		});
 		return res.data;
 	} catch (error) {
-		console.error('[Get users followings Failed]:', error.reponse);
+		console.error('[Get users followings Failed]:', error.response);
 	}
 };
 
@@ -166,8 +165,7 @@ export const getTweets = async () => {
 		});
 		return res.data;
 	} catch (error) {
-		console.error('[Get Tweets Failed]:', error);
-		return { success: false };
+		console.error('[Get Tweets Failed]:', error.response);
 	}
 };
 
@@ -182,7 +180,7 @@ export const getOneTweet = async (id) => {
 		});
 		return res.data;
 	} catch (error) {
-		console.error('[Get One Tweets Failed]:', error);
+		console.error('[Get One Tweets Failed]:', error.response);
 	}
 };
 
@@ -197,7 +195,7 @@ export const getUserLikes = async (id) => {
 		});
 		return res.data;
 	} catch (error) {
-		console.error('[Get User Likes Failed]:', error);
+		console.error('[Get User Likes Failed]:', error.response);
 	}
 };
 
@@ -212,7 +210,7 @@ export const getTweetReplies = async (id) => {
 		});
 		return res.data;
 	} catch (error) {
-		console.error('[Get Tweet Replies Failed]:', error);
+		console.error('[Get Tweet Replies Failed]:', error.response);
 	}
 };
 

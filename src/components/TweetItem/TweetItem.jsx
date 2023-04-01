@@ -3,7 +3,6 @@ import { ReactComponent as LikeFilled } from 'src/assets/icons/like-filled.svg';
 import { ReactComponent as LikeOutline } from 'src/assets/icons/like-outline.svg';
 import { useNavigate, Link } from 'react-router-dom';
 import style from 'src/components/TweetItem/TweetItem.module.scss';
-import { useUserData } from 'src/context/UserContext';
 
 export const TweetItem = ({
 	id,
@@ -17,7 +16,6 @@ export const TweetItem = ({
 	isLikeByUser,
 	handleHeartClick,
 }) => {
-	const { setIsShownUserInfo } = useUserData();
 	const navigate = useNavigate();
 
 	// 點擊推文導向 replyList 頁面
@@ -27,7 +25,6 @@ export const TweetItem = ({
 
 	const handleAvatarClick = (id) => {
 		console.log('avatar click id: ', id);
-		setIsShownUserInfo(id);
 		navigate(`/user/${id}`);
 	};
 

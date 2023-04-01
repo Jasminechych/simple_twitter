@@ -1,36 +1,22 @@
 import style from 'src/components/ReplyList/ReplyList.module.scss';
 import { ReplyItem } from 'src/components/ReplyItem/ReplyItem';
-import { getUserRepliedTweets } from 'src/apis/user';
-import { useEffect, useState } from 'react';
+// import { getUserRepliedTweets } from 'src/apis/user';
+// import { useEffect, useState } from 'react';
 import { convertDateToHours } from 'src/utils/convertDateToHours';
 
-export const ReplyList = () => {
-	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
-	const currentUserAccount = JSON.parse(localStorage.getItem('currentUser')).currentUserAccount;
-	const currentUserName = JSON.parse(localStorage.getItem('currentUser')).currentUserName;
-	const currentUserAvatar = JSON.parse(localStorage.getItem('currentUser')).currentUserAvatar;
-	const [userRepliedData, setUserRepliedData] = useState([]);
-	const [isDataLoaded, setIsDataLoaded] = useState(false);
+export const ReplyList = ({ data, userData }) => {
+	console.log('ReplyList data', data);
+	// const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
+	// const currentUserAccount = JSON.parse(localStorage.getItem('currentUser')).currentUserAccount;
+	// const currentUserName = JSON.parse(localStorage.getItem('currentUser')).currentUserName;
+	// const currentUserAvatar = JSON.parse(localStorage.getItem('currentUser')).currentUserAvatar;
 
-	// 取得使用者回覆過的所有推文
-	useEffect(() => {
-		const getUserRepliedTweetsAsync = async () => {
-			try {
-				const data = await getUserRepliedTweets(currentUserId);
-				setUserRepliedData(data);
-				setIsDataLoaded(true);
-				console.log('getUserRepliedTweets', data);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		getUserRepliedTweetsAsync();
-	}, []);
+	console.log('reply list user data', userData);
 
 	return (
 		<div className={style.replyList}>
-			{isDataLoaded ? (
-				userRepliedData.map(({ id, comment, createdAt, Tweet }) => {
+			{/* {isDataLoaded ? (
+				data.map(({ id, comment, createdAt, Tweet }) => {
 					const createHour = convertDateToHours(createdAt);
 					return (
 						<ReplyItem
@@ -46,7 +32,22 @@ export const ReplyList = () => {
 				})
 			) : (
 				<h5>loading...</h5>
-			)}
+			)} */}
+
+			{data.map(({ id, TweetId, comment, createdAt, Tweet }) => {
+				const createHour = convertDateToHours(createdAt);
+				return (
+					<ReplyItem
+						key={id}
+						id={TweetId}
+						comment={comment}
+						createdAt={createHour}
+						name={userData.name}
+						avatar={userData.avatar}
+						tweetUserAccount={Tweet.User.account}
+					/>
+				);
+			})}
 		</div>
 	);
 };
