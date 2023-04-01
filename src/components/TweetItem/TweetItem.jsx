@@ -22,7 +22,7 @@ export const TweetItem = ({
 
 	// 點擊推文導向 replyList 頁面
 	const handleTweetClick = (id) => {
-		navigate(`/replyList:${id}`);
+		navigate(`/reply_list/${id}`);
 	};
 
 	const handleAvatarClick = (id) => {
