@@ -17,7 +17,9 @@ export const EditModal = () => {
 		id: '',
 		name: '',
 		avatar: '',
+		avatarUrl: '',
 		cover: '',
+		coverUrl: '',
 		introduction: '',
 	});
 	console.log('initialValues:', initialValues);
@@ -35,7 +37,9 @@ export const EditModal = () => {
 					id: data.id,
 					name: data.name,
 					avatar: data.avatar,
+					avatarUrl: data.avatar,
 					cover: data.cover,
+					coverUrl: data.cover,
 					introduction: data.introduction,
 				});
 			} catch (error) {
@@ -56,13 +60,19 @@ export const EditModal = () => {
 
 	// 選擇avatar檔案時觸發的事件處理函式
 	const handleAvatarFileChange = (event) => {
-		setInitialValues({ ...initialValues, avatar: event.target.files[0] });
-		console.log('initialValues.avatar:', initialValues.avatar);
+		// setInitialValues({ ...initialValues, avatar: event.target.files[0] });
+		// console.log('initialValues.avatar:', initialValues.avatar);
+		const file = event.target.files[0];
+		const url = URL.createObjectURL(file);
+		setInitialValues({ ...initialValues, avatar: file, avatarUrl: url });
 	};
 	// 選擇cover檔案時觸發的事件處理函式
 	const handleCoverFileChange = (event) => {
-		setInitialValues({ ...initialValues, cover: event.target.files[0] });
-		console.log('initialValues.cover:', initialValues.cover);
+		// setInitialValues({ ...initialValues, cover: event.target.files[0] });
+		// console.log('initialValues.cover:', initialValues.cover);
+		const file = event.target.files[0];
+		const url = URL.createObjectURL(file);
+		setInitialValues({ ...initialValues, cover: file, coverUrl: url });
 	};
 
 	//
@@ -79,12 +89,12 @@ export const EditModal = () => {
 			// 帶入id，把更新的資料傳回後端
 			const id = currentUserId.currentUserId;
 			// console.log('ID', id);
-			const response = await getEditProfile(id, {
-				name: initialValues.name,
-				avatar: initialValues.avatar,
-				cover: initialValues.cover,
-				introduction: initialValues.introduction,
-			});
+			const formData = new FormData();
+			formData.append('name', initialValues.name);
+			formData.append('avatar', initialValues.avatar);
+			formData.append('cover', initialValues.cover);
+			formData.append('introduction', initialValues.introduction);
+			const response = await getEditProfile(id, formData);
 			console.log('點選儲存後,從後台回傳前台的Data', response);
 
 			// 再取一次userData
@@ -94,7 +104,9 @@ export const EditModal = () => {
 			setInitialValues({
 				name: data.name,
 				avatar: data.avatar,
+				avatarUrl: data.avatar,
 				cover: data.cover,
+				coverUrl: data.cover,
 				introduction: data.introduction,
 			});
 			console.log('修改為的資料', data);
@@ -137,7 +149,7 @@ export const EditModal = () => {
 						className={style.editModalBackgroundPhoto}
 						encType='multipart/form-data'
 					>
-						<img src={initialValues.cover} className={style.backgroundPhoto} />
+						<img src={initialValues.coverUrl} className={style.backgroundPhoto} />
 						<div className={style.addAndClose}>
 							<AddPhoto
 								className={style.addPhoto}
@@ -153,7 +165,7 @@ export const EditModal = () => {
 							/>
 							<Close
 								className={style.closePhoto}
-								onClick={() => setInitialValues({ ...initialValues, cover: null })}
+								onClick={() => setInitialValues({ ...initialValues, cover: null, coverUrl: null })}
 							/>
 						</div>
 					</form>
@@ -166,7 +178,7 @@ export const EditModal = () => {
 						className={style.editModalAvatar}
 						encType='multipart/form-data'
 					>
-						<img src={initialValues.avatar} className={style.avatar} />
+						<img src={initialValues.avatarUrl} className={style.avatar} />
 						<AddPhoto
 							className={style.addAvatarPhoto}
 							onClick={() => {

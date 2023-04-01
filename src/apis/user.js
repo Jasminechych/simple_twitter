@@ -51,15 +51,15 @@ export const putUserData = async (
 };
 
 // 編輯個人資料
-export const getEditProfile = async (id, { name, avatar, cover, introduction }) => {
+export const getEditProfile = async (id, formData) => {
 	const token = localStorage.getItem('token');
-	console.log('前台更新的cover:', cover);
+	// console.log('前台更新的cover:', cover);
 	try {
-		const formData = new FormData();
-		formData.append('name', name);
-		formData.append('avatar', avatar);
-		formData.append('cover', cover);
-		formData.append('introduction', introduction);
+		// const formData = new FormData();
+		// formData.append('name', name);
+		// formData.append('avatar', avatar);
+		// formData.append('cover', cover);
+		// formData.append('introduction', introduction);
 
 		const response = await axios.put(`${baseUrl}/users/${id}/profile`, formData, {
 			headers: {
