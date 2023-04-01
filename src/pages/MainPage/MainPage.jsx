@@ -10,7 +10,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 // import { useUserData } from 'src/context/UserContext';
 
-export const MainPage = () => {
+export const MainPage = ({ children }) => {
 	// 先驗證token，若無則直接回到login
 	const token = localStorage.getItem('token');
 
@@ -24,51 +24,11 @@ export const MainPage = () => {
 	const currentPath = location.pathname;
 	// console.log('currentPath', currentPath);
 
-	// const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
-	// const [followShipState, setFollowShipState] = useState({ userId: '', followShip: '' });
-	// const [isPopularListDataLoaded, setIsPopularListDataLoaded] = useState(false);
-	// const {
-	// 	topTenList,
-	// 	setTopTenList,
-	// 	usersFollowingsData,
-	// 	setUsersFollowingsData,
-	// 	isPopularListDataLoaded,
-	// 	setIsPopularListDataLoaded,
-	// } = useUserData();
-	// const [mixData, setMixData] = useState([]);
-
-	// useEffect(() => {
-	// 	const fetchPopularListData = async () => {
-	// 		try {
-	// 			// 取得熱門清單 TOP 10
-	// 			const topTenUsersData = await getTopTenUsers();
-	// 			const topTen = topTenUsersData.data.usersData.slice(0, 10);
-	// 			setTopTenList(topTen);
-
-	// 			// 取得目前使用者 follow 清單
-	// 			const userFollowingData = await getsUsersFollowing(currentUserId);
-	// 			setUsersFollowingsData(userFollowingData);
-
-	// 			setIsPopularListDataLoaded(true);
-	// 		} catch (error) {
-	// 			console.error(error);
-	// 		}
-	// 	};
-	// 	fetchPopularListData();
-	// }, [isPopularListDataLoaded, topTenList, usersFollowingsData]);
-
 	return (
 		<div className={style.mainPageContainer}>
 			<Sidebar />
-			{/* {children} */}
+			{children}
 			<Outlet />
-			{/* 測試用 */}
-			{/* {isPopularListDataLoaded ? (
-				currentPath !== '/setting' && <PopularListSection />
-			) : (
-				<h5>loading...</h5>
-			)} */}
-			{/* 原本的 */}
 			{currentPath !== '/setting' && <PopularListSection />}
 		</div>
 	);

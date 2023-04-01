@@ -7,6 +7,7 @@ import {
 	deleteFollowShips,
 } from 'src/apis/user';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const PopularList = () => {
 	// 目前登入使用者 ID
@@ -27,13 +28,23 @@ export const PopularList = () => {
 	// 比對全站排名前十被追蹤清單 & 使用者跟隨的人
 	const [mixData, setMixData] = useState([]);
 
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		const fetchPopularListData = async () => {
+			// 先驗證token，若無則直接回到signin
+			const token = localStorage.getItem('token');
+			if (!token) {
+				navigate('signin');
+				return;
+			}
+
 			try {
 				// 取得熱門清單 TOP 10
 				const topTenUsersData = await getTopTenUsers();
 				const topTen = topTenUsersData.data.usersData.slice(0, 10);
 				setTopTenList(topTen);
+				console.log('topTen', topTen);
 
 				// 取得目前使用者 follow 清單
 				const userFollowingData = await getsUsersFollowing(currentUserId);
@@ -59,7 +70,7 @@ export const PopularList = () => {
 			}
 		};
 		fetchPopularListData();
-	}, [isPopularListDataLoaded]);
+	}, [isPopularListDataLoaded, followShipState]);
 
 	// 追蹤追蹤或取消追蹤別人
 	const handleFollowClick = (id, followOrUnFollow) => {

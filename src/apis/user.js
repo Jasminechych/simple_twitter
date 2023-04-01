@@ -92,7 +92,6 @@ export const getUserData = async (id) => {
 // 取得前十最多被追蹤的使用者
 export const getTopTenUsers = async () => {
 	const token = localStorage.getItem('token');
-	// console.log('token: ', token);
 	try {
 		const res = await axios.get(`${baseUrl}/users/top`, {
 			headers: {
@@ -109,7 +108,6 @@ export const getTopTenUsers = async () => {
 // api/users/:id/followings 查看此使用者ID追蹤中的人
 export const getsUsersFollowing = async (id) => {
 	const token = localStorage.getItem('token');
-	// console.log('token: ', token);
 	try {
 		const res = await axios.get(`${baseUrl}/users/${id}/followings`, {
 			headers: {
@@ -135,7 +133,6 @@ export const postFollowShips = async (id) => {
 				},
 			},
 		);
-		console.log(res.data);
 		return res.data;
 	} catch (error) {
 		console.error('[Post Follow Ships Failed]:', error.response);
@@ -161,7 +158,6 @@ export const deleteFollowShips = async (id) => {
 // 查看所有推文
 export const getTweets = async () => {
 	const token = localStorage.getItem('token');
-	// console.log('token: ', token);
 	try {
 		const res = await axios.get(`${baseUrl}/tweets`, {
 			headers: {
@@ -178,7 +174,6 @@ export const getTweets = async () => {
 // 查看一篇推文
 export const getOneTweet = async (id) => {
 	const token = localStorage.getItem('token');
-	// console.log('token: ', token);
 	try {
 		const res = await axios.get(`${baseUrl}/tweets/${id}`, {
 			headers: {
@@ -209,7 +204,6 @@ export const getUserLikes = async (id) => {
 // api/tweets/:tweet_id/replies 找出此貼文id的所有回復
 export const getTweetReplies = async (id) => {
 	const token = localStorage.getItem('token');
-	// console.log('token: ', token);
 	try {
 		const res = await axios.get(`${baseUrl}/tweets/${id}/replies`, {
 			headers: {

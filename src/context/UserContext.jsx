@@ -24,14 +24,8 @@ export const UserProvider = ({ children }) => {
 	// 使用者回覆過的內容
 	const [userRepliedData, setUserRepliedData] = useState([]);
 
-	// 使用者喜歡的內容
-	const [userLikeData, setUserLikeData] = useState([]);
-
 	// 使用者的跟隨者
 	const [usersFollowersData, setUsersFollowersData] = useState([]);
-
-	// 全站的所有推文
-	const [tweetsData, setTweetsData] = useState([]);
 
 	const UserContextData = useMemo(() => {
 		return {
@@ -44,18 +38,9 @@ export const UserProvider = ({ children }) => {
 			setUserTweetsData,
 			userRepliedData,
 			setUserRepliedData,
-			userLikeData,
-			setUserLikeData,
+
 			usersFollowersData,
 			setUsersFollowersData,
-			// usersFollowingsData,
-			// setUsersFollowingsData,
-			// topTenList,
-			// setTopTenList,
-			tweetsData,
-			setTweetsData,
-			// isPopularListDataLoaded,
-			// setIsPopularListDataLoaded,
 		};
 	}, [
 		currentUserId,
@@ -67,18 +52,9 @@ export const UserProvider = ({ children }) => {
 		setUserTweetsData,
 		userRepliedData,
 		setUserRepliedData,
-		userLikeData,
-		setUserLikeData,
+
 		usersFollowersData,
 		setUsersFollowersData,
-		// usersFollowingsData,
-		// setUsersFollowingsData,
-		// topTenList,
-		// setTopTenList,
-		tweetsData,
-		setTweetsData,
-		// isPopularListDataLoaded,
-		// setIsPopularListDataLoaded,
 	]);
 
 	return <UserContext.Provider value={UserContextData}>{children}</UserContext.Provider>;
