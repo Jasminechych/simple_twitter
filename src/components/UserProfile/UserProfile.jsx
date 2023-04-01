@@ -1,184 +1,168 @@
 import style from 'src/components/UserProfile/UserProfile.module.scss';
 import { ButtonS, ButtonSW } from 'src/components/buttons';
-import { LikeList } from 'src/components/LikeList/LikeList';
-import { ReplyListTab } from 'src/components/ReplyListTab/ReplyListTab';
-import { TweetListTab } from 'src/components/TweetListTab/TweetListTab';
 import { MainSection } from 'src/components/MainSection/MainSection';
 import { Header } from 'src/components/Header/Header';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ReactComponent as BackArrow } from 'src/assets/icons/back.svg';
-import { TweetList } from '../TweetList/TweetList';
-import { useEffect, useState } from 'react';
-import { ReplyList } from '../ReplyList/ReplyList';
+import { TweetList } from 'src/components/TweetList/TweetList';
+import { useEffect, useState, useCallback } from 'react';
+import { ReplyList } from 'src/components/ReplyList/ReplyList';
+import { UserProfileTab } from 'src/components/UserProfileTab/UserProfileTab';
+import { LikeList } from 'src/components/LikeList/LikeList';
 import {
 	getUserData,
 	getUserTweets,
-	// getUserRepliedTweets,
-	// getUserLikes,
+	getUserRepliedTweets,
+	getUserLikes,
 	getUsersFollowers,
 	getsUsersFollowing,
+	postLikeTweet,
+	postUnLikeTweet,
 } from 'src/apis/user';
 import { MessageFilled, MessageOutline, NotiFilled, NotiOutline } from 'src/assets/icons';
-// import { useUserData } from 'src/context/UserContext';
 import defaultAvatar from 'src/assets/icons/man-avatar.svg';
 import defaultCover from 'src/assets/icons/background-photo.svg';
 
 export const UserProfile = () => {
+	// 目前登入的使用者 ID
+	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
+	console.log('currentUserId', currentUserId);
+	// 要顯示的使用者 ID
+	// const [isShownUserId, setIsShownUserId] = useState(currentUserId);
+
+	// 要顯示的使用者的資料
+	const [userData, setUserData] = useState({});
+	// 要顯示的使用者的所有推文
+	const [userTweetsData, setUserTweetsData] = useState([]);
+	// 要顯示的使用者回覆過的所有推文
+	const [userRepliedData, setUserRepliedData] = useState([]);
+	// 要顯示的使用者喜歡過的推文
+	const [userLikeData, setUserLikeData] = useState([]);
+	// 要顯示的使用者的跟隨者
+	const [usersFollowersData, setUsersFollowersData] = useState([]);
+	// 要顯示的使用者跟隨的人
+	const [usersFollowingsData, setUsersFollowingsData] = useState([]);
+	// 設定資料都裝載完成
+	const [isFetchUserProfileDataLoaded, setIsFetchUserProfileDataLoaded] = useState(false);
+
 	const navigate = useNavigate();
-	const location = useLocation();
-	const currentPath = location.pathname;
-	// const current = JSON.parse(localStorage.getItem('currentUser'));
-	const [activeTab, setActiveTab] = useState('tweetList');
+	// const location = useLocation();
+	// const currentPath = location.pathname;
 	const [messageClicked, setMessageClicked] = useState(false);
 	const [notiClicked, setNotiClicked] = useState(false);
 
-	// 把使用者資料拿出來用
-	// const { currentUserInfo, usersFollowersData, usersFollowingsData, usersTweets } = useUserData();
-	// console.log('currentUserInfo:', currentUserInfo);
-	// console.log('usersTweets', usersTweets);
+	// 正在的使用者資料分頁
+	const [activeTab, setActiveTab] = useState('tweetList');
+	console.log('activeTab', activeTab);
 
-	// 先驗證token，若無則直接回到signin
-	const token = localStorage.getItem('token');
-	if (!token) {
-		navigate('/signin', { replace: true });
-		return;
-	}
+	// 目前要查看的 user ID
+	const { id } = useParams();
+	console.log('id', id);
 
-	const handleTabChange = (tab) => {
-		setActiveTab(tab);
+	const [isLikingOrUnLiking, setIsLikingOrUnLiking] = useState({ id: '', likeOrUnlike: '' });
+	const [isHeartClick, setIsHeartClick] = useState(false);
+
+	const handleAvatarClick = (avatarId) => {
+		console.log('avatar click id: ', avatarId);
+		navigate(`/user/${avatarId}`);
 	};
-	// 	使用者取得自己的資料
-	// const [initialValues, setInitialValues] = useState({
-	// 	id: current.currentUserId,
-	// 	name: current.currentUserName,
-	// 	cover: current.currentUserCover,
-	// 	account: current.currentUserAccount,
-	// 	avatar: current.currentUserAvatar,
-	// 	introduction: current.currentUserIntroduction,
-	// });
-	// console.log('initialValues:', initialValues);
-
-	// 取得
-	// useEffect(() => {
-	// 	const getUsersInfo = async () => {
-	// 		try {
-	// 			const token = localStorage.getItem('token');
-
-	// 			// 先驗證token，若無則直接回到signin
-	// 			if (!token) {
-	// 				navigate('/signin', { replace: true });
-	// 				return;
-	// 			}
-	// 			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
-	// 			const data = await getUserData(currentUserId.currentUserId);
-	// 			// 取得token
-
-	// 			setInitialValues({
-	// 				id: data.id,
-	// 				name: data.name,
-	// 				account: data.account,
-	// 				avatar: data.avatar,
-	// 				cover: data.cover,
-	// 				introduction: data.introduction,
-	// 			});
-	// 		} catch (error) {
-	// 			console.error(error);
-	// 		}
-	// 	};
-	// 	getUsersInfo();
-	// }, [navigate]);
-
-	// ＊＊＊＊＊ 以下為暫時新增，需要整個重構頁面資料跟路由 ＊＊＊＊＊ //
-
-	// 目前登入的使用者
-	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
-	// 要顯示的使用者資料
-	const [userData, setUserData] = useState({
-		id: '',
-		name: '',
-		cover: '',
-		account: '',
-		avatar: '',
-		introduction: '',
-	});
-	// console.log('userData:', userData);
-
-	// 要顯示的使用者回覆過的內容
-	const [userTweetsData, setUserTweetsData] = useState([]);
-
-	// 要顯示的使用者回覆過的內容
-	// const [userRepliedData, setUserRepliedData] = useState([]);
-
-	//  要顯示的使用者喜歡的內容
-	// const [userLikeData, setUserLikeData] = useState([]);
-
-	// 要顯示的使用者的跟隨者
-	const [usersFollowersData, setUsersFollowersData] = useState([]);
-
-	// 要顯示的使用者跟隨的人
-	const [usersFollowingsData, setUsersFollowingsData] = useState([]);
-
-	// 設定資料都裝載完成
-	const [isDataLoaded, setIsDataLoaded] = useState(false);
 
 	useEffect(() => {
 		const fetchUserProfileAsync = async () => {
+			// 先驗證token，若無則直接回到signin
+			const token = localStorage.getItem('token');
+			if (!token) {
+				navigate('/signin', { replace: true });
+				return;
+			}
 			try {
-				// 取得 userId 的使用者資料
-				// id 先頂用待改
-				const data = await getUserData(currentUserId);
-				setUserData({
-					id: data.id,
-					name: data.name,
-					account: data.account,
-					avatar: data.avatar,
-					cover: data.cover,
-					introduction: data.introduction,
-				});
-
-				// 取得要顯示的使用者的所有推文
-				// id 先頂用待改
-				const tweetData = await getUserTweets(currentUserId);
-				setUserTweetsData(tweetData);
-
-				// 取得要顯示的使用者回覆過的所有推文
-				// id 先頂用待改
-				// const repliedData = await getUserRepliedTweets(currentUserId);
-				// setUserRepliedData(repliedData);
-
-				// 取得要顯示的使用者喜歡過的推文
-				// id 先頂用待改
-				// const likeData = await getUserLikes(currentUserId);
-				// setUserLikeData(likeData);
+				// 取得要顯示的使用者的資料
+				const getUserDataData = await getUserData(id);
+				setUserData(getUserDataData);
+				console.log('getUserDataData', getUserDataData);
 
 				// 取得要顯示的使用者的跟隨者
-				// id 先頂用待改
-				const followersData = await getUsersFollowers(currentUserId);
-				setUsersFollowersData(followersData);
+				const getUsersFollowersData = await getUsersFollowers(id);
+				setUsersFollowersData(getUsersFollowersData);
+				console.log('getUsersFollowersData', getUsersFollowersData);
 
 				// 取得要顯示的使用者跟隨的人
-				// id 先頂用待改
-				const followingData = await getsUsersFollowing(currentUserId);
-				setUsersFollowingsData(followingData);
+				const getsUsersFollowingData = await getsUsersFollowing(id);
+				setUsersFollowingsData(getsUsersFollowingData);
+				console.log('getsUsersFollowingData', getsUsersFollowingData);
 
-				// 所有資料載入完成
-				setIsDataLoaded(true);
+				if (activeTab === 'tweetList') {
+					// 取得要顯示的使用者的所有推文
+					const getUserTweetsData = await getUserTweets(id);
+					setUserTweetsData(getUserTweetsData);
+					console.log('getUserTweetsData', getUserTweetsData);
+					setIsFetchUserProfileDataLoaded(true);
+					return;
+				}
+				if (activeTab === 'replyList') {
+					// 取得要顯示的使用者回覆過的所有推文
+					setUserRepliedData([]);
+					const getUserRepliedTweetsData = await getUserRepliedTweets(id);
+					console.log('在getUserRepliedTweets 要顯示資料的id ', id);
+					setUserRepliedData(getUserRepliedTweetsData);
+
+					console.log('getUserRepliedTweetsData', getUserRepliedTweetsData);
+					setIsFetchUserProfileDataLoaded(true);
+					return;
+				}
+
+				if (activeTab === 'likeList') {
+					// 取得要顯示的使用者喜歡過的推文
+					const getUserLikesData = await getUserLikes(id);
+					setUserLikeData(getUserLikesData);
+					console.log('getUserLikesData', getUserLikesData);
+					setIsFetchUserProfileDataLoaded(true);
+					return;
+				}
 			} catch (error) {
 				console.error(error);
 			}
 		};
 		fetchUserProfileAsync();
+	}, [activeTab]);
+
+	// 對貼文按愛心或取消愛心
+	const handleHeartClick = useCallback((id, likeOrUnlike) => {
+		setIsFetchUserProfileDataLoaded(false);
+
+		setIsLikingOrUnLiking((prev) => {
+			return { ...prev, id: id, likeOrUnlike: likeOrUnlike };
+		});
 	}, []);
-	// ＊＊＊＊＊ 以上為暫時新增，需要整個重構頁面資料跟路由 ＊＊＊＊＊ //
+
+	useEffect(() => {
+		const postLikeOrUnlikeTweetAsync = async () => {
+			try {
+				// 按愛心
+				if (isLikingOrUnLiking.id !== '') {
+					if (isLikingOrUnLiking.likeOrUnlike === 'like') {
+						await postLikeTweet(isLikingOrUnLiking.id);
+						setIsHeartClick(!isHeartClick);
+						return;
+					} else {
+						// 取消愛心
+						await postUnLikeTweet(isLikingOrUnLiking.id);
+						setIsHeartClick(!isHeartClick);
+					}
+				}
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		postLikeOrUnlikeTweetAsync();
+	}, [isLikingOrUnLiking]);
 
 	return (
 		<MainSection>
-			{isDataLoaded ? (
+			{isFetchUserProfileDataLoaded ? (
 				<>
 					<div className={style.userProfileHeaderWrapper}>
-						<Link to='/main'>
-							<BackArrow className={style.backArrow} />
-						</Link>
+						<BackArrow className={style.backArrow} onClick={() => navigate('/main')} />
 						<div className={style.userHeader}>
 							<Header header={userData.name} className={style.header} />
 							<a href='' className={style.tweets}>{`${userTweetsData.length}推文`}</a>
@@ -192,7 +176,8 @@ export const UserProfile = () => {
 							<img src={userData.avatar || defaultAvatar} className={style.avatar} />
 						</div>
 						<div className={style.userProfileButton}>
-							{currentPath === '/user/other' ? (
+							{/* 非當前登入使用者才顯示 */}
+							{id.toString() !== currentUserId.toString() && (
 								<div className={style.otherUserButtons}>
 									<div
 										className={
@@ -208,6 +193,7 @@ export const UserProfile = () => {
 											<MessageOutline className={style.messageOutline} />
 										)}
 									</div>
+									{/* 小鈴鐺 */}
 									<div
 										className={
 											notiClicked ? `${style.notiBox} ${style.notiBoxClicked}` : style.notiBox
@@ -222,7 +208,10 @@ export const UserProfile = () => {
 									</div>
 									<ButtonS text='正在追隨' className={style.followButton} />
 								</div>
-							) : (
+							)}
+
+							{/* 當前使用者才能顯示編輯個人資料 */}
+							{id.toString() === currentUserId.toString() && (
 								<ButtonSW text='編輯個人資料' path={'/user/self/edit'} />
 							)}
 						</div>
@@ -231,36 +220,60 @@ export const UserProfile = () => {
 								<h5 className={style.userProfileName}>{userData.name}</h5>
 								<div className={style.userProfileSubName}>@{userData.account}</div>
 							</div>
+							{/* 新註冊者可能沒有自我介紹給空字串 */}
 							<p className={style.userProfileIntro}>{userData.introduction || ''}</p>
 							<div className={style.userProfileFollowInfoWrapper}>
 								<div className={style.userProfileFollowing}>
 									{usersFollowingsData.length}
-									<Link to='/following'>個跟隨中</Link>
+									<p onClick={() => navigate(`/user/${id}/following`)}>個跟隨中</p>
 								</div>
 								<div className={style.userProfileFollower}>
 									{usersFollowersData.length}
-									<Link to='/follower'>位跟隨者</Link>
+									<p onClick={() => navigate(`/user/${id}/follower`)}>位跟隨者</p>
 								</div>
 							</div>
 						</div>
+						{/* tab 開關 */}
 						<div className={style.tabContainer}>
-							<TweetListTab
+							<UserProfileTab
+								title='推文'
 								className={activeTab === 'tweetList' ? style.active : style.tab}
-								handleTabChange={handleTabChange}
+								handleTabChange={() => setActiveTab('tweetList')}
 							/>
-							<ReplyListTab
-								className={activeTab === 'replyPost' ? style.active : style.tab}
-								handleTabChange={handleTabChange}
+							<UserProfileTab
+								title='回覆'
+								className={activeTab === 'replyList' ? style.active : style.tab}
+								handleTabChange={() => setActiveTab('replyList')}
 							/>
-							<LikeList
+							<UserProfileTab
+								title='喜歡的內容'
 								className={activeTab === 'likeList' ? style.active : style.tab}
-								handleTabChange={handleTabChange}
+								handleTabChange={() => setActiveTab('likeList')}
 							/>
 						</div>
+						{/* tab 要顯示的元件 */}
 						<div>
-							{activeTab === 'tweetList' && <TweetList tab='tweetList' />}
-							{activeTab === 'replyPost' && <ReplyList tab='replyPost' />}
-							{activeTab === 'likeList' && <TweetList tab='likeList' />}
+							{activeTab === 'tweetList' && (
+								<TweetList
+									data={userTweetsData}
+									handleHeartClick={handleHeartClick}
+									handleAvatarClick={handleAvatarClick}
+								/>
+							)}
+							{activeTab === 'replyList' && (
+								<ReplyList
+									data={userRepliedData}
+									userData={userData}
+									handleAvatarClick={handleAvatarClick}
+								/>
+							)}
+							{activeTab === 'likeList' && (
+								<LikeList
+									data={userLikeData}
+									handleHeartClick={handleHeartClick}
+									handleAvatarClick={handleAvatarClick}
+								/>
+							)}
 						</div>
 					</div>
 				</>

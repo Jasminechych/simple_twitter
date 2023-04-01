@@ -15,18 +15,19 @@ export const TweetItem = ({
 	likeCounts,
 	isLikeByUser,
 	handleHeartClick,
+	handleAvatarClick,
 }) => {
 	const navigate = useNavigate();
 
 	// 點擊推文導向 replyList 頁面
 	const handleTweetClick = (id) => {
-		navigate(`/replyList:${id}`);
+		navigate(`/reply_list/${id}`);
 	};
 
-	const handleAvatarClick = (id) => {
-		console.log('avatar click id: ', id);
-		navigate(`/users:${id}`);
-	};
+	// const handleAvatarClick = (id) => {
+	// 	console.log('avatar click id: ', id);
+	// 	navigate(`/user/${id}`);
+	// };
 
 	return (
 		<div className={style.tweetItemContainer} id={id}>

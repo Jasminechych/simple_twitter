@@ -1,65 +1,135 @@
-import { Link } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import style from 'src/components/FollowSection/FollowerList/FollowerList.module.scss';
 import { Header } from 'src/components/Header/Header';
 import { MainSection } from 'src/components/MainSection/MainSection';
 import { ReactComponent as BackArrow } from 'src/assets/icons/back.svg';
 import { UserItem } from 'src/components/UserItem/UserItem';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import {
 	getUsersFollowers,
 	getsUsersFollowing,
 	deleteFollowShips,
 	postFollowShips,
+	getUserData,
+	getUserTweets,
 } from 'src/apis/user';
-import { useUserData } from 'src/context/UserContext';
 
 export const FollowerList = () => {
+	// 目前登入使用者的 ID
 	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
+	// 目前登入使用者的 ID跟隨的人
+	const [currentUserFollowingsData, setCurrentUserFollowingsData] = useState([]);
+	// 要顯示的使用者的資料
+	const [userData, setUserData] = useState({});
+	// 要顯示的使用者的所有推文
+	const [userTweetsData, setUserTweetsData] = useState([]);
+	// 要顯示的使用者的跟隨者
 	const [usersFollowersData, setUsersFollowersData] = useState([]);
-	const [usersFollowingsData, setUsersFollowingsData] = useState([]);
+	// 要顯示的使用者跟隨的人
+	// const [usersFollowingsData, setUsersFollowingsData] = useState([]);
+	// // 設定資料都裝載完成
+	const [isFetchFollowerListDataLoaded, setIsFollowerListDataLoaded] = useState(false);
+	// 控制正在跟隨 & 跟隨按鈕點擊
 	const [followShipState, setFollowShipState] = useState({ userId: '', followShip: '' });
-	const [isDataLoaded, setIsDataLoaded] = useState(false);
+	const [isFollowShipClick, setIsFollowShipClick] = useState(false);
 
-	// 把使用者資訊拿出來用
-	const { currentUserInfo, usersTweets } = useUserData();
+	// 要查看的使用者 ID
+	const { id } = useParams();
+	console.log('userId', id);
 
-	// 取得目前使用者的跟隨者
+	const navigate = useNavigate();
+
+	// 取得 FollowerList 資料
 	useEffect(() => {
-		const getUsersFollowersAsync = async () => {
+		const fetchUserFollowingAsync = async () => {
 			try {
-				const followersData = await getUsersFollowers(currentUserId);
-				setUsersFollowersData(followersData);
-				const followingData = await getsUsersFollowing(currentUserId);
-				setUsersFollowingsData(followingData);
-				setIsDataLoaded(true);
+				// 取得要查看的使用者資料
+				const getUserDataData = await getUserData(id);
+				setUserData(getUserDataData);
+				console.log('getUserDataData', getUserDataData);
+
+				// 取得要查看的使用者所有推文
+				const getUserTweetsData = await getUserTweets(id);
+				setUserTweetsData(getUserTweetsData);
+				console.log('getUserTweets', getUserTweetsData);
+
+				// 取得目前的的使用者追蹤清單
+				const getsCurrentUsersFollowingData = await getsUsersFollowing(currentUserId);
+				setCurrentUserFollowingsData(getsCurrentUsersFollowingData);
+				console.log('getsCurrentUsersFollowingData', getsCurrentUsersFollowingData);
+
+				// 取得要查看的使用者追蹤清單
+				const getsUsersFollowerData = await getUsersFollowers(id);
+				// 跟目前登入的使用者追蹤清單比對，如果資料相同 isFollowedByCurrentUser: true
+				setUsersFollowersData(
+					getsUsersFollowerData.map((user) => {
+						const isFollowedByCurrentUser = currentUserFollowingsData.some(
+							(data) => data.followingId === user.id,
+						);
+						if (isFollowedByCurrentUser) {
+							return {
+								...user,
+								isFollowedByCurrentUser: true,
+							};
+						} else {
+							return user;
+						}
+					}),
+				);
+				console.log('usersFollowersData', usersFollowersData);
+				// setMixData(
+				// 	getsUsersFollowingData.map((user) => {
+				// 		const isFollowedByCurrentUser = getsCurrentUsersFollowingData.some(
+				// 			(data) => data.followingId === user.id,
+				// 		);
+				// 		if (isFollowedByCurrentUser) {
+				// 			return {
+				// 				...user,
+				// 				isFollowedByCurrentUser: true,
+				// 			};
+				// 		} else {
+				// 			return user;
+				// 		}
+				// 	}),
+				// );
+
+				// 取得要查看的使用者被跟隨清單
+				// const getUsersFollowersData = await getUsersFollowers(id);
+				// 跟目前登入的使用者追蹤清單比對，如果資料相同 isFollowedByCurrentUser: true
+				// setUsersFollowersData(
+				// 	getUsersFollowersData.map((user) => {
+				// 		const isFollowedByCurrentUser = currentUserFollowingsData.some(
+				// 			(data) => data.followingId === user.id,
+				// 		);
+				// 		if (isFollowedByCurrentUser) {
+				// 			return {
+				// 				...user,
+				// 				isFollowedByCurrentUser: true,
+				// 			};
+				// 		} else {
+				// 			return user;
+				// 		}
+				// 	}),
+				// );
+
+				setIsFollowerListDataLoaded(true);
 			} catch (error) {
 				console.log(error);
 			}
 		};
-		getUsersFollowersAsync();
-	}, []);
+		fetchUserFollowingAsync();
+	}, [id, isFetchFollowerListDataLoaded]);
 
-	// 比對目前使用者有無跟隨跟隨者
-	const comparedData = useMemo(() => {
-		return usersFollowersData.map((follower) => {
-			const isMatch = usersFollowingsData.some(
-				(following) => follower.followerId === following.followingId,
-			);
-
-			if (isMatch) {
-				return {
-					...follower,
-					matched: true,
-				};
-			} else {
-				return follower;
-			}
-		});
-	}, [usersFollowersData, usersFollowingsData]);
-
+	// 點選追蹤或取消追蹤
 	const handleFollowClick = (id, followOrUnFollow) => {
-		setIsDataLoaded(false);
-		setFollowShipState({ userId: id, followShip: followOrUnFollow });
+		setIsFollowerListDataLoaded(false);
+		setFollowShipState((prevState) => {
+			return {
+				...prevState,
+				userId: id,
+				followShip: followOrUnFollow,
+			};
+		});
 	};
 
 	// 取消追蹤或追蹤某位使用者
@@ -68,9 +138,10 @@ export const FollowerList = () => {
 			if (followShipState.followShip === 'follow') {
 				try {
 					await postFollowShips(followShipState.userId);
-					const followingData = await getsUsersFollowing(currentUserId);
-					setUsersFollowingsData(followingData);
-					setIsDataLoaded(true);
+					const getsUsersFollowingData = await getsUsersFollowing(currentUserId);
+					setCurrentUserFollowingsData(getsUsersFollowingData);
+					setIsFollowerListDataLoaded(true);
+					setIsFollowShipClick(!isFollowShipClick);
 				} catch (error) {
 					console.log(error);
 				}
@@ -79,9 +150,10 @@ export const FollowerList = () => {
 			if (followShipState.followShip === 'unFollow') {
 				try {
 					await deleteFollowShips(followShipState.userId);
-					const followingData = await getsUsersFollowing(currentUserId);
-					setUsersFollowingsData(followingData);
-					setIsDataLoaded(true);
+					const getsUsersFollowingData = await getsUsersFollowing(currentUserId);
+					setCurrentUserFollowingsData(getsUsersFollowingData);
+					setIsFollowerListDataLoaded(true);
+					setIsFollowShipClick(!isFollowShipClick);
 				} catch (error) {
 					console.log(error);
 				}
@@ -89,46 +161,56 @@ export const FollowerList = () => {
 			}
 		};
 		followShipAsync();
-	}, [followShipState]);
+	}, [followShipState, isFollowShipClick]);
 
 	return (
 		<MainSection>
-			<div className={style.followHeaderWrapper}>
-				<Link to='/user/self'>
-					<BackArrow className={style.backArrow} />
-				</Link>
-				<div className={style.followHeader}>
-					<Header header={currentUserInfo.name} className={style.header} />
-					<a href='' className={style.tweets}>{`${usersTweets.length}推文`}</a>
-				</div>
-			</div>
-			<div className={style.followerListContainer}>
-				<div className={style.followTabWrapper}>
-					<div className={style.followerListTitle}>追隨者</div>
-					<Link to='/following' className={style.followingListTitle}>
-						正在追隨
-					</Link>
-				</div>
-				<div className={style.userItemWrapper}>
-					{isDataLoaded ? (
-						comparedData.map((item) => {
-							return (
-								<UserItem
-									key={item.Follower.id}
-									id={item.Follower.id}
-									name={item.Follower.name}
-									avatar={item.Follower.avatar}
-									description={item.Follower.introduction}
-									isFollowing={item.matched}
-									handleFollowClick={handleFollowClick}
-								/>
-							);
-						})
-					) : (
-						<h5>loading...</h5>
-					)}
-				</div>
-			</div>
+			{isFetchFollowerListDataLoaded ? (
+				<>
+					<div className={style.followHeaderWrapper}>
+						{/* <Link to='/user/self'> */}
+						<BackArrow className={style.backArrow} onClick={() => navigate(-1)} />
+						{/* </Link> */}
+						<div className={style.followHeader}>
+							<Header header={userData.name} className={style.header} />
+							<a href='' className={style.tweets}>{`${userTweetsData.length}推文`}</a>
+						</div>
+					</div>
+					<div className={style.followerListContainer}>
+						<div className={style.followTabWrapper}>
+							<div
+								className={style.followerListTitle}
+								onClick={() => navigate(`/user/${id}/follower`)}
+							>
+								追隨者
+							</div>
+							<div
+								className={style.followingListTitle}
+								onClick={() => navigate(`/user/${id}/following`)}
+							>
+								正在追隨
+							</div>
+						</div>
+						<div className={style.userItemWrapper}>
+							{usersFollowersData.map((item) => {
+								return (
+									<UserItem
+										key={item.Follower.id}
+										id={item.Follower.id}
+										name={item.Follower.name}
+										avatar={item.Follower.avatar}
+										description={item.Follower.introduction || ''}
+										isFollowedByCurrentUser={item.isFollowedByCurrentUser}
+										handleFollowClick={handleFollowClick}
+									/>
+								);
+							})}
+						</div>
+					</div>
+				</>
+			) : (
+				<h5>loading...</h5>
+			)}
 		</MainSection>
 	);
 };

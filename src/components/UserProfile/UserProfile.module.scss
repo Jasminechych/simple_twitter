@@ -142,18 +142,21 @@
 			flex-direction: row;
 
 			.userProfileFollowing {
+				display: flex;
 				@extend %font-14-regular;
 				padding: 3px 0;
+				cursor: pointer;
 				a {
 					color: var(--secondary-color);
 				}
 			}
 
 			.userProfileFollower {
+				display: flex;
 				margin-left: 20px;
 				@extend %font-14-regular;
 				padding: 3px 0;
-
+				cursor: pointer;
 				a {
 					color: var(--secondary-color);
 				}

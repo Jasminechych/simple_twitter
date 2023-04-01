@@ -30,6 +30,7 @@
 
 		.replyPostUserAccount {
 			@extend %font-14-regular;
+			color: var(--secondary-color);
 		}
 	}
 }
@@ -76,4 +77,8 @@
 	gap: 133px;
 	height: 60px;
 	border-top: 1px solid var(--border-color);
+}
+
+.likeIcon {
+	cursor: pointer;
 }
