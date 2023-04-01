@@ -44,7 +44,6 @@ export const PopularList = () => {
 				const topTenUsersData = await getTopTenUsers();
 				const topTen = topTenUsersData.data.usersData.slice(0, 10);
 				setTopTenList(topTen);
-				console.log('topTen', topTen);
 
 				// 取得目前使用者 follow 清單
 				const userFollowingData = await getsUsersFollowing(currentUserId);

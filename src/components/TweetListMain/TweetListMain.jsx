@@ -43,13 +43,13 @@ export const TweetListMain = () => {
 			}
 		};
 		fetchTweetListMainAsync();
-	}, [isHeartClick]);
+	}, [isTweetListMainDataLoaded, isHeartClick]);
 
 	// 對貼文按愛心或取消愛心
 	const handleHeartClick = useCallback((id, likeOrUnlike) => {
 		setIsTweetListMainDataLoaded(false);
 
-		console.log('click id: ', id, likeOrUnlike);
+		// console.log('click id: ', id, likeOrUnlike);
 		setIsLikingOrUnLiking((prev) => {
 			return { ...prev, id: id, likeOrUnlike: likeOrUnlike };
 		});

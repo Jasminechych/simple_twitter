@@ -16,11 +16,11 @@ export const ReplyPost = ({
 	repliesCounts,
 	likedCounts,
 	isLikeByCurrentUser,
-	// 回文給誰資料還沒有，用user自己代替
+	handleHeartClick,
 }) => {
-	const createtime = formatDate(createdAt);
+	const createTime = formatDate(createdAt);
 	const createHour = convertDateToHours(createdAt);
-	console.log('replypost creatHour', createHour);
+
 	return (
 		<div className={style.replyPostContainer} id={id}>
 			<div className={style.replyPostHeaderInfo}>
@@ -31,7 +31,7 @@ export const ReplyPost = ({
 				</div>
 			</div>
 			<div className={style.replyPostDescription}>{description}</div>
-			<div className={style.replyPostCreateAt}>{createtime}</div>
+			<div className={style.replyPostCreateAt}>{createTime}</div>
 			<div className={style.replyPostFooterContainer}>
 				<div className={style.replyPostCounterContainer}>
 					<div className={style.replyPostCounterGroup}>
@@ -56,7 +56,21 @@ export const ReplyPost = ({
 					>
 						<Reply />
 					</Link>
-					{isLikeByCurrentUser ? <LikeFilled /> : <LikeOutline />}
+					{isLikeByCurrentUser ? (
+						<LikeFilled
+							className={style.likeIcon}
+							onClick={() => {
+								handleHeartClick(id, 'unlike');
+							}}
+						/>
+					) : (
+						<LikeOutline
+							className={style.likeIcon}
+							onClick={() => {
+								handleHeartClick(id, 'like');
+							}}
+						/>
+					)}
 				</div>
 			</div>
 		</div>
