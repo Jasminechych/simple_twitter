@@ -2,6 +2,7 @@ import style from 'src/components/ReplyList/ReplyList.module.scss';
 import { ReplyItem } from 'src/components/ReplyItem/ReplyItem';
 import { getUserRepliedTweets } from 'src/apis/user';
 import { useEffect, useState } from 'react';
+import { convertDateToHours } from 'src/utils/convertDateToHours';
 
 export const ReplyList = () => {
 	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
@@ -30,11 +31,12 @@ export const ReplyList = () => {
 		<div className={style.replyList}>
 			{isDataLoaded ? (
 				userRepliedData.map(({ id, comment, createdAt, Tweet }) => {
+					const createHour = convertDateToHours(createdAt);
 					return (
 						<ReplyItem
 							key={id}
 							comment={comment}
-							createdAt={createdAt}
+							createdAt={createHour}
 							name={currentUserName}
 							avatar={currentUserAvatar}
 							tweetUserAccount={Tweet.User.account || ''}

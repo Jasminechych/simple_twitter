@@ -5,7 +5,7 @@ import { ReplyListTab } from 'src/components/ReplyListTab/ReplyListTab';
 import { TweetListTab } from 'src/components/TweetListTab/TweetListTab';
 import { MainSection } from 'src/components/MainSection/MainSection';
 import { Header } from 'src/components/Header/Header';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ReactComponent as BackArrow } from 'src/assets/icons/back.svg';
 import { TweetList } from '../TweetList/TweetList';
 import { useEffect, useState } from 'react';
@@ -43,6 +43,9 @@ export const UserProfile = () => {
 		navigate('/signin', { replace: true });
 		return;
 	}
+
+	const { id } = useParams();
+	console.log('id', id);
 
 	const handleTabChange = (tab) => {
 		setActiveTab(tab);
@@ -103,7 +106,7 @@ export const UserProfile = () => {
 	});
 	// console.log('userData:', userData);
 
-	// 要顯示的使用者回覆過的內容
+	// 要顯示的使用者的所有推文
 	const [userTweetsData, setUserTweetsData] = useState([]);
 
 	// 要顯示的使用者回覆過的內容
@@ -176,9 +179,9 @@ export const UserProfile = () => {
 			{isDataLoaded ? (
 				<>
 					<div className={style.userProfileHeaderWrapper}>
-						<Link to='/main'>
-							<BackArrow className={style.backArrow} />
-						</Link>
+						{/* <Link to='/main'> */}
+						<BackArrow className={style.backArrow} onClick={() => navigate('/main')} />
+						{/* </Link> */}
 						<div className={style.userHeader}>
 							<Header header={userData.name} className={style.header} />
 							<a href='' className={style.tweets}>{`${userTweetsData.length}推文`}</a>
@@ -235,11 +238,11 @@ export const UserProfile = () => {
 							<div className={style.userProfileFollowInfoWrapper}>
 								<div className={style.userProfileFollowing}>
 									{usersFollowingsData.length}
-									<Link to='/following'>個跟隨中</Link>
+									<p onClick={() => navigate(`/user/${id}/following`)}>個跟隨中</p>
 								</div>
 								<div className={style.userProfileFollower}>
 									{usersFollowersData.length}
-									<Link to='/follower'>位跟隨者</Link>
+									<p onClick={() => navigate(`/user/${id}/follower`)}>位跟隨者</p>
 								</div>
 							</div>
 						</div>

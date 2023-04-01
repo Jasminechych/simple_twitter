@@ -33,6 +33,7 @@ function App() {
 			<UserProvider>
 				<BrowserRouter basename={'/simple_twitter'}>
 					<Routes>
+						<Route path='*' element={<SignInPage />} />
 						<Route path='register' element={<RegisterPage />} />
 						<Route path='signin' element={<SignInPage />} />
 						<Route
@@ -52,7 +53,6 @@ function App() {
 								</MainPage>
 							}
 						/>
-						<Route path='*' element={<SignInPage />} />
 
 						<Route
 							path='user/self'
@@ -72,14 +72,12 @@ function App() {
 							}
 						/>
 						{/* 測試中 */}
-						<Route
-							path='user:id'
-							element={
-								<MainPage>
-									<UserProfile />
-								</MainPage>
-							}
-						/>
+						<Route path='user/:id' element={<MainPage />}>
+							<Route index element={<UserProfile />} />
+							<Route path='following' element={<FollowingList />} />
+							<Route path='follower' element={<FollowerList />} />
+						</Route>
+
 						<Route
 							path='following'
 							element={
@@ -108,11 +106,7 @@ function App() {
 							path='/user/self/edit'
 							element={
 								<MainPage>
-									<UserProfile
-										followerCounts={`${59}位`}
-										followingCounts={`${34}個`}
-										tweets={`25`}
-									/>
+									<UserProfile />
 									<EditModal />
 								</MainPage>
 							}

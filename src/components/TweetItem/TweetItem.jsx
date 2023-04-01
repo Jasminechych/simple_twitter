@@ -25,7 +25,7 @@ export const TweetItem = ({
 
 	const handleAvatarClick = (id) => {
 		console.log('avatar click id: ', id);
-		navigate(`/users:${id}`);
+		navigate(`/users/${id}`);
 	};
 
 	return (
