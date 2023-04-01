@@ -53,7 +53,7 @@ export const putUserData = async (
 // 編輯個人資料
 export const getEditProfile = async (id, { name, avatar, cover, introduction }) => {
 	const token = localStorage.getItem('token');
-	console.log('前台更新的avatar:', avatar);
+	console.log('前台更新的cover:', cover);
 	try {
 		const formData = new FormData();
 		formData.append('name', name);

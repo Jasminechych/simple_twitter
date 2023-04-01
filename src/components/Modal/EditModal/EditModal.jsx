@@ -62,6 +62,7 @@ export const EditModal = () => {
 	// 選擇cover檔案時觸發的事件處理函式
 	const handleCoverFileChange = (event) => {
 		setInitialValues({ ...initialValues, cover: event.target.files[0] });
+		console.log('initialValues.cover:', initialValues.cover);
 	};
 
 	//
@@ -90,15 +91,13 @@ export const EditModal = () => {
 			const data = await getUserData(currentUserId.currentUserId);
 			console.log('再度拿更新後的data', data);
 
-			if (data) {
-				setInitialValues({
-					name: data.name,
-					avatar: data.avatar,
-					cover: data.cover,
-					introduction: data.introduction,
-				});
-				console.log('修改為的資料', data);
-			}
+			setInitialValues({
+				name: data.name,
+				avatar: data.avatar,
+				cover: data.cover,
+				introduction: data.introduction,
+			});
+			console.log('修改為的資料', data);
 
 			const success = response.statusText;
 			if (success === 'OK') {

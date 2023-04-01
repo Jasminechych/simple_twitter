@@ -25,6 +25,8 @@ export const Setting = () => {
 		name: '',
 		account: '',
 		email: '',
+		password: '',
+		checkPassword: '',
 	});
 	console.log('initialValues:', initialValues);
 
@@ -35,6 +37,7 @@ export const Setting = () => {
 	const [password, setPassword] = useState('');
 	const [checkPassword, setCheckPassword] = useState('');
 	const [checkPasswordErrorMessage, setCheckPasswordErrorMessage] = useState('');
+	const [emptyErrorMessage, setEmptyErrorMessage] = useState('');
 	const [emailErrorMessage, setEmailErrorMessage] = useState('');
 	const [accountErrorMessage, setAccountErrorMessage] = useState('');
 
@@ -72,14 +75,23 @@ export const Setting = () => {
 
 	// 點選儲存驗證
 	const handleSave = async () => {
+		console.log('initialValues', initialValues);
 		// 輸入框若有任一為空，防止表單送出，且跳出提示視窗
 		if (
 			!initialValues.account.trim().length ||
 			!initialValues.name.trim().length ||
-			!initialValues.email.trim().length ||
-			!password.trim().length ||
-			!checkPassword.trim().length
+			!initialValues.email.trim().length
 		) {
+			return;
+		}
+		// 若密碼輸入匡為空值，則跳出提示
+		if (!initialValues.checkPassword.trim().length) {
+			setEmptyErrorMessage('內容不得為空白');
+			return;
+		}
+		// 若密碼確認輸入匡為空值，則跳出提示
+		if (!initialValues.checkPassword.trim().length) {
+			setEmptyErrorMessage('內容不得為空白');
 			return;
 		}
 		// 密碼與確認密碼若不相符，防止表單送出，且跳出提示視窗
@@ -199,7 +211,7 @@ export const Setting = () => {
 					title='password'
 					type='password'
 					placeholder='請設定密碼'
-					errorMessage={!password.trim().length && '內容不得為空白'}
+					errorMessage={emptyErrorMessage}
 					value={password}
 					onChange={(passwordInputValue) => setPassword(passwordInputValue)}
 				/>
@@ -209,7 +221,7 @@ export const Setting = () => {
 					type='password'
 					placeholder='請再次輸入密碼'
 					value={checkPassword}
-					errorMessage={!checkPassword.trim().length ? '內容不得為空白' : checkPasswordErrorMessage}
+					errorMessage={emptyErrorMessage || checkPasswordErrorMessage}
 					onChange={(checkPasswordInputValue) => setCheckPassword(checkPasswordInputValue)}
 				/>
 			</div>
