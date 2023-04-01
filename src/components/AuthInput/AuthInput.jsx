@@ -13,7 +13,8 @@ export const AuthInput = ({
 	inputHeight,
 }) => {
 	// 取的使用者輸入的內容長度
-	const inputLength = value.length;
+	// 因新註冊者自我介紹尚未有value，因此需加上此判斷
+	const inputLength = value ? value.length : 0;
 
 	// 判斷 input 輸入內容長度，若大於設定之 input 長度，設定 hintMessage，input 樣式改為 error 之 css
 	let hintMessage = '';
