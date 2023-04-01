@@ -62,6 +62,11 @@ export const UserProfile = () => {
 	const [isLikingOrUnLiking, setIsLikingOrUnLiking] = useState({ id: '', likeOrUnlike: '' });
 	const [isHeartClick, setIsHeartClick] = useState(false);
 
+	const handleAvatarClick = (avatarId) => {
+		console.log('avatar click id: ', avatarId);
+		navigate(`/user/${avatarId}`);
+	};
+
 	useEffect(() => {
 		const fetchUserProfileAsync = async () => {
 			// 先驗證token，若無則直接回到signin
@@ -100,23 +105,6 @@ export const UserProfile = () => {
 					const getUserRepliedTweetsData = await getUserRepliedTweets(id);
 					console.log('在getUserRepliedTweets 要顯示資料的id ', id);
 					setUserRepliedData(getUserRepliedTweetsData);
-					// setUserRepliedData((prev) =>
-					// 	prev.map((data) => ({
-					// 		...data,
-					// 		id: id,
-					// 		comment: comment,
-					// 		UserId: UserId,
-					// 		TweetId: TweetId,
-					// 		createdAt: createdAt,
-					// 		updatedAt: updatedAt,
-					// 		Tweet: {
-					// 			...data.Tweet,
-					// 			id: TweetId,
-					// 			description: TweetDescription,
-					// 			createdAt: TweetCreatedAt,
-					// 		},
-					// 	})),
-					// );
 
 					console.log('getUserRepliedTweetsData', getUserRepliedTweetsData);
 					setIsFetchUserProfileDataLoaded(true);
@@ -266,13 +254,25 @@ export const UserProfile = () => {
 						{/* tab 要顯示的元件 */}
 						<div>
 							{activeTab === 'tweetList' && (
-								<TweetList data={userTweetsData} handleHeartClick={handleHeartClick} />
+								<TweetList
+									data={userTweetsData}
+									handleHeartClick={handleHeartClick}
+									handleAvatarClick={handleAvatarClick}
+								/>
 							)}
 							{activeTab === 'replyList' && (
-								<ReplyList data={userRepliedData} userData={userData} />
+								<ReplyList
+									data={userRepliedData}
+									userData={userData}
+									handleAvatarClick={handleAvatarClick}
+								/>
 							)}
 							{activeTab === 'likeList' && (
-								<LikeList data={userLikeData} handleHeartClick={handleHeartClick} />
+								<LikeList
+									data={userLikeData}
+									handleHeartClick={handleHeartClick}
+									handleAvatarClick={handleAvatarClick}
+								/>
 							)}
 						</div>
 					</div>

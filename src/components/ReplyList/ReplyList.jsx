@@ -4,7 +4,7 @@ import { ReplyItem } from 'src/components/ReplyItem/ReplyItem';
 // import { useEffect, useState } from 'react';
 import { convertDateToHours } from 'src/utils/convertDateToHours';
 
-export const ReplyList = ({ data, userData }) => {
+export const ReplyList = ({ data, userData, handleAvatarClick }) => {
 	console.log('ReplyList data', data);
 	// const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
 	// const currentUserAccount = JSON.parse(localStorage.getItem('currentUser')).currentUserAccount;
@@ -45,6 +45,7 @@ export const ReplyList = ({ data, userData }) => {
 						name={userData.name}
 						avatar={userData.avatar}
 						tweetUserAccount={Tweet.User.account}
+						handleAvatarClick={handleAvatarClick}
 					/>
 				);
 			})}

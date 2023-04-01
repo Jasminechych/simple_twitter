@@ -15,6 +15,7 @@ export const TweetItem = ({
 	likeCounts,
 	isLikeByUser,
 	handleHeartClick,
+	handleAvatarClick,
 }) => {
 	const navigate = useNavigate();
 
@@ -23,10 +24,10 @@ export const TweetItem = ({
 		navigate(`/reply_list/${id}`);
 	};
 
-	const handleAvatarClick = (id) => {
-		console.log('avatar click id: ', id);
-		navigate(`/user/${id}`);
-	};
+	// const handleAvatarClick = (id) => {
+	// 	console.log('avatar click id: ', id);
+	// 	navigate(`/user/${id}`);
+	// };
 
 	return (
 		<div className={style.tweetItemContainer} id={id}>

@@ -22,6 +22,11 @@ export const TweetListMain = () => {
 
 	const navigate = useNavigate();
 
+	const handleAvatarClick = (avatarId) => {
+		console.log('avatar click id: ', avatarId);
+		navigate(`/user/${avatarId}`);
+	};
+
 	// 推文清單拿資料
 	useEffect(() => {
 		const fetchTweetListMainAsync = async () => {
@@ -86,7 +91,7 @@ export const TweetListMain = () => {
 						return (
 							<TweetItem
 								key={id}
-								id={id}
+								id={User.id}
 								description={description}
 								avatar={User.avatar}
 								name={User.name}
@@ -96,6 +101,7 @@ export const TweetListMain = () => {
 								likeCounts={LikedCounts}
 								isLikeByUser={isLiked}
 								handleHeartClick={handleHeartClick}
+								handleAvatarClick={handleAvatarClick}
 							/>
 						);
 					},

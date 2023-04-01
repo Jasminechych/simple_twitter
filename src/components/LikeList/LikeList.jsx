@@ -4,7 +4,7 @@ import { TweetItem } from 'src/components/TweetItem/TweetItem';
 // import { postLikeTweet, postUnLikeTweet } from 'src/apis/user';
 import { convertDateToHours } from 'src/utils/convertDateToHours';
 
-export const LikeList = ({ data, handleHeartClick }) => {
+export const LikeList = ({ data, handleHeartClick, handleAvatarClick }) => {
 	// const [isTweetListDataLoaded, setIsTweetListDataLoaded] = useState(true);
 	// const [isLikingOrUnLiking, setIsLikingOrUnLiking] = useState({ id: '', likeOrUnlike: '' });
 	// const [isHeartClick, setIsHeartClick] = useState(false);
@@ -52,7 +52,7 @@ export const LikeList = ({ data, handleHeartClick }) => {
 					return (
 						<TweetItem
 							key={id}
-							id={id}
+							id={Tweet.User.id}
 							description={description}
 							avatar={Tweet.User.avatar}
 							name={Tweet.User.name}
@@ -62,6 +62,7 @@ export const LikeList = ({ data, handleHeartClick }) => {
 							likeCounts={Tweet.LikedCounts}
 							isLikeByUser={isLikeByUser}
 							handleHeartClick={handleHeartClick}
+							handleAvatarClick={handleAvatarClick}
 						/>
 					);
 				})
