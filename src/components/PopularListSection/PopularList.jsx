@@ -6,14 +6,25 @@ import {
 	postFollowShips,
 	deleteFollowShips,
 } from 'src/apis/user';
-import { useState, useEffect, useCallback } from 'react';
-import { useUserData } from 'src/context/UserContext';
+import { useState, useEffect } from 'react';
 
 export const PopularList = () => {
+	// 目前登入使用者 ID
 	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
+
+	// 使用者跟隨的人
+	const [usersFollowingsData, setUsersFollowingsData] = useState([]);
+
+	// 全站排名前十被追蹤清單
+	const [topTenList, setTopTenList] = useState([]);
+
+	// 控制正在跟隨 & 跟隨按鈕點擊
 	const [followShipState, setFollowShipState] = useState({ userId: '', followShip: '' });
+
+	// 控制資料載入完成
 	const [isPopularListDataLoaded, setIsPopularListDataLoaded] = useState(false);
-	const { topTenList, setTopTenList, usersFollowingsData, setUsersFollowingsData } = useUserData();
+
+	// 比對全站排名前十被追蹤清單 & 使用者跟隨的人
 	const [mixData, setMixData] = useState([]);
 
 	useEffect(() => {
@@ -28,6 +39,20 @@ export const PopularList = () => {
 				const userFollowingData = await getsUsersFollowing(currentUserId);
 				setUsersFollowingsData(userFollowingData);
 
+				setMixData(
+					topTenList.map((user) => {
+						const isMatch = usersFollowingsData.some((data) => data.followingId === user.id);
+						if (isMatch) {
+							return {
+								...user,
+								matched: true,
+							};
+						} else {
+							return user;
+						}
+					}),
+				);
+
 				setIsPopularListDataLoaded(true);
 			} catch (error) {
 				console.error(error);
@@ -36,54 +61,18 @@ export const PopularList = () => {
 		fetchPopularListData();
 	}, [isPopularListDataLoaded]);
 
-	// 等有資料改
+	// 追蹤追蹤或取消追蹤別人
 	const handleFollowClick = (id, followOrUnFollow) => {
 		setIsPopularListDataLoaded(false);
-		setFollowShipState({ userId: id, followShip: followOrUnFollow });
+		setFollowShipState((prevState) => {
+			return {
+				...prevState,
+				userId: id,
+				followShip: followOrUnFollow,
+			};
+		});
 	};
 
-	// 目前使用者 follow 清單比對 TOP 10 有無跟隨中
-	// const mixData = useCallback(() => {
-	// 	const mixData = topTenList.map((user) => {
-	// 		const isMatch = usersFollowingsData.some((data) => data.followingId === user.id);
-
-	// 		if (isMatch) {
-	// 			return {
-	// 				...user,
-	// 				matched: true,
-	// 			};
-	// 		} else {
-	// 			return user;
-	// 		}
-	// 	});
-	// }, []);
-
-	// 計算 mixData 的 callback function
-	const calculateMixData = useCallback(() => {
-		// 目前使用者 follow 清單比對 TOP 10 有無跟隨中
-		const newMixData = topTenList.map((user) => {
-			const isMatch = usersFollowingsData.some((data) => data.followingId === user.id);
-			if (isMatch) {
-				return {
-					...user,
-					matched: true,
-				};
-			} else {
-				return user;
-			}
-		});
-		return newMixData;
-	}, [topTenList, usersFollowingsData]);
-
-	useEffect(() => {
-		if (isPopularListDataLoaded) {
-			// 計算 mixData
-			const newMixData = calculateMixData();
-			setMixData(newMixData);
-		}
-	}, [isPopularListDataLoaded, calculateMixData]);
-
-	// 追蹤追蹤或取消追蹤別人
 	useEffect(() => {
 		const followShipsAsync = async () => {
 			if (followShipState.followShip === 'follow') {

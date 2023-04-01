@@ -2,24 +2,41 @@ import { useLocation } from 'react-router-dom';
 import { PopularListSection } from 'src/components/PopularListSection/PopularListSection';
 import { Sidebar } from 'src/components/Sidebar/Sidebar';
 import style from 'src/pages/MainPage/MainPage.module.scss';
-import { Outlet } from 'react-router-dom';
-// import { useUserData } from 'src/context/UserContext';
-// import { useEffect, useState } from 'react';
-// import { getTopTenUsers, getsUsersFollowing } from 'src/apis/user';
+import { Outlet, useNavigate } from 'react-router-dom';
 
-export const MainPage = ({ children }) => {
+// import { getTopTenUsers, getsUsersFollowing } from 'src/apis/user';
+// import { useEffect } from 'react';
+// import { useState, useEffect, useCallback } from 'react';
+
+// import { useUserData } from 'src/context/UserContext';
+
+export const MainPage = () => {
+	// 先驗證token，若無則直接回到login
+	const token = localStorage.getItem('token');
+
+	const navigate = useNavigate();
+	if (!token) {
+		navigate('/signin');
+		return;
+	}
+
 	const location = useLocation();
 	const currentPath = location.pathname;
 	// console.log('currentPath', currentPath);
 
 	// const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
-
-	// const { setTopTenList, setUsersFollowingsData } = useUserData();
+	// const [followShipState, setFollowShipState] = useState({ userId: '', followShip: '' });
 	// const [isPopularListDataLoaded, setIsPopularListDataLoaded] = useState(false);
+	// const {
+	// 	topTenList,
+	// 	setTopTenList,
+	// 	usersFollowingsData,
+	// 	setUsersFollowingsData,
+	// 	isPopularListDataLoaded,
+	// 	setIsPopularListDataLoaded,
+	// } = useUserData();
+	// const [mixData, setMixData] = useState([]);
 
-	// // console.log('main page loaded', isPopularListDataLoaded);
-
-	// // 取得 popularList 的資料
 	// useEffect(() => {
 	// 	const fetchPopularListData = async () => {
 	// 		try {
@@ -31,21 +48,19 @@ export const MainPage = ({ children }) => {
 	// 			// 取得目前使用者 follow 清單
 	// 			const userFollowingData = await getsUsersFollowing(currentUserId);
 	// 			setUsersFollowingsData(userFollowingData);
-	// 			console.log('userFollowingData', userFollowingData);
 
 	// 			setIsPopularListDataLoaded(true);
-	// 			console.log('main page get data');
 	// 		} catch (error) {
 	// 			console.error(error);
 	// 		}
 	// 	};
 	// 	fetchPopularListData();
-	// }, []);
+	// }, [isPopularListDataLoaded, topTenList, usersFollowingsData]);
 
 	return (
 		<div className={style.mainPageContainer}>
 			<Sidebar />
-			{children}
+			{/* {children} */}
 			<Outlet />
 			{/* 測試用 */}
 			{/* {isPopularListDataLoaded ? (

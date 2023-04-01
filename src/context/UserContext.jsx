@@ -9,7 +9,11 @@ export const UserProvider = ({ children }) => {
 		return <UserContext.Provider value={{}}>{children}</UserContext.Provider>;
 	}
 
-	// const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
+	// 目前登入的使用者 ID
+	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
+
+	// 個人資料頁面要顯示的使用者 ID
+	const [isShownUserInfo, setIsShownUserInfo] = useState(currentUserId);
 
 	// 使用者的資料
 	const [userData, setUserData] = useState({});
@@ -26,17 +30,14 @@ export const UserProvider = ({ children }) => {
 	// 使用者的跟隨者
 	const [usersFollowersData, setUsersFollowersData] = useState([]);
 
-	// 使用者跟隨的人
-	const [usersFollowingsData, setUsersFollowingsData] = useState([]);
-
-	// 全站排名前十被追蹤清單
-	const [topTenList, setTopTenList] = useState([]);
-
 	// 全站的所有推文
 	const [tweetsData, setTweetsData] = useState([]);
 
 	const UserContextData = useMemo(() => {
 		return {
+			currentUserId,
+			isShownUserInfo,
+			setIsShownUserInfo,
 			userData,
 			setUserData,
 			userTweetsData,
@@ -47,14 +48,19 @@ export const UserProvider = ({ children }) => {
 			setUserLikeData,
 			usersFollowersData,
 			setUsersFollowersData,
-			usersFollowingsData,
-			setUsersFollowingsData,
-			topTenList,
-			setTopTenList,
+			// usersFollowingsData,
+			// setUsersFollowingsData,
+			// topTenList,
+			// setTopTenList,
 			tweetsData,
 			setTweetsData,
+			// isPopularListDataLoaded,
+			// setIsPopularListDataLoaded,
 		};
 	}, [
+		currentUserId,
+		isShownUserInfo,
+		setIsShownUserInfo,
 		userData,
 		setUserData,
 		userTweetsData,
@@ -65,12 +71,14 @@ export const UserProvider = ({ children }) => {
 		setUserLikeData,
 		usersFollowersData,
 		setUsersFollowersData,
-		usersFollowingsData,
-		setUsersFollowingsData,
-		topTenList,
-		setTopTenList,
+		// usersFollowingsData,
+		// setUsersFollowingsData,
+		// topTenList,
+		// setTopTenList,
 		tweetsData,
 		setTweetsData,
+		// isPopularListDataLoaded,
+		// setIsPopularListDataLoaded,
 	]);
 
 	return <UserContext.Provider value={UserContextData}>{children}</UserContext.Provider>;
