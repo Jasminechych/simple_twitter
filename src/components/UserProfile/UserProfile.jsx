@@ -18,6 +18,8 @@ import {
 	getsUsersFollowing,
 	postLikeTweet,
 	postUnLikeTweet,
+	postFollowShips,
+	deleteFollowShips,
 } from 'src/apis/user';
 import { MessageFilled, MessageOutline, NotiFilled, NotiOutline, Loading } from 'src/assets/icons';
 import defaultAvatar from 'src/assets/icons/man-avatar.svg';
@@ -26,6 +28,10 @@ import defaultCover from 'src/assets/icons/background-photo.svg';
 export const UserProfile = () => {
 	// 目前登入的使用者 ID
 	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
+	// 使用者跟隨的人
+	const [isFollowedByCurrentUser, setIsFollowedByCurrentUser] = useState(true);
+	// 控制正在跟隨 & 跟隨按鈕點擊
+	// const [followShipState, setFollowShipState] = useState({ userId: '', followShip: '' });
 
 	// 要顯示的使用者的資料
 	const [userData, setUserData] = useState({});
@@ -44,6 +50,9 @@ export const UserProfile = () => {
 
 	// 正在的使用者資料分頁
 	const [activeTab, setActiveTab] = useState('tweetList');
+
+	// 控制點擊追雖開關
+	const [isFollowClick, setIsFollowClick] = useState(false);
 
 	// 目前要查看的 user ID
 	const { id } = useParams();
@@ -171,6 +180,39 @@ export const UserProfile = () => {
 		navigate(`/user/${avatarId}`);
 	};
 
+	// 點擊跟隨或取消跟隨
+	const handleFollowClick = async (userId, followOrUnFollow) => {
+		console.log('handleFollowClick', userId, followOrUnFollow);
+		setIsFetchUserProfileDataLoaded(false);
+		if (followOrUnFollow === 'follow') {
+			try {
+				await postFollowShips(userId);
+				setIsFollowClick(!isFollowClick);
+			} catch (error) {
+				console.log(error);
+			}
+		} else {
+			try {
+				await deleteFollowShips(userId);
+				setIsFollowClick(!isFollowClick);
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	};
+
+	// 取得在他人頁面時，目前登入使用者是否有追蹤查看中的使用者
+	useEffect(() => {
+		if (id === currentUserId) return;
+		const fetchCurrentUserData = async () => {
+			const getsCurrentUsersFollowingData = await getsUsersFollowing(currentUserId);
+			setIsFollowedByCurrentUser(
+				getsCurrentUsersFollowingData.some((data) => data.followingId.toString() === id.toString()),
+			);
+		};
+		fetchCurrentUserData();
+	}, [id, isFollowedByCurrentUser]);
+
 	return (
 		<MainSection>
 			{isFetchUserProfileDataLoaded ? (
@@ -220,7 +262,19 @@ export const UserProfile = () => {
 											<NotiOutline className={style.notiOutline} />
 										)}
 									</div>
-									<ButtonS text='正在追隨' className={style.followButton} />
+									{isFollowedByCurrentUser ? (
+										<ButtonS
+											text='正在跟隨'
+											className={style.followButton}
+											onClick={() => handleFollowClick(id, 'unFollow')}
+										/>
+									) : (
+										<ButtonSW
+											text='跟隨'
+											className={style.followButton}
+											onClick={() => handleFollowClick(id, 'follow')}
+										/>
+									)}
 								</div>
 							)}
 
@@ -268,7 +322,11 @@ export const UserProfile = () => {
 						{/* tab 要顯示的元件 */}
 						<div>
 							{activeTab === 'tweetList' && (
-								<TweetList data={userTweetsData} handleHeartClick={handleHeartClick} />
+								<TweetList
+									data={userTweetsData}
+									handleHeartClick={handleHeartClick}
+									handleAvatarClick={handleAvatarClick}
+								/>
 							)}
 							{activeTab === 'replyList' && (
 								<ReplyList data={userRepliedData} userData={userData} />

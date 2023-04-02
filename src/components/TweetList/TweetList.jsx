@@ -3,7 +3,7 @@ import style from 'src/components/TweetList/TweetList.module.scss';
 import { convertDateToHours } from 'src/utils/convertDateToHours';
 import { Loading } from 'src/assets/icons';
 
-export const TweetList = ({ data, handleHeartClick }) => {
+export const TweetList = ({ data, handleHeartClick, handleAvatarClick }) => {
 	return (
 		<div className={style.tweetList}>
 			{data !== [] ? (
@@ -24,6 +24,7 @@ export const TweetList = ({ data, handleHeartClick }) => {
 								likeCounts={LikedCounts}
 								isLikeByUser={isLikeByUser}
 								handleHeartClick={handleHeartClick}
+								handleAvatarClick={handleAvatarClick}
 							/>
 						);
 					},

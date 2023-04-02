@@ -11,9 +11,9 @@ import { useNavigate } from 'react-router-dom';
 import { Loading } from 'src/assets/icons';
 
 export const PopularList = () => {
+	console.log('popular list work');
 	// 目前登入使用者 ID
 	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
-
 	// 使用者跟隨的人
 	const [usersFollowingsData, setUsersFollowingsData] = useState([]);
 
