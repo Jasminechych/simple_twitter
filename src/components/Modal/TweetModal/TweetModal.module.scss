@@ -1,7 +1,7 @@
 @import 'src/style/base';
 
 .dark {
-	background-color: #e5e5e5;
+	background-color: var(--dark-100);
 	opacity: 50%;
 	width: 100vw;
 	height: 100vh;

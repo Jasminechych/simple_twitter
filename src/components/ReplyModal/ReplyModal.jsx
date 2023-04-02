@@ -4,7 +4,7 @@ import { Close } from 'src/assets/icons';
 import { ButtonS } from 'src/components/buttons';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
-import { postTweetReplies } from 'src/apis/user';
+import { getUserData, postTweetReplies } from 'src/apis/user';
 // import { convertDateToHours } from 'src/utils/convertDateToHours';
 import Swal from 'sweetalert2';
 
@@ -23,7 +23,10 @@ export const ReplyModal = () => {
 	const avatar = searchParams.get('avatar');
 	const description = decodeURIComponent(searchParams.get('description'));
 
-	const currentUserAvatar = JSON.parse(localStorage.getItem('currentUser')).currentUserAvatar;
+	// const currentUserAvatar = JSON.parse(localStorage.getItem('currentUser')).currentUserAvatar;
+	const [currentUserAvatar, setCurrentUserAvatar] = useState(
+		JSON.parse(localStorage.getItem('currentUser')).currentUserAvatar,
+	);
 
 	// 回到上一頁
 	function handleBackClick() {
@@ -60,6 +63,23 @@ export const ReplyModal = () => {
 			postTweetRepliesAsync();
 		}
 	}, [isReadyToSubmit]);
+
+	// 當localStorage更新時，同步更新currentUserAvatar
+	useEffect(() => {
+		const getUsersAvatar = async () => {
+			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
+			// console.log('currentUserId: ', currentUserId.currentUserId);
+			try {
+				const data = await getUserData(currentUserId.currentUserId);
+				// console.log('GET從後台的data:', data);
+				setCurrentUserAvatar(data.avatar);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		getUsersAvatar();
+	}, []);
+	// console.log('currentUser', currentUserAvatar);
 
 	return (
 		<>

@@ -17,10 +17,6 @@ export const TweetModal = () => {
 	const navigate = useNavigate();
 	const maxLength = 140;
 
-	if (inputValue.length > maxLength) {
-		setHintMessage('字數不可超過140字');
-	}
-
 	const handleInputValue = (e) => {
 		setInputValue(e.target.value);
 	};
@@ -30,9 +26,13 @@ export const TweetModal = () => {
 		if (!inputValue.trim().length) {
 			setHintMessage('內容不可空白');
 			return;
-		} else {
-			setIsReadyForSubmit(true);
 		}
+		if (inputValue.length > maxLength) {
+			setHintMessage('字數不可超過140字');
+			return;
+		}
+
+		setIsReadyForSubmit(true);
 	};
 
 	// 取得

@@ -284,7 +284,7 @@ export const UserProfile = () => {
 
 							{/* 當前使用者才能顯示編輯個人資料 */}
 							{id.toString() === currentUserId.toString() && (
-								<ButtonSW text='編輯個人資料' path={'/user/self/edit'} />
+								<ButtonSW text='編輯個人資料' path={`/user/${id}/edit`} />
 							)}
 						</div>
 						<div className={style.userProfileInfoWrapper}>
