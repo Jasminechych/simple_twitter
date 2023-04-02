@@ -24,6 +24,9 @@ export const ReplyModal = () => {
 	const description = decodeURIComponent(searchParams.get('description'));
 
 	const currentUserAvatar = JSON.parse(localStorage.getItem('currentUser')).currentUserAvatar;
+	// const [currentUserAvatar, setCurrentUserAvatar] = useState(
+	// 	JSON.parse(localStorage.getItem('currentUser')).currentUserAvatar,
+	// );
 
 	// 回到上一頁
 	function handleBackClick() {
@@ -60,6 +63,12 @@ export const ReplyModal = () => {
 			postTweetRepliesAsync();
 		}
 	}, [isReadyToSubmit]);
+
+	// 當localStorage更新時，同步更新currentUserAvatar
+	// useEffect(() => {
+	// 	setCurrentUserAvatar(JSON.parse(localStorage.getItem('currentUser')).currentUserAvatar);
+	// }, [localStorage.getItem('currentUser')]);
+	// console.log('currentUser', currentUserAvatar);
 
 	return (
 		<>
