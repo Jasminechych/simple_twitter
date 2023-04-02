@@ -47,7 +47,7 @@ export const AdminPage = () => {
 				showConfirmButton: false,
 				timer: 1500,
 			});
-
+			console.log(errorMessage);
 			if (errorMessage === '帳號或密碼錯誤！') {
 				setAccountErrorMessage('帳號或密碼錯誤！');
 				setPasswordErrorMessage('帳號或密碼錯誤！');

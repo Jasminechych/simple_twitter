@@ -5,11 +5,9 @@ import { getTweets, postLikeTweet, postUnLikeTweet } from 'src/apis/user';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { convertDateToHours } from 'src/utils/convertDateToHours';
+import { Loading } from 'src/assets/icons';
 
 export const TweetListMain = () => {
-	// 目前登入的使用者 ID
-	// const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
-
 	// 全站的所有推文
 	const [tweetsData, setTweetsData] = useState([]);
 
@@ -22,8 +20,8 @@ export const TweetListMain = () => {
 
 	const navigate = useNavigate();
 
+	// 點選頭像連到使用者個人頁面
 	const handleAvatarClick = (avatarId) => {
-		console.log('avatar click id: ', avatarId);
 		navigate(`/user/${avatarId}`);
 	};
 
@@ -54,7 +52,6 @@ export const TweetListMain = () => {
 	const handleHeartClick = useCallback((id, likeOrUnlike) => {
 		setIsTweetListMainDataLoaded(false);
 
-		// console.log('click id: ', id, likeOrUnlike);
 		setIsLikingOrUnLiking((prev) => {
 			return { ...prev, id: id, likeOrUnlike: likeOrUnlike };
 		});
@@ -91,7 +88,8 @@ export const TweetListMain = () => {
 						return (
 							<TweetItem
 								key={id}
-								id={User.id}
+								tweetId={id}
+								userId={User.id}
 								description={description}
 								avatar={User.avatar}
 								name={User.name}
@@ -107,7 +105,7 @@ export const TweetListMain = () => {
 					},
 				)
 			) : (
-				<h5>loading...</h5>
+				<Loading />
 			)}
 		</div>
 	);

@@ -133,7 +133,8 @@ function App() {
 						/>
 					</Route>
 					{/* 後台結束 */}
-					<Route
+
+					{/* <Route
 						path='user/self/tab=tweet'
 						element={
 							<MainPage>
@@ -156,7 +157,7 @@ function App() {
 								<UserProfile />
 							</MainPage>
 						}
-					/>
+					/> */}
 					<Route
 						path='/reply_list/:id'
 						element={

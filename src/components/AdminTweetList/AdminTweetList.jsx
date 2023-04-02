@@ -3,6 +3,8 @@ import style from 'src/components/AdminTweetList/AdminTweetList.module.scss';
 import { getAdminTweets, deleteAdminTweet } from 'src/apis/admin';
 import { useEffect, useState } from 'react';
 import { convertDateToHours } from 'src/utils/convertDateToHours';
+import Swal from 'sweetalert2';
+import { Loading } from 'src/assets/icons';
 
 export const AdminTweetList = () => {
 	const [tweets, setTweets] = useState([]);
@@ -23,11 +25,37 @@ export const AdminTweetList = () => {
 	}, []);
 
 	// 刪除推文
+	// const handleDelete = async (id) => {
+	// 	try {
+	// 		await deleteAdminTweet(id);
+	// 		const data = await getAdminTweets();
+	// 		setTweets(data);
+	// 	} catch (error) {
+	// 		console.error(error);
+	// 	}
+	// };
+
 	const handleDelete = async (id) => {
 		try {
-			await deleteAdminTweet(id);
-			const data = await getAdminTweets();
-			setTweets(data);
+			const result = await Swal.fire({
+				title: '確定要刪除嗎？',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#FF974A',
+				cancelButtonColor: '#6C757D',
+				confirmButtonText: '確定刪除',
+			});
+			if (result.isConfirmed) {
+				await deleteAdminTweet(id);
+				const data = await getAdminTweets();
+				setTweets(data);
+				Swal.fire({
+					title: '推文已刪除！',
+					icon: 'success',
+					showConfirmButton: false,
+					timer: 1500,
+				});
+			}
 		} catch (error) {
 			console.error(error);
 		}
@@ -52,7 +80,7 @@ export const AdminTweetList = () => {
 					);
 				})
 			) : (
-				<h5>{'loading....'}</h5>
+				<Loading />
 			)}
 		</div>
 	);

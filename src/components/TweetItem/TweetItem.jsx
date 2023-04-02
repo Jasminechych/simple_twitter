@@ -5,7 +5,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import style from 'src/components/TweetItem/TweetItem.module.scss';
 
 export const TweetItem = ({
-	id,
+	userId,
+	tweetId,
 	description,
 	avatar,
 	name,
@@ -24,15 +25,14 @@ export const TweetItem = ({
 		navigate(`/reply_list/${id}`);
 	};
 
-	// const handleAvatarClick = (id) => {
-	// 	console.log('avatar click id: ', id);
-	// 	navigate(`/user/${id}`);
-	// };
-
 	return (
-		<div className={style.tweetItemContainer} id={id}>
+		<div className={style.tweetItemContainer} id={tweetId}>
 			<section className={style.tweetItemAvatarSection}>
-				<img className={style.tweetItemAvatar} src={avatar} onClick={() => handleAvatarClick(id)} />
+				<img
+					className={style.tweetItemAvatar}
+					src={avatar}
+					onClick={() => handleAvatarClick(userId)}
+				/>
 			</section>
 
 			<section className={style.tweetItemContentSection}>
@@ -43,7 +43,7 @@ export const TweetItem = ({
 					</p>
 				</div>
 
-				<p className={style.tweetItemDescription} onClick={() => handleTweetClick(id)}>
+				<p className={style.tweetItemDescription} onClick={() => handleTweetClick(tweetId)}>
 					{description}
 				</p>
 
@@ -52,29 +52,26 @@ export const TweetItem = ({
 						{/* 測試用 */}
 						<Link
 							to={{
-								pathname: `/replyList:${id}/modal`,
-								search: `id=${id}&name=${name}&account=${account}&createdAt=${createdAt}&avatar=${avatar}&description=${encodeURIComponent(
+								pathname: `/replyList:${tweetId}/modal`,
+								search: `id=${tweetId}&name=${name}&account=${account}&createdAt=${createdAt}&avatar=${avatar}&description=${encodeURIComponent(
 									description,
 								)}`,
 							}}
 						>
 							<Reply style={{ width: '13.7px', height: '13.7px' }} />
 						</Link>
-
-						{/* 下面是原本的 */}
-						{/* <Reply style={{ width: '13.7px', height: '13.7px' }} /> */}
 						<p className={style.tweetItemCounter}>{replyCounts}</p>
 					</div>
 					<div className={style.tweetItemButtonGroup}>
 						{isLikeByUser ? (
 							<LikeFilled
 								style={{ width: '13.7px', height: '13.7px' }}
-								onClick={() => handleHeartClick(id, 'unLike')}
+								onClick={() => handleHeartClick(tweetId, 'unLike')}
 							/>
 						) : (
 							<LikeOutline
 								style={{ width: '13.7px', height: '13.7px' }}
-								onClick={() => handleHeartClick(id, 'like')}
+								onClick={() => handleHeartClick(tweetId, 'like')}
 							/>
 						)}
 						<p className={style.tweetItemCounter}>{likeCounts}</p>

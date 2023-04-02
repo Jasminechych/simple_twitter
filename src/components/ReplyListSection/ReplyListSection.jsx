@@ -6,6 +6,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { ReplyItem } from 'src/components/ReplyItem/ReplyItem';
 import { useNavigate, useParams } from 'react-router-dom';
 import { convertDateToHours } from 'src/utils/convertDateToHours';
+import { Loading } from 'src/assets/icons';
 
 export const ReplyListSection = () => {
 	const [replyPostData, setReplyPostData] = useState({});
@@ -19,7 +20,6 @@ export const ReplyListSection = () => {
 
 	// 取的目前頁面的推文id
 	const { id } = useParams();
-	// const currentTweetId = id.slice(1);
 
 	// 取得單篇推文資料
 	useEffect(() => {
@@ -97,7 +97,7 @@ export const ReplyListSection = () => {
 					handleHeartClick={handleHeartClick}
 				/>
 			) : (
-				<h5>loading...</h5>
+				<Loading />
 			)}
 
 			{tweetRepliesData.map(({ Tweet, id, User, comment, createdAt }) => {

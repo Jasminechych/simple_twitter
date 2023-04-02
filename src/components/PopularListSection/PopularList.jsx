@@ -8,6 +8,7 @@ import {
 } from 'src/apis/user';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Loading } from 'src/assets/icons';
 
 export const PopularList = () => {
 	// 目前登入使用者 ID
@@ -146,7 +147,7 @@ export const PopularList = () => {
 					);
 				})
 			) : (
-				<h5>loading...</h5>
+				<Loading />
 			)}
 		</div>
 	);

@@ -15,6 +15,7 @@ import { ReactComponent as MessageOutline } from 'src/assets/icons/message-outli
 import { ReactComponent as MessageFilled } from 'src/assets/icons/message-filled.svg';
 import { ReactComponent as NotiOutline } from 'src/assets/icons/noti-outline.svg';
 import { ReactComponent as NotiFilled } from 'src/assets/icons/noti-filled.svg';
+import { ReactComponent as Loading } from 'src/assets/icons/loading.svg';
 
 export {
 	Logo,
@@ -34,4 +35,5 @@ export {
 	MessageFilled,
 	NotiOutline,
 	NotiFilled,
+	Loading,
 };
