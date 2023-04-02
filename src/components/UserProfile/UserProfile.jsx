@@ -105,6 +105,7 @@ export const UserProfile = () => {
 						}),
 					);
 					setIsFetchUserProfileDataLoaded(true);
+
 					return;
 				}
 				if (activeTab === 'replyList') {
@@ -113,6 +114,7 @@ export const UserProfile = () => {
 					const getUserRepliedTweetsData = await getUserRepliedTweets(id);
 					setUserRepliedData(getUserRepliedTweetsData);
 					setIsFetchUserProfileDataLoaded(true);
+
 					return;
 				}
 
@@ -142,7 +144,7 @@ export const UserProfile = () => {
 			}
 		};
 		fetchUserProfileAsync();
-	}, [activeTab, id, isHeartClick]);
+	}, [activeTab, id, isHeartClick, isFollowClick]);
 
 	// 對貼文按愛心或取消愛心
 	const handleHeartClick = useCallback((id, likeOrUnlike) => {
@@ -182,18 +184,20 @@ export const UserProfile = () => {
 
 	// 點擊跟隨或取消跟隨
 	const handleFollowClick = async (userId, followOrUnFollow) => {
-		console.log('handleFollowClick', userId, followOrUnFollow);
 		setIsFetchUserProfileDataLoaded(false);
 		if (followOrUnFollow === 'follow') {
 			try {
 				await postFollowShips(userId);
 				setIsFollowClick(!isFollowClick);
+				setIsFollowedByCurrentUser(true);
 			} catch (error) {
 				console.log(error);
 			}
 		} else {
 			try {
 				await deleteFollowShips(userId);
+				setIsFollowedByCurrentUser(false);
+
 				setIsFollowClick(!isFollowClick);
 			} catch (error) {
 				console.log(error);
@@ -211,7 +215,7 @@ export const UserProfile = () => {
 			);
 		};
 		fetchCurrentUserData();
-	}, [id, isFollowedByCurrentUser]);
+	}, [id]);
 
 	return (
 		<MainSection>
