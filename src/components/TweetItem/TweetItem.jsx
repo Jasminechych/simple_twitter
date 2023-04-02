@@ -37,7 +37,9 @@ export const TweetItem = ({
 
 			<section className={style.tweetItemContentSection}>
 				<div className={style.tweetItemHeaderInfo}>
-					<p className={style.tweetItemUserName}>{name}</p>
+					<p className={style.tweetItemUserName} onClick={() => handleAvatarClick(userId)}>
+						{name}
+					</p>
 					<p className={style.tweetItemUserAccount}>
 						@{account} • {createdAt}
 					</p>
