@@ -40,15 +40,20 @@ export const AdminTweetList = () => {
 				title: '確定要刪除嗎？',
 				icon: 'warning',
 				showCancelButton: true,
-				confirmButtonColor: '#FF6600',
+				confirmButtonColor: '#FF974A',
 				cancelButtonColor: '#6C757D',
-				confirmButtonText: '確定刪除!',
+				confirmButtonText: '確定刪除',
 			});
 			if (result.isConfirmed) {
 				await deleteAdminTweet(id);
 				const data = await getAdminTweets();
 				setTweets(data);
-				Swal.fire('推文已刪除', null, 'success');
+				Swal.fire({
+					title: '推文已刪除！',
+					icon: 'success',
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		} catch (error) {
 			console.error(error);
