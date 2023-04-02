@@ -5,6 +5,7 @@ import { getTweets, postLikeTweet, postUnLikeTweet } from 'src/apis/user';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { convertDateToHours } from 'src/utils/convertDateToHours';
+import { Loading } from 'src/assets/icons';
 
 export const TweetListMain = () => {
 	// 全站的所有推文
@@ -104,7 +105,7 @@ export const TweetListMain = () => {
 					},
 				)
 			) : (
-				<h5>loading...</h5>
+				<Loading />
 			)}
 		</div>
 	);

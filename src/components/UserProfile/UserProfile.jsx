@@ -19,7 +19,7 @@ import {
 	postLikeTweet,
 	postUnLikeTweet,
 } from 'src/apis/user';
-import { MessageFilled, MessageOutline, NotiFilled, NotiOutline } from 'src/assets/icons';
+import { MessageFilled, MessageOutline, NotiFilled, NotiOutline, Loading } from 'src/assets/icons';
 import defaultAvatar from 'src/assets/icons/man-avatar.svg';
 import defaultCover from 'src/assets/icons/background-photo.svg';
 
@@ -284,7 +284,7 @@ export const UserProfile = () => {
 					</div>
 				</>
 			) : (
-				<h5>loading...</h5>
+				<Loading />
 			)}
 		</MainSection>
 	);

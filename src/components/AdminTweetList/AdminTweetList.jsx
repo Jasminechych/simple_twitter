@@ -4,6 +4,7 @@ import { getAdminTweets, deleteAdminTweet } from 'src/apis/admin';
 import { useEffect, useState } from 'react';
 import { convertDateToHours } from 'src/utils/convertDateToHours';
 import Swal from 'sweetalert2';
+import { Loading } from 'src/assets/icons';
 
 export const AdminTweetList = () => {
 	const [tweets, setTweets] = useState([]);
@@ -79,7 +80,7 @@ export const AdminTweetList = () => {
 					);
 				})
 			) : (
-				<h5>{'loading....'}</h5>
+				<Loading />
 			)}
 		</div>
 	);

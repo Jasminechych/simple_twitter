@@ -1,6 +1,7 @@
 import { TweetItem } from 'src/components/TweetItem/TweetItem';
 import style from 'src/components/TweetList/TweetList.module.scss';
 import { convertDateToHours } from 'src/utils/convertDateToHours';
+import { Loading } from 'src/assets/icons';
 
 export const TweetList = ({ data, handleHeartClick }) => {
 	return (
@@ -28,7 +29,7 @@ export const TweetList = ({ data, handleHeartClick }) => {
 					},
 				)
 			) : (
-				<h5>loading...</h5>
+				<Loading />
 			)}
 		</div>
 	);

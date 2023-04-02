@@ -13,6 +13,7 @@ import {
 	getUserData,
 	getUserTweets,
 } from 'src/apis/user';
+import { Loading } from 'src/assets/icons';
 
 export const FollowSection = () => {
 	console.log('run FollowSection');
@@ -209,7 +210,7 @@ export const FollowSection = () => {
 					</div>
 				</>
 			) : (
-				<h5>loading...</h5>
+				<Loading />
 			)}
 		</MainSection>
 	);

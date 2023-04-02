@@ -6,6 +6,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { ReplyItem } from 'src/components/ReplyItem/ReplyItem';
 import { useNavigate, useParams } from 'react-router-dom';
 import { convertDateToHours } from 'src/utils/convertDateToHours';
+import { Loading } from 'src/assets/icons';
 
 export const ReplyListSection = () => {
 	const [replyPostData, setReplyPostData] = useState({});
@@ -96,7 +97,7 @@ export const ReplyListSection = () => {
 					handleHeartClick={handleHeartClick}
 				/>
 			) : (
-				<h5>loading...</h5>
+				<Loading />
 			)}
 
 			{tweetRepliesData.map(({ Tweet, id, User, comment, createdAt }) => {

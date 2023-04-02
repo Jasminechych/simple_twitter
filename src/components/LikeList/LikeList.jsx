@@ -1,6 +1,7 @@
 import style from 'src/components/LikeList/LikeList.module.scss';
 import { TweetItem } from 'src/components/TweetItem/TweetItem';
 import { convertDateToHours } from 'src/utils/convertDateToHours';
+import { Loading } from 'src/assets/icons';
 
 export const LikeList = ({ data, handleHeartClick, handleAvatarClick }) => {
 	return (
@@ -27,7 +28,7 @@ export const LikeList = ({ data, handleHeartClick, handleAvatarClick }) => {
 					);
 				})
 			) : (
-				<h5>loading...</h5>
+				<Loading />
 			)}
 		</div>
 	);
