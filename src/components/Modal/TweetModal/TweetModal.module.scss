@@ -7,6 +7,7 @@
 	height: 100vh;
 	left: 0;
 	position: fixed;
+	z-index: 2;
 }
 
 .tweetModalContainer {
@@ -18,6 +19,7 @@
 	border-radius: 14px;
 	display: flex;
 	flex-direction: column;
+	z-index: 999;
 
 	.close {
 		position: absolute;

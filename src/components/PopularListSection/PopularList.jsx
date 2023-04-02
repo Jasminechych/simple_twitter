@@ -41,6 +41,8 @@ export const PopularList = () => {
 				const topTen = topTenUsersData.data.usersData.slice(0, 10);
 				// 取得目前使用者 follow 清單
 				const userFollowingData = await getsUsersFollowing(currentUserId);
+				console.log('執行拉完資料');
+
 				setTopTenList(
 					topTen.map((user) => {
 						const isMatch = userFollowingData.some((data) => data.followingId === user.id);
@@ -65,6 +67,8 @@ export const PopularList = () => {
 
 	// 追蹤追蹤或取消追蹤別人
 	const handleFollowClick = async (userId, followOrUnFollow) => {
+		console.log('執行 handleFollowClick');
+
 		setIsPopularListDataLoaded(false);
 		if (followOrUnFollow === 'follow') {
 			try {
