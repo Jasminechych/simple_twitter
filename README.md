@@ -36,45 +36,43 @@ password: 12345678
 ---
 
 ### 後台
-
 #### 登入頁
-![image](https://user-images.githubusercontent.com/100898369/228001032-7b2fe67d-4b6f-4d7e-a823-5ddadde6a2f1.png)
+![image](./public/images/adminSignin.png)
 
 #### 推文清單
-![image](https://user-images.githubusercontent.com/100898369/228002640-4a5f66bd-d5f9-43c4-be95-e9a518bee423.png)
+![image](./public/images/adminTweets.png)
 
 #### 使用者清單
+![image](./public/images/adminUserList.png)
 
-
-![image](https://user-images.githubusercontent.com/100898369/228002716-f31ef7b7-327e-4c94-a6df-9b7776bc574d.png)
 
 ---
 
 ### 前台
 #### 註冊頁
-![image](https://user-images.githubusercontent.com/100898369/228000704-23467bc8-6c5c-4c80-b603-055843663c2d.png)
+![image](./public/images/register.png)
 
 #### 登入頁
-![image](https://user-images.githubusercontent.com/100898369/228002266-a9672f3c-dfa3-4261-8202-e7095322004f.png)
+![image](./public/images/signin.png)
 
 #### 首頁
-![image](https://user-images.githubusercontent.com/100898369/228001117-04d5ee28-08f8-45f6-9152-44db19c73f34.png)
+![image](./public/images/main.png)
 
 #### 個人資料頁
-![image](https://user-images.githubusercontent.com/100898369/228001165-07627bfa-6d10-46e7-94d4-43da51fff451.png)
+![image](./public/images/userProfile.png)
 
 #### 設定帳號頁面
-![image](https://user-images.githubusercontent.com/100898369/228001532-067516cb-da85-4fc3-8013-1c7a396327c8.png)
+![image](./public/images/setting.png)
 
 #### 編輯個人資料頁
-![image](https://user-images.githubusercontent.com/100898369/228002819-0c7cb387-4f2d-4739-9934-1e17d3735d92.png)
+![image](./public/images/editProfile.png)
 
 #### 發推文視窗
-![image](https://user-images.githubusercontent.com/100898369/228002939-218107c3-bcb2-4002-8139-fa51daf0f32f.png)
-
+![image](./public/images/tweetModal.png)
 
 #### 回覆推文視窗
-![image](https://user-images.githubusercontent.com/100898369/228003056-63e5058e-724f-4497-b180-8e498fdc703c.png)
+![image](./public/images/replyModal.png)
+
 
 ####
 ### 功能列表
