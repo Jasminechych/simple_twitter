@@ -39,6 +39,7 @@ export const ReplyModal = () => {
 	}, [inputValue]);
 
 	useEffect(() => {
+		// 取得使用者avatar
 		if (isReadyToSubmit) {
 			const postTweetRepliesAsync = async () => {
 				try {

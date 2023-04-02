@@ -20,6 +20,7 @@ export const Setting = () => {
 	// 	name: current.currentUserName,
 	// 	email: current.currentUserEmail,
 	// });
+
 	// 	使用者取得自己的資料
 	const [initialValues, setInitialValues] = useState({
 		name: '',
@@ -35,6 +36,7 @@ export const Setting = () => {
 	const [password, setPassword] = useState('');
 	const [checkPassword, setCheckPassword] = useState('');
 	const [checkPasswordErrorMessage, setCheckPasswordErrorMessage] = useState('');
+	const [emptyErrorMessage, setEmptyErrorMessage] = useState('');
 	const [emailErrorMessage, setEmailErrorMessage] = useState('');
 	const [accountErrorMessage, setAccountErrorMessage] = useState('');
 
@@ -53,8 +55,10 @@ export const Setting = () => {
 			// 登入時的使用者
 			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
 			// console.log('currentUserId: ', currentUserId.currentUserId);
+
 			try {
 				const data = await getUserData(currentUserId.currentUserId);
+				console.log('從後端抓回來的data: ', data);
 				if (data) {
 					setInitialValues({
 						account: data.account,
@@ -72,23 +76,29 @@ export const Setting = () => {
 
 	// 點選儲存驗證
 	const handleSave = async () => {
+		console.log('initialValues', initialValues);
 		// 輸入框若有任一為空，防止表單送出，且跳出提示視窗
 		if (
 			!initialValues.account.trim().length ||
 			!initialValues.name.trim().length ||
-			!initialValues.email.trim().length ||
-			!password.trim().length ||
-			!checkPassword.trim().length
+			!initialValues.email.trim().length
 		) {
 			return;
 		}
+		// // 若密碼為空值，跳出提示
+		if (!password.trim().length) {
+			setEmptyErrorMessage('內容不得為空白');
+			return;
+		}
+
 		// 密碼與確認密碼若不相符，防止表單送出，且跳出提示視窗
-		if (initialValues.password !== initialValues.checkPassword) {
+		if (password !== checkPassword) {
 			setCheckPasswordErrorMessage('密碼不相符');
 			return;
 		}
 
 		// 每次按下儲存時先清空所有錯誤訊息
+		setEmptyErrorMessage('');
 		setAccountErrorMessage('');
 		setEmailErrorMessage('');
 		setCheckPasswordErrorMessage('');
@@ -199,9 +209,14 @@ export const Setting = () => {
 					title='password'
 					type='password'
 					placeholder='請設定密碼'
-					errorMessage={!password.trim().length && '內容不得為空白'}
+					errorMessage={emptyErrorMessage || ''}
 					value={password}
-					onChange={(passwordInputValue) => setPassword(passwordInputValue)}
+					onChange={(passwordInputValue) => {
+						setPassword(passwordInputValue);
+						if (passwordInputValue.trim().length) {
+							setEmptyErrorMessage('');
+						}
+					}}
 				/>
 				<AuthInput
 					label='密碼確認'
@@ -209,7 +224,7 @@ export const Setting = () => {
 					type='password'
 					placeholder='請再次輸入密碼'
 					value={checkPassword}
-					errorMessage={!checkPassword.trim().length ? '內容不得為空白' : checkPasswordErrorMessage}
+					errorMessage={checkPasswordErrorMessage}
 					onChange={(checkPasswordInputValue) => setCheckPassword(checkPasswordInputValue)}
 				/>
 			</div>
