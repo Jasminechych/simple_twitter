@@ -42,8 +42,6 @@ export const SignInPage = () => {
 
 		const { data, success, errorMessage } = await userSignIn({ account, password });
 
-		console.log('success', success);
-
 		if (success) {
 			const currentUser = {
 				currentUserId: data.userData.id,

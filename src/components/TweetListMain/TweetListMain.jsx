@@ -22,6 +22,7 @@ export const TweetListMain = () => {
 
 	const navigate = useNavigate();
 
+	// 點選頭像連到使用者個人頁面
 	const handleAvatarClick = (avatarId) => {
 		console.log('avatar click id: ', avatarId);
 		navigate(`/user/${avatarId}`);
@@ -91,7 +92,8 @@ export const TweetListMain = () => {
 						return (
 							<TweetItem
 								key={id}
-								id={User.id}
+								tweetId={id}
+								userId={User.id}
 								description={description}
 								avatar={User.avatar}
 								name={User.name}

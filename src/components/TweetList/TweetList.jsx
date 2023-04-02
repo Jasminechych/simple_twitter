@@ -8,7 +8,7 @@ import style from 'src/components/TweetList/TweetList.module.scss';
 // import { useNavigate } from 'react-router-dom';
 import { convertDateToHours } from 'src/utils/convertDateToHours';
 
-export const TweetList = ({ data, handleHeartClick, handleAvatarClick }) => {
+export const TweetList = ({ data, handleHeartClick }) => {
 	// const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
 	// console.log('TweetList data', data);
 
@@ -65,7 +65,8 @@ export const TweetList = ({ data, handleHeartClick, handleAvatarClick }) => {
 						return (
 							<TweetItem
 								key={id}
-								id={User.id}
+								tweetId={id}
+								userId={User.id}
 								description={description}
 								avatar={User.avatar}
 								name={User.name}
@@ -75,7 +76,6 @@ export const TweetList = ({ data, handleHeartClick, handleAvatarClick }) => {
 								likeCounts={LikedCounts}
 								isLikeByUser={isLikeByUser}
 								handleHeartClick={handleHeartClick}
-								handleAvatarClick={handleAvatarClick}
 							/>
 						);
 					},

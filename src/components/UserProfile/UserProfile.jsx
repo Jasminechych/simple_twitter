@@ -55,12 +55,7 @@ export const UserProfile = () => {
 
 	const [messageClicked, setMessageClicked] = useState(false);
 	const [notiClicked, setNotiClicked] = useState(false);
-
-	// 點擊頭像連到個人頁面
-	const handleAvatarClick = (avatarId) => {
-		console.log('avatar click id: ', avatarId);
-		navigate(`/user/${avatarId}`);
-	};
+	// const [avatarClick, setAvatarClick] = useState(false);
 
 	useEffect(() => {
 		const fetchUserProfileAsync = async () => {
@@ -117,7 +112,7 @@ export const UserProfile = () => {
 			}
 		};
 		fetchUserProfileAsync();
-	}, [activeTab]);
+	}, [activeTab, id]);
 
 	// 對貼文按愛心或取消愛心
 	const handleHeartClick = useCallback((id, likeOrUnlike) => {
@@ -149,6 +144,12 @@ export const UserProfile = () => {
 		};
 		postLikeOrUnlikeTweetAsync();
 	}, [isLikingOrUnLiking]);
+
+	// 點擊頭像連到個人頁面
+	const handleAvatarClick = (avatarId) => {
+		console.log('avatar click id: ', avatarId);
+		navigate(`/user/${avatarId}`);
+	};
 
 	return (
 		<MainSection>
@@ -247,18 +248,10 @@ export const UserProfile = () => {
 						{/* tab 要顯示的元件 */}
 						<div>
 							{activeTab === 'tweetList' && (
-								<TweetList
-									data={userTweetsData}
-									handleHeartClick={handleHeartClick}
-									handleAvatarClick={handleAvatarClick}
-								/>
+								<TweetList data={userTweetsData} handleHeartClick={handleHeartClick} />
 							)}
 							{activeTab === 'replyList' && (
-								<ReplyList
-									data={userRepliedData}
-									userData={userData}
-									handleAvatarClick={handleAvatarClick}
-								/>
+								<ReplyList data={userRepliedData} userData={userData} />
 							)}
 							{activeTab === 'likeList' && (
 								<LikeList

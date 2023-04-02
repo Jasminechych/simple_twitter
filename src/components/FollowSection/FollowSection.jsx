@@ -162,7 +162,7 @@ export const FollowSection = () => {
 			}
 		};
 		fetchUserFollowingAsync();
-	}, [id, isFetchFollowListDataLoaded, lastParam, handleFollowClick]);
+	}, [id, isFetchFollowListDataLoaded, lastParam]);
 
 	// 原本的
 	// 點選追蹤或取消追蹤

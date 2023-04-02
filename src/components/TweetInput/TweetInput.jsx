@@ -13,7 +13,6 @@ export const TweetInput = () => {
 	useEffect(() => {
 		const getUsersInfo = async () => {
 			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
-			console.log('currentUserId: ', currentUserId.currentUserId);
 			try {
 				const data = await getUserData(currentUserId.currentUserId);
 				// console.log('GET從後台來的data:', data);
