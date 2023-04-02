@@ -19,7 +19,6 @@ export const ReplyListSection = () => {
 
 	// 取的目前頁面的推文id
 	const { id } = useParams();
-	// const currentTweetId = id.slice(1);
 
 	// 取得單篇推文資料
 	useEffect(() => {

@@ -15,7 +15,6 @@ export const TweetInput = () => {
 			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
 			try {
 				const data = await getUserData(currentUserId.currentUserId);
-				// console.log('GET從後台來的data:', data);
 				if (data) {
 					setInitialValues({
 						avatar: data.avatar,

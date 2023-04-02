@@ -25,11 +25,6 @@ export const TweetItem = ({
 		navigate(`/reply_list/${id}`);
 	};
 
-	// const handleAvatarClick = (id) => {
-	// 	console.log('avatar click id: ', id);
-	// 	navigate(`/user/${id}`);
-	// };
-
 	return (
 		<div className={style.tweetItemContainer} id={tweetId}>
 			<section className={style.tweetItemAvatarSection}>
@@ -65,9 +60,6 @@ export const TweetItem = ({
 						>
 							<Reply style={{ width: '13.7px', height: '13.7px' }} />
 						</Link>
-
-						{/* 下面是原本的 */}
-						{/* <Reply style={{ width: '13.7px', height: '13.7px' }} /> */}
 						<p className={style.tweetItemCounter}>{replyCounts}</p>
 					</div>
 					<div className={style.tweetItemButtonGroup}>

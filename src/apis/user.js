@@ -147,7 +147,6 @@ export const deleteFollowShips = async (id) => {
 				Authorization: 'Bearer ' + token,
 			},
 		});
-		console.log(res.data);
 		return res.data;
 	} catch (error) {
 		console.error('[Delete Follow Ships Failed]:', error.response);

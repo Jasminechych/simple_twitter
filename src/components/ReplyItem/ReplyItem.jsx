@@ -1,5 +1,4 @@
 import style from 'src/components/ReplyItem/ReplyItem.module.scss';
-// import { convertDateToHours } from 'src/utils/convertDateToHours';
 
 export const ReplyItem = ({
 	tweetUserAccount = '',
@@ -9,7 +8,6 @@ export const ReplyItem = ({
 	comment,
 	createdAt,
 }) => {
-	// const dateHour = convertDateToHours(createdAt);
 	return (
 		<div className={style.replyItemContainer}>
 			<section className={style.replyItemAvatarSection}>

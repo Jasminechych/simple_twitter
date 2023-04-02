@@ -26,8 +26,6 @@ import defaultCover from 'src/assets/icons/background-photo.svg';
 export const UserProfile = () => {
 	// 目前登入的使用者 ID
 	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
-	// 目前使用者喜歡的推文內容
-	// const [currentUserLikeData, setCurrentLikeData] = useState([]);
 
 	// 要顯示的使用者的資料
 	const [userData, setUserData] = useState({});
@@ -46,7 +44,6 @@ export const UserProfile = () => {
 
 	// 正在的使用者資料分頁
 	const [activeTab, setActiveTab] = useState('tweetList');
-	console.log('activeTab', activeTab);
 
 	// 目前要查看的 user ID
 	const { id } = useParams();
@@ -58,7 +55,6 @@ export const UserProfile = () => {
 
 	const [messageClicked, setMessageClicked] = useState(false);
 	const [notiClicked, setNotiClicked] = useState(false);
-	// const [avatarClick, setAvatarClick] = useState(false);
 
 	useEffect(() => {
 		const fetchUserProfileAsync = async () => {
@@ -72,17 +68,14 @@ export const UserProfile = () => {
 				// 取得要顯示的使用者的資料
 				const getUserDataData = await getUserData(id);
 				setUserData(getUserDataData);
-				// console.log('getUserDataData', getUserDataData);
 
 				// 取得要顯示的使用者的跟隨者
 				const getUsersFollowersData = await getUsersFollowers(id);
 				setUsersFollowersData(getUsersFollowersData);
-				console.log('getUsersFollowersData', getUsersFollowersData);
 
 				// 取得要顯示的使用者跟隨的人
 				const getsUsersFollowingData = await getsUsersFollowing(id);
 				setUsersFollowingsData(getsUsersFollowingData);
-				console.log('getsUsersFollowingData', getsUsersFollowingData);
 
 				if (activeTab === 'tweetList') {
 					// 取得要顯示的使用者的所有推文
@@ -102,7 +95,6 @@ export const UserProfile = () => {
 							}
 						}),
 					);
-					console.log('比對完成');
 					setIsFetchUserProfileDataLoaded(true);
 					return;
 				}
@@ -111,7 +103,6 @@ export const UserProfile = () => {
 					setUserRepliedData([]);
 					const getUserRepliedTweetsData = await getUserRepliedTweets(id);
 					setUserRepliedData(getUserRepliedTweetsData);
-					console.log('getUserRepliedTweetsData', getUserRepliedTweetsData);
 					setIsFetchUserProfileDataLoaded(true);
 					return;
 				}
@@ -134,7 +125,6 @@ export const UserProfile = () => {
 							}
 						}),
 					);
-					console.log('getUserLikesData', getUserLikesData);
 					setIsFetchUserProfileDataLoaded(true);
 					return;
 				}
@@ -147,7 +137,6 @@ export const UserProfile = () => {
 
 	// 對貼文按愛心或取消愛心
 	const handleHeartClick = useCallback((id, likeOrUnlike) => {
-		console.log('profile heart click', id, likeOrUnlike);
 		setIsFetchUserProfileDataLoaded(false);
 
 		setIsLikingOrUnLiking((prev) => {
@@ -179,7 +168,6 @@ export const UserProfile = () => {
 
 	// 點擊頭像連到個人頁面
 	const handleAvatarClick = (avatarId) => {
-		console.log('avatar click id: ', avatarId);
 		navigate(`/user/${avatarId}`);
 	};
 

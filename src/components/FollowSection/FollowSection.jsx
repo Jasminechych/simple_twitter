@@ -35,18 +35,14 @@ export const FollowSection = () => {
 	const [isFetchFollowListDataLoaded, setIsFollowListDataLoaded] = useState(false);
 
 	// 控制正在跟隨 & 跟隨按鈕點擊
-	// const [followShipState, setFollowShipState] = useState({ userId: '', followShip: '' });
 	const [isFollowShipClick, setIsFollowShipClick] = useState(false);
 
 	// 要查看的使用者 ID
 	const { id } = useParams();
-	console.log('userId', id);
 
 	// 取得現在路徑
 	const { pathname } = useLocation();
 	const lastParam = pathname.split('/')[3];
-
-	// const [followState, setFollowState] = useState('');
 
 	const navigate = useNavigate();
 
@@ -58,14 +54,12 @@ export const FollowSection = () => {
 				const followRes = await postFollowShips(userId);
 				console.log('followRes', followRes);
 				setIsFollowShipClick(!isFollowShipClick);
-				// setIsFollowListDataLoaded(true);
 				return;
 			}
 			if (followOrUnFollow === 'unFollow') {
 				const UnFollowRes = await deleteFollowShips(userId);
 				console.log('followRes', UnFollowRes);
 				setIsFollowShipClick(!isFollowShipClick);
-				// setIsFollowListDataLoaded(true);
 				return;
 			}
 		} catch (error) {
@@ -79,12 +73,10 @@ export const FollowSection = () => {
 				// 取得要查看的使用者資料
 				const getUserDataData = await getUserData(id);
 				setUserData(getUserDataData);
-				// console.log('getUserDataData', getUserDataData);
 
 				// 取得要查看的使用者所有推文
 				const getUserTweetsData = await getUserTweets(id);
 				setUserTweetsData(getUserTweetsData);
-				// console.log('getUserTweets', getUserTweetsData);
 				setIsUserBasicDataLoaded(true);
 			} catch (error) {
 				console.log(error);
@@ -97,16 +89,6 @@ export const FollowSection = () => {
 	useEffect(() => {
 		const fetchUserFollowingAsync = async () => {
 			try {
-				// // 取得要查看的使用者資料
-				// const getUserDataData = await getUserData(id);
-				// setUserData(getUserDataData);
-				// // console.log('getUserDataData', getUserDataData);
-
-				// // 取得要查看的使用者所有推文
-				// const getUserTweetsData = await getUserTweets(id);
-				// setUserTweetsData(getUserTweetsData);
-				// // console.log('getUserTweets', getUserTweetsData);
-
 				// 取得目前登入的的使用者追蹤清單
 				const getsCurrentUsersFollowingData = await getsUsersFollowing(currentUserId);
 				setCurrentUserFollowingsData(getsCurrentUsersFollowingData);
@@ -163,51 +145,6 @@ export const FollowSection = () => {
 		};
 		fetchUserFollowingAsync();
 	}, [id, isFetchFollowListDataLoaded, lastParam]);
-
-	// 原本的
-	// 點選追蹤或取消追蹤
-	// const handleFollowClick = (id, followOrUnFollow) => {
-	// 	setIsFollowListDataLoaded(false);
-	// 	setFollowShipState((prevState) => {
-	// 		return {
-	// 			...prevState,
-	// 			userId: id,
-	// 			followShip: followOrUnFollow,
-	// 		};
-	// 	});
-	// };
-
-	// 原本的
-	// 取消追蹤或追蹤某位使用者
-	// useEffect(() => {
-	// 	const followShipAsync = async () => {
-	// 		if (followShipState.followShip === 'follow') {
-	// 			try {
-	// 				await postFollowShips(followShipState.userId);
-	// 				const getsUsersFollowingData = await getsUsersFollowing(currentUserId);
-	// 				setCurrentUserFollowingsData(getsUsersFollowingData);
-	// 				setIsFollowListDataLoaded(true);
-	// 				setIsFollowShipClick(!isFollowShipClick);
-	// 			} catch (error) {
-	// 				console.log(error);
-	// 			}
-	// 			return;
-	// 		}
-	// 		if (followShipState.followShip === 'unFollow') {
-	// 			try {
-	// 				await deleteFollowShips(followShipState.userId);
-	// 				const getsUsersFollowingData = await getsUsersFollowing(currentUserId);
-	// 				setCurrentUserFollowingsData(getsUsersFollowingData);
-	// 				setIsFollowListDataLoaded(true);
-	// 				setIsFollowShipClick(!isFollowShipClick);
-	// 			} catch (error) {
-	// 				console.log(error);
-	// 			}
-	// 			return;
-	// 		}
-	// 	};
-	// 	followShipAsync();
-	// }, [followShipState, isFollowShipClick]);
 
 	return (
 		<MainSection>

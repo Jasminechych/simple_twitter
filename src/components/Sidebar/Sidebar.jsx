@@ -12,14 +12,12 @@ import {
 import { ButtonL } from 'src/components/buttons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { SidebarTab } from '../SidebarTab/SidebarTab';
-// import { useUserData } from 'src/context/UserContext';
 
 export const Sidebar = () => {
 	const location = useLocation();
 	const currentPath = location.pathname;
 	const navigate = useNavigate();
-	// const { currentUserId, isShownUserInfo, setIsShownUserInfo } = useUserData();
-	// console.log('isShowUserInfo', isShownUserInfo);
+
 	// 目前登入的使用者 ID
 	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
 
@@ -51,9 +49,6 @@ export const Sidebar = () => {
 						text='個人資料'
 						icon={userPath ? <UserFilled /> : <UserOutline />}
 						isActiveText={userPath}
-						// onClick={() => {
-						// 	setIsShownUserInfo(currentUserId);
-						// }}
 					/>
 					<SidebarTab
 						path='/setting'
