@@ -26,6 +26,8 @@ import defaultCover from 'src/assets/icons/background-photo.svg';
 export const UserProfile = () => {
 	// 目前登入的使用者 ID
 	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
+	// 目前使用者喜歡的推文內容
+	// const [currentUserLikeData, setCurrentLikeData] = useState([]);
 
 	// 要顯示的使用者的資料
 	const [userData, setUserData] = useState({});
@@ -44,6 +46,7 @@ export const UserProfile = () => {
 
 	// 正在的使用者資料分頁
 	const [activeTab, setActiveTab] = useState('tweetList');
+	console.log('activeTab', activeTab);
 
 	// 目前要查看的 user ID
 	const { id } = useParams();
@@ -69,7 +72,7 @@ export const UserProfile = () => {
 				// 取得要顯示的使用者的資料
 				const getUserDataData = await getUserData(id);
 				setUserData(getUserDataData);
-				console.log('getUserDataData', getUserDataData);
+				// console.log('getUserDataData', getUserDataData);
 
 				// 取得要顯示的使用者的跟隨者
 				const getUsersFollowersData = await getUsersFollowers(id);
@@ -84,8 +87,22 @@ export const UserProfile = () => {
 				if (activeTab === 'tweetList') {
 					// 取得要顯示的使用者的所有推文
 					const getUserTweetsData = await getUserTweets(id);
-					setUserTweetsData(getUserTweetsData);
-					console.log('getUserTweetsData', getUserTweetsData);
+					// 取得目前登入的使用者喜歡過的推文比對有沒有愛心
+					const getCurrentUserLikeData = await getUserLikes(currentUserId);
+					setUserTweetsData(
+						getUserTweetsData.map((user) => {
+							const isLiked = getCurrentUserLikeData.some((data) => data.TweetId === user.id);
+							if (isLiked) {
+								return {
+									...user,
+									isLikeByUser: true,
+								};
+							} else {
+								return user;
+							}
+						}),
+					);
+					console.log('比對完成');
 					setIsFetchUserProfileDataLoaded(true);
 					return;
 				}
@@ -102,7 +119,21 @@ export const UserProfile = () => {
 				if (activeTab === 'likeList') {
 					// 取得要顯示的使用者喜歡過的推文
 					const getUserLikesData = await getUserLikes(id);
-					setUserLikeData(getUserLikesData);
+					// 取得目前登入的使用者喜歡過的推文比對有沒有愛心
+					const getCurrentUserLikeData = await getUserLikes(currentUserId);
+					setUserLikeData(
+						getUserLikesData.map((user) => {
+							const isLiked = getCurrentUserLikeData.some((data) => data.TweetId === user.TweetId);
+							if (isLiked) {
+								return {
+									...user,
+									isLikeByUser: true,
+								};
+							} else {
+								return user;
+							}
+						}),
+					);
 					console.log('getUserLikesData', getUserLikesData);
 					setIsFetchUserProfileDataLoaded(true);
 					return;
@@ -112,10 +143,11 @@ export const UserProfile = () => {
 			}
 		};
 		fetchUserProfileAsync();
-	}, [activeTab, id]);
+	}, [activeTab, id, isHeartClick]);
 
 	// 對貼文按愛心或取消愛心
 	const handleHeartClick = useCallback((id, likeOrUnlike) => {
+		console.log('profile heart click', id, likeOrUnlike);
 		setIsFetchUserProfileDataLoaded(false);
 
 		setIsLikingOrUnLiking((prev) => {

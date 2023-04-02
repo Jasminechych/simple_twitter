@@ -47,12 +47,12 @@ export const LikeList = ({ data, handleHeartClick, handleAvatarClick }) => {
 	return (
 		<div className={style.tweetList}>
 			{data !== [] ? (
-				data.map(({ id, createdAt, Tweet, isLikeByUser }) => {
+				data.map(({ id, TweetId, createdAt, Tweet, isLikeByUser }) => {
 					const createHour = convertDateToHours(createdAt);
 					return (
 						<TweetItem
 							key={id}
-							tweetId={id}
+							tweetId={TweetId}
 							userId={Tweet.User.id}
 							description={Tweet.description}
 							avatar={Tweet.User.avatar}
