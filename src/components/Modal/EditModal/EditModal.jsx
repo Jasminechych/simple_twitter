@@ -81,6 +81,15 @@ export const EditModal = () => {
 		if (!initialValues.name.trim().length || !initialValues.introduction.trim().length) {
 			return;
 		}
+		// 自我介紹超過160字，防止表單送出
+		if (initialValues.introduction.length > 160) {
+			return;
+		}
+
+		// 名稱超過50字，防止表單送出
+		if (initialValues.name.length > 50) {
+			return;
+		}
 
 		try {
 			const currentUserId = JSON.parse(localStorage.getItem('currentUser'));
