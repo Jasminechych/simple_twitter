@@ -2,13 +2,14 @@ import style from 'src/components/Modal/EditModal/EditModal.module.scss';
 import { AuthInput } from 'src/components/AuthInput/AuthInput';
 import { AddPhoto, Close } from 'src/assets/icons';
 import { ButtonS } from 'src/components/buttons';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { getEditProfile, getUserData } from 'src/apis/user';
 import Swal from 'sweetalert2';
 
 export const EditModal = () => {
 	const navigate = useNavigate();
+	const { id } = useParams();
 	const avatarInputRef = useRef(null);
 	const coverInputRef = useRef(null);
 
@@ -130,7 +131,7 @@ export const EditModal = () => {
 					timer: 1000,
 				});
 
-				navigate('/user/self');
+				navigate(`/user/${id}`);
 			}
 		} catch (error) {
 			console.log(error);
@@ -143,9 +144,8 @@ export const EditModal = () => {
 			<div className={style.editModalContainer}>
 				<div className={style.editTitleContainer}>
 					<div className={style.buttonTitleWrapper}>
-						<Link to='/user/self'>
-							<Close className={style.closeButton} />
-						</Link>
+						<Close className={style.closeButton} onClick={() => navigate(`/user/${id}`)} />
+
 						<h5 className={style.modalHeader}>編輯個人資料</h5>
 					</div>
 					<ButtonS text='儲存' onClick={handleSave} />

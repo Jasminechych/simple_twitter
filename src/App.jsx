@@ -55,7 +55,7 @@ function App() {
 					/>
 
 					<Route
-						path='user/self'
+						path='user/:id'
 						element={
 							<MainPage>
 								<UserProfile />
@@ -74,6 +74,7 @@ function App() {
 					{/* 測試中 */}
 					<Route path='user/:id' element={<MainPage />}>
 						<Route index element={<UserProfile />} />
+						<Route path='edit' element={<EditModal />} />
 						<Route path='following' element={<FollowSection />} />
 						<Route path='follower' element={<FollowSection />} />
 					</Route>
@@ -103,15 +104,15 @@ function App() {
 							</MainPage>
 						}
 					/>
-					<Route
-						path='/user/self/edit'
+					{/* <Route
+						path='/user/:id/edit'
 						element={
 							<MainPage>
 								<UserProfile />
 								<EditModal />
 							</MainPage>
 						}
-					/>
+					/> */}
 					{/* 後台 */}
 					<Route path='adminsignin' element={<AdminPage />} />
 					<Route path='admin' element={<AdminMainPage />}>
