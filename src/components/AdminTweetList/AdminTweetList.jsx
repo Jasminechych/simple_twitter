@@ -3,6 +3,7 @@ import style from 'src/components/AdminTweetList/AdminTweetList.module.scss';
 import { getAdminTweets, deleteAdminTweet } from 'src/apis/admin';
 import { useEffect, useState } from 'react';
 import { convertDateToHours } from 'src/utils/convertDateToHours';
+import Swal from 'sweetalert2';
 
 export const AdminTweetList = () => {
 	const [tweets, setTweets] = useState([]);
@@ -23,11 +24,32 @@ export const AdminTweetList = () => {
 	}, []);
 
 	// 刪除推文
+	// const handleDelete = async (id) => {
+	// 	try {
+	// 		await deleteAdminTweet(id);
+	// 		const data = await getAdminTweets();
+	// 		setTweets(data);
+	// 	} catch (error) {
+	// 		console.error(error);
+	// 	}
+	// };
+
 	const handleDelete = async (id) => {
 		try {
-			await deleteAdminTweet(id);
-			const data = await getAdminTweets();
-			setTweets(data);
+			const result = await Swal.fire({
+				title: '確定要刪除嗎？',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#FF6600',
+				cancelButtonColor: '#6C757D',
+				confirmButtonText: '確定刪除!',
+			});
+			if (result.isConfirmed) {
+				await deleteAdminTweet(id);
+				const data = await getAdminTweets();
+				setTweets(data);
+				Swal.fire('推文已刪除', null, 'success');
+			}
 		} catch (error) {
 			console.error(error);
 		}
