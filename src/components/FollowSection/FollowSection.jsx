@@ -144,7 +144,7 @@ export const FollowSection = () => {
 			}
 		};
 		fetchUserFollowingAsync();
-	}, [id, isFetchFollowListDataLoaded, lastParam]);
+	}, [id, isFetchFollowListDataLoaded, lastParam, isFollowShipClick]);
 
 	return (
 		<MainSection>
