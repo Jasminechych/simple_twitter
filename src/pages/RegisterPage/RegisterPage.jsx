@@ -55,6 +55,11 @@ export const RegisterPage = () => {
 			setCheckPasswordErrorMessage('確認密碼不得為空');
 		}
 
+		// 若名稱多餘50個字，防止表單送出
+		if (name.trim().length > 50) {
+			return;
+		}
+
 		// 輸入框若有任一為空，防止表單送出
 		if (
 			!account.trim().length ||
