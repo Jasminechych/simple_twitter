@@ -18,7 +18,6 @@ export const Sidebar = () => {
 	const location = useLocation();
 	const currentPath = location.pathname;
 	const navigate = useNavigate();
-	console.log('currentPath', currentPath);
 	// const { currentUserId, isShownUserInfo, setIsShownUserInfo } = useUserData();
 	// console.log('isShowUserInfo', isShownUserInfo);
 	// 目前登入的使用者 ID
@@ -26,7 +25,6 @@ export const Sidebar = () => {
 
 	// 如過路徑以 /user 開頭設為 true
 	const userPath = currentPath.startsWith('/user/');
-	console.log('userPath', userPath);
 
 	// 登出
 	const handleLogOutClick = () => {

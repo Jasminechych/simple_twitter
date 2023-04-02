@@ -26,9 +26,6 @@ import defaultCover from 'src/assets/icons/background-photo.svg';
 export const UserProfile = () => {
 	// 目前登入的使用者 ID
 	const currentUserId = JSON.parse(localStorage.getItem('currentUser')).currentUserId;
-	console.log('currentUserId', currentUserId);
-	// 要顯示的使用者 ID
-	// const [isShownUserId, setIsShownUserId] = useState(currentUserId);
 
 	// 要顯示的使用者的資料
 	const [userData, setUserData] = useState({});
@@ -45,23 +42,21 @@ export const UserProfile = () => {
 	// 設定資料都裝載完成
 	const [isFetchUserProfileDataLoaded, setIsFetchUserProfileDataLoaded] = useState(false);
 
-	const navigate = useNavigate();
-	// const location = useLocation();
-	// const currentPath = location.pathname;
-	const [messageClicked, setMessageClicked] = useState(false);
-	const [notiClicked, setNotiClicked] = useState(false);
-
 	// 正在的使用者資料分頁
 	const [activeTab, setActiveTab] = useState('tweetList');
-	console.log('activeTab', activeTab);
 
 	// 目前要查看的 user ID
 	const { id } = useParams();
-	console.log('id', id);
+	const navigate = useNavigate();
 
+	// 設定按讚
 	const [isLikingOrUnLiking, setIsLikingOrUnLiking] = useState({ id: '', likeOrUnlike: '' });
 	const [isHeartClick, setIsHeartClick] = useState(false);
 
+	const [messageClicked, setMessageClicked] = useState(false);
+	const [notiClicked, setNotiClicked] = useState(false);
+
+	// 點擊頭像連到個人頁面
 	const handleAvatarClick = (avatarId) => {
 		console.log('avatar click id: ', avatarId);
 		navigate(`/user/${avatarId}`);
@@ -103,9 +98,7 @@ export const UserProfile = () => {
 					// 取得要顯示的使用者回覆過的所有推文
 					setUserRepliedData([]);
 					const getUserRepliedTweetsData = await getUserRepliedTweets(id);
-					console.log('在getUserRepliedTweets 要顯示資料的id ', id);
 					setUserRepliedData(getUserRepliedTweetsData);
-
 					console.log('getUserRepliedTweetsData', getUserRepliedTweetsData);
 					setIsFetchUserProfileDataLoaded(true);
 					return;
@@ -233,7 +226,7 @@ export const UserProfile = () => {
 								</div>
 							</div>
 						</div>
-						{/* tab 開關 */}
+						{/* tab */}
 						<div className={style.tabContainer}>
 							<UserProfileTab
 								title='推文'
